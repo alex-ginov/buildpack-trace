@@ -1,13 +1,11 @@
+# bin/release
 #!/bin/bash
-
-# bin/release <build-dir> <cache-dir> <env-dir>
-
 cat <<EOT
 ---
 addons: []
 config_vars:
   TEMPO_HOME: /app
-  TEMPO_CONFIG: /app/tempo.yaml
+  TEMPO_CONFIG: /app/config/tempo.yaml
 default_process_types:
-  web: bash -c "chmod +x boot-tempo && ./boot-tempo /app /app"
+  web: bin/tempo server -config.file ./config/tempo.yaml -server.http-listen-port=${PORT:-3200}
 EOT
