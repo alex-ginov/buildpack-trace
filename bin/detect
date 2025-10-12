@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# bin/detect <build-dir>
+
+# Vérifie si c'est une application Tempo
+if [ -f "$1/go.mod" ] && grep -q "github.com/grafana/tempo" "$1/go.mod"; then
+  echo "Tempo"
+  exit 0
+fi
+
+echo "no"
+exit 1

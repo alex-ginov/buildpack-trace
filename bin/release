@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# bin/release <build-dir> <cache-dir> <env-dir>
+
+cat <<EOT
+---
+addons: []
+config_vars:
+  TEMPO_HOME: /app
+  TEMPO_CONFIG: /app/tempo.yaml
+default_process_types:
+  web: bash -c "chmod +x boot-tempo && ./boot-tempo /app /app"
+EOT

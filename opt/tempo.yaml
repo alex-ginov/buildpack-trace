@@ -1,0 +1,36 @@
+# Configuration minimale pour Tempo
+server:
+  http_listen_port: ${PORT:-3000}
+
+distributor:
+  receivers:
+    otlp:
+      protocols:
+        grpc:
+        http:
+
+ingester:
+  max_block_duration: 5m
+  trace_idle_period: 10s
+  max_block_bytes: 100_000_000
+  complete_block_timeout: 1m
+
+compactor:
+  compaction:
+    compaction_window: 1h
+    max_block_bytes: 100_000_000
+    block_retention: 24h
+
+storage:
+  trace:
+    backend: local
+    local:
+      path: /tmp/tempo/blocks
+    wal:
+      path: /tmp/tempo/wal
+      filepath: wal.json
+
+overrides:
+  defaults:
+    global:
+      max_search_duration: 5m
