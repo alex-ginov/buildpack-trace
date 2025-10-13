@@ -1,1 +1,1 @@
-web: ./bin/tempo --config.file=./config/tempo.yaml
+web: /app/bin/start-tempo
