@@ -1,11 +1,10 @@
-# bin/release
 #!/bin/bash
+
 cat <<EOT
 ---
 addons: []
 config_vars:
   TEMPO_HOME: /app
-  TEMPO_CONFIG: /app/config/tempo.yaml
 default_process_types:
-  web: bin/tempo server -config.file ./config/tempo.yaml -server.http-listen-port=${PORT:-3200}
+  web: /app/opt/boot.sh
 EOT

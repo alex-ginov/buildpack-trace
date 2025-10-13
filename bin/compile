@@ -13,137 +13,41 @@ if [ -n "$BUILDPACK_DEBUG" ]; then
   set -x
 fi
 
-# Configuration de la version de Tempo
-TEMPO_VERSION="${TEMPO_VERSION:-"1.5.0"}"  # Mettez à jour avec la dernière version stable
+TEMPO_VERSION="${TEMPO_VERSION:-"1.5.0"}"
 
 install_tempo() {
   local BUILD_DIR="${1}"
   local CACHE_DIR="${2}"
-  
-  local tempo_dist="tempo-${TEMPO_VERSION}.linux-amd64"
-  local tempo_archive="${tempo_dist}.tar.gz"
-  local tempo_url="https://github.com/grafana/tempo/releases/download/v${TEMPO_VERSION}/${tempo_archive}"
-  
-  # Vérifier si la version est déjà en cache
+
+  tempo_dist="tempo-${TEMPO_VERSION}-linux-amd64"
+  tempo_archive="${tempo_dist}.tar.gz"
+  tempo_url="https://github.com/grafana/tempo/releases/download/v${TEMPO_VERSION}"
+
   if [[ -f "$CACHE_DIR/.TEMPO_VERSION" ]]; then
     old_version=$(cat $CACHE_DIR/.TEMPO_VERSION)
     if [[ $old_version != $TEMPO_VERSION ]]; then
-      echo "Nouvelle version de Tempo détectée, nettoyage du cache de l'ancienne version"
-      rm -rf $CACHE_DIR/tempo
+      echo "New Tempo version installation, cleaning the cache for the old version"
+      rm -f $CACHE_DIR/$old_version.tar.gz ${CACHE_DIR}/${tempo_archive}*
     fi
   fi
 
-  # Créer les répertoires nécessaires
-  mkdir -p $BUILD_DIR/.profile.d
-  mkdir -p $CACHE_DIR/tempo
-  
-  # Télécharger et extraire Tempo
-  if [ ! -f "$CACHE_DIR/tempo/tempo" ]; then
-    echo "-----> Téléchargement de Tempo v${TEMPO_VERSION}..."
-    curl -L --silent --show-error --retry 3 --fail --retry-delay 1 \
-      -o "$CACHE_DIR/tempo/${tempo_archive}" "${tempo_url}" \
-      || (echo "Erreur lors du téléchargement de Tempo" && exit 1)
-    
-    echo "-----> Extraction de Tempo..."
-    tar xzf "$CACHE_DIR/tempo/${tempo_archive}" -C "$CACHE_DIR/tempo" --strip-components=1
-    
-    # Marquer la version installée
-    echo $TEMPO_VERSION > $CACHE_DIR/.TEMPO_VERSION
+  if [[ ! -f "$CACHE_DIR/${tempo_archive}" ]]; then
+    echo -n "Downloading the Tempo ${TEMPO_VERSION} archive..."
+    curl --silent --fail --location --retry 3 --retry-delay 2 --connect-timeout 3 --max-time 30 --output ${CACHE_DIR}/${tempo_archive} "${tempo_url}/${tempo_archive}"
+    echo " done"
+    echo $TEMPO_VERSION > ${CACHE_DIR}/.TEMPO_VERSION
+  else
+    echo "Get the Tempo ${TEMPO_VERSION} archive from the cache"
   fi
-  
-  # Copier les fichiers nécessaires
-  cp -r $CACHE_DIR/tempo/* $BUILD_DIR/
-  
-  # Rendre les binaires exécutables
-  chmod +x $BUILD_DIR/tempo
-  
-  # Créer le fichier de configuration par défaut s'il n'existe pas
-  if [ ! -f "$BUILD_DIR/tempo.yaml" ]; then
-    cp $BUILDPACK_DIR/opt/tempo.yaml $BUILD_DIR/
-  fi
-  
-  # Créer le script de démarrage
-  cat > $BUILD_DIR/.profile.d/tempo.sh <<EOF
-#!/bin/bash
 
-# Configuration des chemins
-export TEMPO_HOME=\$HOME
-
-echo "-----> Configuration de Tempo"
-
-exec \$HOME/boot-tempo \$HOME \$HOME
-EOF
-  
-  chmod +x $BUILD_DIR/.profile.d/tempo.sh
-  
-  # Créer le script de démarrage
-  cat > $BUILD_DIR/boot-tempo <<EOF
-#!/bin/bash
-
-set -e
-
-# Dossiers
-TEMPO_BIN_DIR="\$1"
-TEMPO_CONFIG_DIR="\$2"
-
-# Vérification des binaires
-if [ ! -f "\$TEMPO_BIN_DIR/tempo" ]; then
-  echo "Erreur: Le binaire Tempo est introuvable dans \$TEMPO_BIN_DIR"
-  exit 1
-fi
-
-# Vérification de la configuration
-if [ ! -f "\$TEMPO_CONFIG_DIR/tempo.yaml" ]; then
-  echo "Erreur: Le fichier de configuration tempo.yaml est introuvable dans \$TEMPO_CONFIG_DIR"
-  exit 1
-fi
-
-# Exécution de Tempo
-echo "Démarrage de Tempo avec la configuration de \$TEMPO_CONFIG_DIR/tempo.yaml"
-cd "\$TEMPO_BIN_DIR"
-exec "./tempo" --config.file="\$TEMPO_CONFIG_DIR/tempo.yaml"
-EOF
-  
-  chmod +x $BUILD_DIR/boot-tempo
-  
-  echo "-----> Installation de Tempo v${TEMPO_VERSION} terminée"
+  echo -n "Extracting Tempo..."
+  tar -xzf ${CACHE_DIR}/${tempo_archive} -C $CACHE_DIR
+  cp ${CACHE_DIR}/${tempo_dist}/tempo ${BUILD_DIR}/bin/
+  chmod +x ${BUILD_DIR}/bin/tempo
+  echo " done"
 }
 
-# Créer les répertoires nécessaires
 mkdir -p $CACHE_DIR
-
-# Charger les variables d'environnement
 export_env_dir "$ENV_DIR"
 
-# Installer Tempo
 install_tempo ${BUILD_DIR} ${CACHE_DIR}
-
-echo "-----> Configuration de Tempo terminée"
-
-# Aller dans le répertoire de construction
-cd "$BUILD_DIR"
-
-# Installer les dépendances
-echo "-----> Installing dependencies"
-go mod download
-
-# Construire Tempo
-echo "-----> Building Tempo"
-CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o tempo ./cmd/tempo
-
-# Créer le répertoire bin s'il n'existe pas
-mkdir -p "$BUILD_DIR/bin"
-
-# Créer un script de démarrage
-echo '#!/bin/bash' > "$BUILD_DIR/bin/start"
-echo 'export TEMPO_CONFIG_FILE=${TEMPO_CONFIG_FILE:-/app/tempo.yaml}' >> "$BUILD_DIR/bin/start"
-echo 'cd $HOME' >> "$BUILD_DIR/bin/start"
-echo 'exec ./tempo --config.file=$TEMPO_CONFIG_FILE' >> "$BUILD_DIR/bin/start"
-chmod +x "$BUILD_DIR/bin/start"
-
-# Copier la configuration par défaut si elle n'existe pas
-if [ ! -f "$BUILD_DIR/tempo.yaml" ]; then
-  cp "$BUILDPACK_DIR/opt/tempo.yaml" "$BUILD_DIR/tempo.yaml"
-fi
-
-echo "-----> Tempo app successfully built"

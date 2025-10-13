@@ -21,16 +21,14 @@ header() {
 }
 
 error() {
-  # Red text
-  echo -e "\033[1;31m"$*"\033[0m"
+  echo " !     $*" >&2
+  exit 1
 }
 
 warn() {
-  # Yellow text
-  echo -e "\033[1;33m"$*"\033[0m"
+  echo " !     $*" >&2
 }
 
 success() {
-  # Green text
-  echo -e "\033[1;32m"$*"\033[0m"
+  echo "       $*" >&2
 }
