@@ -1,10 +1,26 @@
 #!/bin/bash
 
+BUILD_DIR=$1
+
+# Debug - voir ce qui est vérifié
+echo "Checking directory: ${BUILD_DIR}" >&2
+echo "Contents:" >&2
+ls -la "${BUILD_DIR}/" >&2 || true
+
 # Vérifie si c'est une application Tempo OU le buildpack lui-même
-if [ -f "$1/config/tempo.yaml" ] || [ -f "$1/tempo.yaml" ] || [ -f "$1/bin/compile" ]; then
+if [ -f "${BUILD_DIR}/config/tempo.yaml" ]; then
+  echo "Tempo (config found)" >&2
+  echo "Tempo"
+  exit 0
+elif [ -f "${BUILD_DIR}/tempo.yaml" ]; then
+  echo "Tempo (root config found)" >&2
+  echo "Tempo"
+  exit 0
+elif [ -f "${BUILD_DIR}/bin/compile" ]; then
+  echo "Tempo (buildpack self-detected)" >&2
   echo "Tempo"
   exit 0
 else
-  echo "no" >&2
+  echo "Not a Tempo application" >&2
   exit 1
 fi

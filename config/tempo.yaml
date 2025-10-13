@@ -1,6 +1,6 @@
 server:
   http_listen_address: "0.0.0.0"
-  http_listen_port: ${PORT}
+  http_listen_port: 3200
   log_level: info
 
 distributor:
@@ -8,7 +8,7 @@ distributor:
     otlp:
       protocols:
         http:
-          endpoint: "0.0.0.0:${PORT}"
+          endpoint: "0.0.0.0:3200"
 
 storage:
   trace:

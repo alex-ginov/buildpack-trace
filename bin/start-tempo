@@ -4,15 +4,10 @@ set -e
 echo "===== ENVIRONMENT DEBUG ====="
 echo "PORT: ${PORT}"
 echo "PWD: $(pwd)"
-echo "APP_DIR: ${APP_DIR:-/app}"
 
 echo "===== DIRECTORY STRUCTURE ====="
-echo "/app/:"
 ls -la /app/ || echo "Cannot list /app"
-echo "/app/bin/:"
 ls -la /app/bin/ || echo "Cannot list /app/bin"
-echo "/app/config/:"
-ls -la /app/config/ || echo "Cannot list /app/config"
 
 echo "===== TEMPO BINARY CHECK ====="
 if [ -f "/app/bin/tempo" ]; then
@@ -21,25 +16,26 @@ if [ -f "/app/bin/tempo" ]; then
     /app/bin/tempo --version || echo "Cannot get version"
 else
     echo "✗ Tempo binary NOT FOUND in /app/bin/tempo"
-    find /app -name "tempo" -type f 2>/dev/null || echo "No tempo binary found anywhere"
     exit 1
 fi
 
 echo "===== CONFIGURATION CHECK ====="
 if [ -f "/app/config/tempo.yaml" ]; then
     echo "✓ Config file found"
-    echo "First 10 lines of tempo.yaml:"
-    head -10 /app/config/tempo.yaml
 else
-    echo "✗ Config file NOT FOUND in /app/config/tempo.yaml"
-    find /app -name "*.yaml" -o -name "*.yml" 2>/dev/null || echo "No config files found"
+    echo "✗ Config file NOT FOUND"
     exit 1
 fi
 
 echo "===== STORAGE DIRECTORIES ====="
 mkdir -p /app/storage/wal
 mkdir -p /app/storage/blocks
-echo "Storage directories created/verified"
+echo "Storage directories created"
 
 echo "===== STARTING TEMPO ====="
-exec /app/bin/tempo --config.file=/app/config/tempo.yaml
+echo "Starting Tempo on port: ${PORT}"
+
+# Démarrer Tempo avec le port dynamique passé en argument
+exec /app/bin/tempo \
+  -config.file=/app/config/tempo.yaml \
+  -server.http-listen-port=${PORT}
