@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -e
 
 BUILD_DIR=${1:-}
@@ -7,13 +6,17 @@ CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
 basedir="$( cd -P "$( dirname "$0" )" && pwd )"
 BUILDPACK_DIR="$(readlink -f ${basedir}/..)"
-source ${BUILDPACK_DIR}/lib/common.sh
+
+# Vérifier si le fichier common.sh existe avant de le sourcer
+if [ -f "${BUILDPACK_DIR}/lib/common.sh" ]; then
+    source ${BUILDPACK_DIR}/lib/common.sh
+fi
 
 if [ -n "$BUILDPACK_DEBUG" ]; then
   set -x
 fi
 
-TEMPO_VERSION="${TEMPO_VERSION:-"2.3.1"}"  # Mise à jour vers la dernière version stable
+TEMPO_VERSION="${TEMPO_VERSION:-"2.4.0"}"  # Version mise à jour
 
 install_tempo() {
   local BUILD_DIR="${1}"
@@ -30,7 +33,7 @@ install_tempo() {
     old_version=$(cat $CACHE_DIR/.TEMPO_VERSION)
     if [[ $old_version != $TEMPO_VERSION ]]; then
       echo "New Tempo version detected, cleaning old version cache"
-      rm -f ${CACHE_DIR}/${old_version}*
+      rm -f ${CACHE_DIR}/tempo_${old_version}*
     fi
   fi
 
@@ -48,13 +51,27 @@ install_tempo() {
   echo "-----> Extracting Tempo..."
   tar -xzf "${CACHE_DIR}/${tempo_archive}" -C "${CACHE_DIR}"
   
+  # Vérifier ce qui a été extrait
+  echo "Contents extracted:"
+  ls -la "${CACHE_DIR}/" | grep -E "(tempo|tempo-cli|tempo-query)"
+  
   # Créer les répertoires nécessaires
   mkdir -p ${BUILD_DIR}/bin
   mkdir -p ${BUILD_DIR}/config
   mkdir -p ${BUILD_DIR}/storage/{wal,blocks}
   
   echo "-----> Installing Tempo to ${BUILD_DIR}/bin/"
-  cp "${CACHE_DIR}/tempo" "${BUILD_DIR}/bin/"
+  # Copier le binaire tempo (peut avoir un nom différent)
+  if [ -f "${CACHE_DIR}/tempo" ]; then
+    cp "${CACHE_DIR}/tempo" "${BUILD_DIR}/bin/"
+  elif [ -f "${CACHE_DIR}/${tempo_dist}/tempo" ]; then
+    cp "${CACHE_DIR}/${tempo_dist}/tempo" "${BUILD_DIR}/bin/"
+  else
+    echo "Error: Cannot find tempo binary after extraction" >&2
+    ls -la "${CACHE_DIR}/"
+    exit 1
+  fi
+  
   chmod +x "${BUILD_DIR}/bin/tempo"
   
   # Copier la configuration par défaut si elle n'existe pas
@@ -67,10 +84,17 @@ install_tempo() {
     echo "Error: Tempo binary is not executable or not found" >&2
     exit 1
   fi
+  
   echo "-----> Tempo v${TEMPO_VERSION} installed successfully"
+  echo "Binary location: ${BUILD_DIR}/bin/tempo"
+  ${BUILD_DIR}/bin/tempo --version || echo "Could not get version"
 }
 
 mkdir -p $CACHE_DIR
-export_env_dir "$ENV_DIR"
+
+# Exporter les variables d'environnement si la fonction existe
+if command -v export_env_dir >/dev/null 2>&1; then
+  export_env_dir "$ENV_DIR"
+fi
 
 install_tempo "${BUILD_DIR}" "${CACHE_DIR}"
