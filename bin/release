@@ -6,5 +6,5 @@ addons: []
 config_vars:
   TEMPO_HOME: /app
 default_process_types:
-  web: /app/opt/boot.sh
+  web: /app/bin/start-tempo
 EOT

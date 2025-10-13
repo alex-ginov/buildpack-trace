@@ -1,0 +1,23 @@
+#!/bin/bash
+set -e
+
+# Définir le répertoire de l'application
+APP_DIR="/app"
+
+# Exporter les variables d'environnement nécessaires
+export PATH="${APP_DIR}/bin:${PATH}"
+
+echo "-----> Starting Tempo..."
+
+# Vérifier si le fichier de configuration existe
+if [ ! -f "${APP_DIR}/config/tempo.yaml" ]; then
+  echo "Error: tempo.yaml not found in ${APP_DIR}/config/" >&2
+  exit 1
+fi
+
+# Créer les répertoires de stockage s'ils n'existent pas
+mkdir -p "${APP_DIR}/storage/wal"
+mkdir -p "${APP_DIR}/storage/blocks"
+
+# Lancer Tempo avec la configuration
+exec "${APP_DIR}/bin/tempo" --config.file="${APP_DIR}/config/tempo.yaml"

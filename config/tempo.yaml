@@ -1,0 +1,70 @@
+# Configuration de base du serveur
+server:
+  http_listen_address: "0.0.0.0"  # Écouter sur toutes les interfaces
+  http_listen_port: ${PORT:-3200}  # Utiliser le port défini par l'environnement ou 3200 par défaut
+  log_level: info
+  log_format: logfmt
+
+# Configuration du stockage
+distributor:
+  receivers:
+    otlp:
+      protocols:
+        http:
+          endpoint: "0.0.0.0:${PORT:-3200}"
+        grpc:
+          endpoint: "0.0.0.0:4317"
+
+# Configuration du stockage
+storage:
+  trace:
+    backend: local
+    wal:
+      path: /app/storage/wal
+      encoding: zstd
+    local:
+      path: /app/storage/blocks
+    pool:
+      max_workers: 4
+      queue_depth: 1000
+
+# Configuration du compresseur
+compactor:
+  compaction:
+    block_retention: 24h
+    compacted_block_retention: 1h
+
+# Configuration des métriques
+metrics_generator_processors:
+  - service-graphs
+  - span-metrics
+
+# Configuration des limites
+limits:
+  max_bytes_per_trace: 1000000  # 1MB max par trace
+  max_traces_per_user: 10000    # 10k traces par utilisateur
+
+# Configuration du cache
+cache:
+  memcached:
+    consistent_hash: true
+    host: localhost
+    service: memcached
+    timeout: 100ms
+    update_interval: 1m
+
+# Configuration des overrides
+overrides:
+  defaults:
+    metrics_generator:
+      processors: [service-graphs, span-metrics]
+    forwarders: []
+
+# Configuration du stockage des métriques
+metrics_generator:
+  registry:
+    external_labels:
+      source: tempo
+  storage:
+    path: /app/storage/metrics
+    wal: /app/storage/wal/metrics

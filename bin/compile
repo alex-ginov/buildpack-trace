@@ -48,16 +48,25 @@ install_tempo() {
   echo "-----> Extracting Tempo..."
   tar -xzf "${CACHE_DIR}/${tempo_archive}" -C "${CACHE_DIR}"
   
+  # Créer les répertoires nécessaires
+  mkdir -p ${BUILD_DIR}/bin
+  mkdir -p ${BUILD_DIR}/config
+  mkdir -p ${BUILD_DIR}/storage/{wal,blocks}
+  
   echo "-----> Installing Tempo to ${BUILD_DIR}/bin/"
-  cp "${CACHE_DIR}/${tempo_dist}/tempo" "${BUILD_DIR}/bin/"
+  cp "${CACHE_DIR}/tempo" "${BUILD_DIR}/bin/"
   chmod +x "${BUILD_DIR}/bin/tempo"
+  
+  # Copier la configuration par défaut si elle n'existe pas
+  if [ ! -f "${BUILD_DIR}/config/tempo.yaml" ] && [ -f "${BUILDPACK_DIR}/config/tempo.yaml" ]; then
+    cp "${BUILDPACK_DIR}/config/tempo.yaml" "${BUILD_DIR}/config/"
+  fi
   
   # Vérifier que le binaire est exécutable
   if [ ! -x "${BUILD_DIR}/bin/tempo" ]; then
-    echo "Error: Tempo binary is not executable" >&2
+    echo "Error: Tempo binary is not executable or not found" >&2
     exit 1
   fi
-  
   echo "-----> Tempo v${TEMPO_VERSION} installed successfully"
 }
 

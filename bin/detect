@@ -2,7 +2,7 @@
 # bin/detect <build-dir>
 
 # Vérifie si c'est une application Tempo
-if [ -f "$1/go.mod" ] && grep -q "github.com/grafana/tempo" "$1/go.mod"; then
+if [ -f "$1/config/tempo.yaml" ] || [ -f "$1/tempo.yaml" ] || [ -f "$1/tempo.yml" ]; then
   echo "Tempo"
   exit 0
 fi
