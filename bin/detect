@@ -1,11 +1,10 @@
-#!/usr/bin/env bash
-# bin/detect <build-dir>
+#!/bin/bash
 
 # Vérifie si c'est une application Tempo
 if [ -f "$1/config/tempo.yaml" ] || [ -f "$1/tempo.yaml" ] || [ -f "$1/tempo.yml" ]; then
-  echo "Tempo"
+  echo "Tempo Application"
   exit 0
+else
+  echo "no" >&2
+  exit 1
 fi
-
-echo "no"
-exit 1
