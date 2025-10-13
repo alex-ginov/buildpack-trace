@@ -1,27 +1,35 @@
+# Configuration de base du serveur
 server:
   http_listen_address: "0.0.0.0"
-  http_listen_port: 3200
+  http_listen_port: ${PORT} # IMPORTANT : Utiliser la variable PORT fournie par l'environnement
   log_level: info
 
+# Configuration du distributeur (reçoit les traces OTLP)
 distributor:
   receivers:
     otlp:
       protocols:
         http:
-          endpoint: "0.0.0.0:3200"
+          endpoint: "0.0.0.0:${PORT}"
+        # Grpc peut causer des conflits si non nécessaire, mais peut être conservé
+        grpc:
+          endpoint: "0.0.0.0:4317"
 
+# Configuration du stockage (backend 'local' pour le stockage sur le disque du conteneur)
 storage:
   trace:
     backend: local
     wal:
-      path: ./storage/wal
+      path: /app/storage/wal # Chemins dans le conteneur
     local:
-      path: ./storage/blocks
+      path: /app/storage/blocks
 
+# Configuration du compresseur
 compactor:
   compaction:
-    block_retention: 1h
+    block_retention: 24h
+    compacted_block_retention: 1h
 
+# Limites
 limits:
-  max_bytes_per_trace: 50000
-  max_traces_per_user: 1000
+  max_bytes_per_trace: 1000000

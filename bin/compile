@@ -1,115 +1,47 @@
 #!/bin/bash
 set -e
 
-BUILD_DIR=${1:-}
-CACHE_DIR=${2:-}
-ENV_DIR=${3:-}
-basedir="$( cd -P "$( dirname "$0" )" && pwd )"
-BUILDPACK_DIR="$(readlink -f ${basedir}/..)"
+BUILD_DIR=$1
+CACHE_DIR=$2
+BUILDPACK_DIR="$(cd -P "$(dirname "$0")/.." && pwd)"
 
-# Vérifier si le fichier common.sh existe avant de le sourcer
-if [ -f "${BUILDPACK_DIR}/lib/common.sh" ]; then
-    source ${BUILDPACK_DIR}/lib/common.sh
+TEMPO_VERSION="2.4.0" # Version de Tempo à installer
+
+echo "-----> Installing Tempo v${TEMPO_VERSION}"
+
+# 1. Définir l'URL de téléchargement
+TEMPO_ARCHIVE="tempo_${TEMPO_VERSION}_linux_amd64.tar.gz"
+TEMPO_URL="https://github.com/grafana/tempo/releases/download/v${TEMPO_VERSION}/${TEMPO_ARCHIVE}"
+
+# Créer les répertoires nécessaires
+mkdir -p "$BUILD_DIR/bin"
+mkdir -p "$BUILD_DIR/config"
+mkdir -p "/tmp/tempo-extract"
+
+# 2. Télécharger et extraire
+echo "-----> Downloading Tempo from: $TEMPO_URL"
+curl -L --silent --show-error --retry 3 --fail -o "/tmp/$TEMPO_ARCHIVE" "$TEMPO_URL" || \
+    (echo "Error downloading Tempo" && exit 1)
+
+echo "-----> Extracting Tempo to /tmp/tempo-extract"
+tar -xzf "/tmp/$TEMPO_ARCHIVE" -C "/tmp/tempo-extract"
+
+# 3. Copier les binaires et rendre exécutables
+echo "-----> Installing binaries and scripts"
+cp /tmp/tempo-extract/tempo "$BUILD_DIR/bin/"
+chmod +x "$BUILD_DIR/bin/tempo"
+
+# Copier le script de démarrage depuis le buildpack
+cp "$BUILDPACK_DIR/bin/start-tempo" "$BUILD_DIR/bin/"
+chmod +x "$BUILD_DIR/bin/start-tempo"
+
+# 4. Copier la configuration par défaut
+if [ -f "$BUILDPACK_DIR/config/tempo.yaml" ]; then
+  cp "$BUILDPACK_DIR/config/tempo.yaml" "$BUILD_DIR/config/"
 fi
 
-if [ -n "$BUILDPACK_DEBUG" ]; then
-  set -x
-fi
+# Nettoyage
+rm -rf /tmp/tempo-extract
+rm -f "/tmp/$TEMPO_ARCHIVE"
 
-TEMPO_VERSION="${TEMPO_VERSION:-"2.4.0"}"
-
-install_tempo() {
-  local BUILD_DIR="${1}"
-  local CACHE_DIR="${2}"
-
-  tempo_dist="tempo_${TEMPO_VERSION}_linux_amd64"
-  tempo_archive="${tempo_dist}.tar.gz"
-  tempo_url="https://github.com/grafana/tempo/releases/download/v${TEMPO_VERSION}/${tempo_archive}"
-
-  # Créer le répertoire bin s'il n'existe pas
-  mkdir -p ${BUILD_DIR}/bin
-
-  if [[ -f "$CACHE_DIR/.TEMPO_VERSION" ]]; then
-    old_version=$(cat $CACHE_DIR/.TEMPO_VERSION)
-    if [[ $old_version != $TEMPO_VERSION ]]; then
-      echo "New Tempo version detected, cleaning old version cache"
-      rm -f ${CACHE_DIR}/tempo_${old_version}*
-    fi
-  fi
-
-  if [[ ! -f "$CACHE_DIR/${tempo_archive}" ]]; then
-    echo "-----> Downloading Tempo v${TEMPO_VERSION}..."
-    curl -L --silent --show-error --retry 3 --fail --retry-delay 1 \
-      -o "${CACHE_DIR}/${tempo_archive}" "${tempo_url}" \
-      || (echo "Error downloading Tempo" && exit 1)
-    
-    echo $TEMPO_VERSION > ${CACHE_DIR}/.TEMPO_VERSION
-  else
-    echo "-----> Using cached Tempo v${TEMPO_VERSION}"
-  fi
-
-  echo "-----> Extracting Tempo..."
-  tar -xzf "${CACHE_DIR}/${tempo_archive}" -C "${CACHE_DIR}"
-  
-  # Vérifier ce qui a été extrait
-  echo "Contents extracted:"
-  ls -la "${CACHE_DIR}/" | grep -E "(tempo|tempo-cli|tempo-query)"
-  
-  # Créer les répertoires nécessaires
-  mkdir -p ${BUILD_DIR}/bin
-  mkdir -p ${BUILD_DIR}/config
-  mkdir -p ${BUILD_DIR}/storage/{wal,blocks}
-  
-  echo "-----> Installing Tempo to ${BUILD_DIR}/bin/"
-  # Copier le binaire tempo (peut avoir un nom différent)
-  if [ -f "${CACHE_DIR}/tempo" ]; then
-    cp "${CACHE_DIR}/tempo" "${BUILD_DIR}/bin/"
-  elif [ -f "${CACHE_DIR}/${tempo_dist}/tempo" ]; then
-    cp "${CACHE_DIR}/${tempo_dist}/tempo" "${BUILD_DIR}/bin/"
-  else
-    echo "Error: Cannot find tempo binary after extraction" >&2
-    ls -la "${CACHE_DIR}/"
-    exit 1
-  fi
-  
-  chmod +x "${BUILD_DIR}/bin/tempo"
-  
-  # Copier la configuration par défaut si elle n'existe pas
-  if [ ! -f "${BUILD_DIR}/config/tempo.yaml" ] && [ -f "${BUILDPACK_DIR}/config/tempo.yaml" ]; then
-    echo "-----> Copying default configuration..."
-    cp "${BUILDPACK_DIR}/config/tempo.yaml" "${BUILD_DIR}/config/"
-  fi
-  
-  # Vérifier que le binaire est exécutable
-  if [ ! -x "${BUILD_DIR}/bin/tempo" ]; then
-    echo "Error: Tempo binary is not executable or not found" >&2
-    exit 1
-  fi
-  
-  echo "-----> Tempo v${TEMPO_VERSION} installed successfully"
-  echo "Binary location: ${BUILD_DIR}/bin/tempo"
-  ${BUILD_DIR}/bin/tempo --version || echo "Could not get version"
-}
-
-# Créer le cache directory
-mkdir -p $CACHE_DIR
-
-# Exporter les variables d'environnement si la fonction existe
-if command -v export_env_dir >/dev/null 2>&1; then
-  export_env_dir "$ENV_DIR"
-fi
-
-# Installer Tempo
-install_tempo "${BUILD_DIR}" "${CACHE_DIR}"
-
-# Copier le script start-tempo
-echo "-----> Copying start-tempo script..."
-if [ -f "${BUILDPACK_DIR}/bin/start-tempo" ]; then
-  cp "${BUILDPACK_DIR}/bin/start-tempo" "${BUILD_DIR}/bin/"
-  chmod +x "${BUILD_DIR}/bin/start-tempo"
-  echo "✓ start-tempo script installed"
-else
-  echo "Warning: start-tempo script not found in buildpack" >&2
-fi
-
-echo "-----> Build completed successfully!"
+echo "-----> Tempo v${TEMPO_VERSION} installed successfully."

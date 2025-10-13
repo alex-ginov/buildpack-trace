@@ -4,5 +4,5 @@ cat <<EOF
 ---
 addons: []
 default_process_types:
-  web: /app/bin/start-tempo
+  web: /app/bin/start-tempo 
 EOF
