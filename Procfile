@@ -1,1 +1,1 @@
-web: /app/opt/boot.sh
+web: ./bin/tempo --config.file=./config/tempo.yaml

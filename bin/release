@@ -1,10 +1,8 @@
 #!/bin/bash
 
-cat <<EOT
+cat <<EOF
 ---
 addons: []
-config_vars:
-  TEMPO_HOME: /app
 default_process_types:
   web: /app/bin/start-tempo
-EOT
+EOF

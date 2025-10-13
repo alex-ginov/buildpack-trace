@@ -16,7 +16,7 @@ if [ -n "$BUILDPACK_DEBUG" ]; then
   set -x
 fi
 
-TEMPO_VERSION="${TEMPO_VERSION:-"2.4.0"}"  # Version mise à jour
+TEMPO_VERSION="${TEMPO_VERSION:-"2.4.0"}"
 
 install_tempo() {
   local BUILD_DIR="${1}"
@@ -76,6 +76,7 @@ install_tempo() {
   
   # Copier la configuration par défaut si elle n'existe pas
   if [ ! -f "${BUILD_DIR}/config/tempo.yaml" ] && [ -f "${BUILDPACK_DIR}/config/tempo.yaml" ]; then
+    echo "-----> Copying default configuration..."
     cp "${BUILDPACK_DIR}/config/tempo.yaml" "${BUILD_DIR}/config/"
   fi
   
@@ -90,6 +91,7 @@ install_tempo() {
   ${BUILD_DIR}/bin/tempo --version || echo "Could not get version"
 }
 
+# Créer le cache directory
 mkdir -p $CACHE_DIR
 
 # Exporter les variables d'environnement si la fonction existe
@@ -97,4 +99,17 @@ if command -v export_env_dir >/dev/null 2>&1; then
   export_env_dir "$ENV_DIR"
 fi
 
+# Installer Tempo
 install_tempo "${BUILD_DIR}" "${CACHE_DIR}"
+
+# Copier le script start-tempo
+echo "-----> Copying start-tempo script..."
+if [ -f "${BUILDPACK_DIR}/bin/start-tempo" ]; then
+  cp "${BUILDPACK_DIR}/bin/start-tempo" "${BUILD_DIR}/bin/"
+  chmod +x "${BUILD_DIR}/bin/start-tempo"
+  echo "✓ start-tempo script installed"
+else
+  echo "Warning: start-tempo script not found in buildpack" >&2
+fi
+
+echo "-----> Build completed successfully!"

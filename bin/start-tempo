@@ -1,23 +1,45 @@
 #!/bin/bash
 set -e
 
-# Définir le répertoire de l'application
-APP_DIR="/app"
+echo "===== ENVIRONMENT DEBUG ====="
+echo "PORT: ${PORT}"
+echo "PWD: $(pwd)"
+echo "APP_DIR: ${APP_DIR:-/app}"
 
-# Exporter les variables d'environnement nécessaires
-export PATH="${APP_DIR}/bin:${PATH}"
+echo "===== DIRECTORY STRUCTURE ====="
+echo "/app/:"
+ls -la /app/ || echo "Cannot list /app"
+echo "/app/bin/:"
+ls -la /app/bin/ || echo "Cannot list /app/bin"
+echo "/app/config/:"
+ls -la /app/config/ || echo "Cannot list /app/config"
 
-echo "-----> Starting Tempo..."
-
-# Vérifier si le fichier de configuration existe
-if [ ! -f "${APP_DIR}/config/tempo.yaml" ]; then
-  echo "Error: tempo.yaml not found in ${APP_DIR}/config/" >&2
-  exit 1
+echo "===== TEMPO BINARY CHECK ====="
+if [ -f "/app/bin/tempo" ]; then
+    echo "✓ Tempo binary found"
+    file /app/bin/tempo
+    /app/bin/tempo --version || echo "Cannot get version"
+else
+    echo "✗ Tempo binary NOT FOUND in /app/bin/tempo"
+    find /app -name "tempo" -type f 2>/dev/null || echo "No tempo binary found anywhere"
+    exit 1
 fi
 
-# Créer les répertoires de stockage s'ils n'existent pas
-mkdir -p "${APP_DIR}/storage/wal"
-mkdir -p "${APP_DIR}/storage/blocks"
+echo "===== CONFIGURATION CHECK ====="
+if [ -f "/app/config/tempo.yaml" ]; then
+    echo "✓ Config file found"
+    echo "First 10 lines of tempo.yaml:"
+    head -10 /app/config/tempo.yaml
+else
+    echo "✗ Config file NOT FOUND in /app/config/tempo.yaml"
+    find /app -name "*.yaml" -o -name "*.yml" 2>/dev/null || echo "No config files found"
+    exit 1
+fi
 
-# Lancer Tempo avec la configuration
-exec "${APP_DIR}/bin/tempo" --config.file="${APP_DIR}/config/tempo.yaml"
+echo "===== STORAGE DIRECTORIES ====="
+mkdir -p /app/storage/wal
+mkdir -p /app/storage/blocks
+echo "Storage directories created/verified"
+
+echo "===== STARTING TEMPO ====="
+exec /app/bin/tempo --config.file=/app/config/tempo.yaml

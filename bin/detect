@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Vérifie si c'est une application Tempo
-if [ -f "$1/config/tempo.yaml" ] || [ -f "$1/tempo.yaml" ] || [ -f "$1/tempo.yml" ]; then
-  echo "Tempo Application"
+# Vérifie si c'est une application Tempo OU le buildpack lui-même
+if [ -f "$1/config/tempo.yaml" ] || [ -f "$1/tempo.yaml" ] || [ -f "$1/bin/compile" ]; then
+  echo "Tempo"
   exit 0
 else
   echo "no" >&2
