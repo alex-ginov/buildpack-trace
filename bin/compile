@@ -13,41 +13,55 @@ if [ -n "$BUILDPACK_DEBUG" ]; then
   set -x
 fi
 
-TEMPO_VERSION="${TEMPO_VERSION:-"1.5.0"}"
+TEMPO_VERSION="${TEMPO_VERSION:-"2.3.1"}"  # Mise à jour vers la dernière version stable
 
 install_tempo() {
   local BUILD_DIR="${1}"
   local CACHE_DIR="${2}"
 
-  tempo_dist="tempo-${TEMPO_VERSION}-linux-amd64"
+  tempo_dist="tempo_${TEMPO_VERSION}_linux_amd64"
   tempo_archive="${tempo_dist}.tar.gz"
-  tempo_url="https://github.com/grafana/tempo/releases/download/v${TEMPO_VERSION}"
+  tempo_url="https://github.com/grafana/tempo/releases/download/v${TEMPO_VERSION}/${tempo_archive}"
+
+  # Créer le répertoire bin s'il n'existe pas
+  mkdir -p ${BUILD_DIR}/bin
 
   if [[ -f "$CACHE_DIR/.TEMPO_VERSION" ]]; then
     old_version=$(cat $CACHE_DIR/.TEMPO_VERSION)
     if [[ $old_version != $TEMPO_VERSION ]]; then
-      echo "New Tempo version installation, cleaning the cache for the old version"
-      rm -f $CACHE_DIR/$old_version.tar.gz ${CACHE_DIR}/${tempo_archive}*
+      echo "New Tempo version detected, cleaning old version cache"
+      rm -f ${CACHE_DIR}/${old_version}*
     fi
   fi
 
   if [[ ! -f "$CACHE_DIR/${tempo_archive}" ]]; then
-    echo -n "Downloading the Tempo ${TEMPO_VERSION} archive..."
-    curl --silent --fail --location --retry 3 --retry-delay 2 --connect-timeout 3 --max-time 30 --output ${CACHE_DIR}/${tempo_archive} "${tempo_url}/${tempo_archive}"
-    echo " done"
+    echo "-----> Downloading Tempo v${TEMPO_VERSION}..."
+    curl -L --silent --show-error --retry 3 --fail --retry-delay 1 \
+      -o "${CACHE_DIR}/${tempo_archive}" "${tempo_url}" \
+      || (echo "Error downloading Tempo" && exit 1)
+    
     echo $TEMPO_VERSION > ${CACHE_DIR}/.TEMPO_VERSION
   else
-    echo "Get the Tempo ${TEMPO_VERSION} archive from the cache"
+    echo "-----> Using cached Tempo v${TEMPO_VERSION}"
   fi
 
-  echo -n "Extracting Tempo..."
-  tar -xzf ${CACHE_DIR}/${tempo_archive} -C $CACHE_DIR
-  cp ${CACHE_DIR}/${tempo_dist}/tempo ${BUILD_DIR}/bin/
-  chmod +x ${BUILD_DIR}/bin/tempo
-  echo " done"
+  echo "-----> Extracting Tempo..."
+  tar -xzf "${CACHE_DIR}/${tempo_archive}" -C "${CACHE_DIR}"
+  
+  echo "-----> Installing Tempo to ${BUILD_DIR}/bin/"
+  cp "${CACHE_DIR}/${tempo_dist}/tempo" "${BUILD_DIR}/bin/"
+  chmod +x "${BUILD_DIR}/bin/tempo"
+  
+  # Vérifier que le binaire est exécutable
+  if [ ! -x "${BUILD_DIR}/bin/tempo" ]; then
+    echo "Error: Tempo binary is not executable" >&2
+    exit 1
+  fi
+  
+  echo "-----> Tempo v${TEMPO_VERSION} installed successfully"
 }
 
 mkdir -p $CACHE_DIR
 export_env_dir "$ENV_DIR"
 
-install_tempo ${BUILD_DIR} ${CACHE_DIR}
+install_tempo "${BUILD_DIR}" "${CACHE_DIR}"
