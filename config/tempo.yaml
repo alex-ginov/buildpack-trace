@@ -1,8 +1,8 @@
-# Configuration de base du serveur
 server:
-  # Le serveur principal de Tempo (souvent utilisé pour l'UI, les métriques)
   http_listen_address: "0.0.0.0"
-  http_listen_port: ${PORT} 
+  # CORRECTION 1: Remplacer ${PORT} par une valeur numérique (3200 est le défaut de Tempo).
+  # La surcharge en ligne de commande dans start-tempo prendra le relais de toute façon.
+  http_listen_port: 3200 
   log_level: info
 
 # Configuration du distributeur (reçoit les traces OTLP)
@@ -11,12 +11,11 @@ distributor:
     otlp:
       protocols:
         # 1. OTLP HTTP : Écoute sur le port public de Scalingo ($PORT)
-        # C'est généralement la manière la plus simple d'envoyer des traces via un proxy HTTP.
+        # Il est plus sûr d'utiliser une valeur numérique ici aussi pour éviter le plantage YAML.
         http:
-          endpoint: "0.0.0.0:${PORT}"
-        
-        # 2. OTLP gRPC : Le port standard 4317. 
-        # Si vous n'exposez pas explicitement ce port sur Scalingo, il ne sera accessible qu'en interne.
+          endpoint: "0.0.0.0:3200" # Sera surchargé par le flag OTLP du serveur si le port est partagé
+
+        # 2. OTLP gRPC : Port 4317 interne
         grpc:
           endpoint: "0.0.0.0:4317"
 
@@ -24,7 +23,6 @@ distributor:
 storage:
   trace:
     backend: local
-    # Utiliser /tmp/ pour l'écriture (obligatoire sur les plateformes PaaS)
     wal:
       path: /tmp/tempo-data/wal 
     local:
@@ -36,6 +34,7 @@ compactor:
     block_retention: 24h
     compacted_block_retention: 1h
 
-# Limites
-limits:
-  max_bytes_per_trace: 1000000
+# CORRECTION 2: Le champ 'limits' doit être sous 'overrides' pour Tempo 2.x
+overrides:
+  limits:
+    max_bytes_per_trace: 1000000
