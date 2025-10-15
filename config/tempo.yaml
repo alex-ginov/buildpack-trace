@@ -1,17 +1,23 @@
-# tempo.yaml
+# /app/config/tempo.yaml
+
+# Configuration du serveur principal (pour l'interface UI, les métriques, etc.)
 server:
   http_listen_address: "0.0.0.0"
-  http_listen_port: ${PORT} # <--- L'expansion d'env var va remplacer ceci
-  log_level: info
+  http_listen_port: ${PORT} # <--- Le serveur principal utilise ${PORT}
+  grpc_listen_port: 9095    # <--- Un port interne non exposé
 
+# Configuration du distributeur (réception des traces)
 distributor:
   receivers:
     otlp:
       protocols:
+        # L'écouteur HTTP OTLP DOIT être désactivé ou mis sur un port non exposé (comme 4318)
+        # S'il utilise ${PORT}, il y a conflit avec le server.http_listen_port
         http:
-          endpoint: "0.0.0.0:${PORT}" # <--- L'expansion d'env var va remplacer ceci
+          endpoint: "0.0.0.0:4318" # <--- IMPORTANT: Utilisez un port interne FIXE (4318 par convention)
         grpc:
-          endpoint: "0.0.0.0:4317"
+          endpoint: "0.0.0.0:4317" # <--- Port interne FIXE (4317 par convention)
+          
 # Configuration du stockage (backend 'local' pour le stockage sur le disque du conteneur)
 storage:
   trace:
