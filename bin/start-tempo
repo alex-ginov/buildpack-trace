@@ -1,15 +1,14 @@
 #!/bin/bash
 set -e
 
-# Chemin d'accès racine de l'application sur la plateforme Scalingo/Heroku
+# Chemin d'accès racine de l'application
 APP_DIR="/app"
 
-# Chemin du fichier de configuration, tel que copié par le buildpack 'compile'
-# (qui l'a placé dans /app/config/)
+# Le chemin du fichier de configuration dans le slug
 CONFIG_FILE="${APP_DIR}/config/tempo.yaml"
 
 echo "===== STARTING TEMPO ====="
-echo "PORT: ${PORT}" # Variable d'environnement fournie par Scalingo
+echo "PORT: ${PORT}" 
 
 # 1. Vérification des fichiers et du binaire
 if [ ! -x "${APP_DIR}/bin/tempo" ]; then
@@ -21,8 +20,7 @@ if [ ! -f "${CONFIG_FILE}" ]; then
   exit 1
 fi
 
-# 2. Créer les répertoires de stockage
-# Le répertoire /tmp est le seul inscriptible et destiné au stockage éphémère sur les plateformes PaaS.
+# 2. Créer les répertoires de stockage dans /tmp/
 STORAGE_DIR="/tmp/tempo-data"
 mkdir -p "${STORAGE_DIR}/wal"
 mkdir -p "${STORAGE_DIR}/blocks"
@@ -30,9 +28,10 @@ echo "Storage directories created/verified in ${STORAGE_DIR}"
 
 # 3. Lancer Tempo
 echo "-----> Launching Tempo..."
-# 'exec' remplace le shell par le processus Tempo (bonne pratique PaaS).
-# Nous passons le fichier de config, et nous surchargeons explicitement le port HTTP avec $PORT 
-# pour garantir que Tempo écoute sur le port assigné par Scalingo.
+# Note : Nous surchargeons explicitement le port HTTP du serveur principal.
+# Dans ce cas, Tempo peut lier le port $PORT pour le serveur principal ET le récepteur OTLP/HTTP.
+# Si Tempo ne peut pas lier deux services différents sur le même port, le service OTLP HTTP
+# défini dans le fichier YML sera prioritaire.
 exec "${APP_DIR}/bin/tempo" \
   --config.file="${CONFIG_FILE}" \
-  --server.http-listen-port="${PORT}"
+  --server.http-listen-port="${PORT:-3200}"

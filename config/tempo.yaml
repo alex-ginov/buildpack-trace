@@ -1,7 +1,8 @@
 # Configuration de base du serveur
 server:
+  # Le serveur principal de Tempo (souvent utilisé pour l'UI, les métriques)
   http_listen_address: "0.0.0.0"
-  http_listen_port: ${PORT} # IMPORTANT : Utiliser la variable PORT fournie par l'environnement
+  http_listen_port: ${PORT} 
   log_level: info
 
 # Configuration du distributeur (reçoit les traces OTLP)
@@ -9,14 +10,13 @@ distributor:
   receivers:
     otlp:
       protocols:
-        # NOTE : Utiliser 0.0.0.0:${PORT} pour l'HTTP OTLP peut causer des conflits si 
-        # le serveur HTTP principal est déjà sur ce port. Il est plus sûr de laisser 
-        # Tempo gérer les ports par défaut si possible, ou d'utiliser un port différent (comme 4318)
-        # et de mapper ce port dans Scalingo si vous n'utilisez pas l'écoute HTTP principale.
+        # 1. OTLP HTTP : Écoute sur le port public de Scalingo ($PORT)
+        # C'est généralement la manière la plus simple d'envoyer des traces via un proxy HTTP.
         http:
-          # Ici, nous laissons le port ${PORT} si vous n'exposez que ce récepteur
           endpoint: "0.0.0.0:${PORT}"
-        # Port GRPC OTLP standard, non exposé par défaut
+        
+        # 2. OTLP gRPC : Le port standard 4317. 
+        # Si vous n'exposez pas explicitement ce port sur Scalingo, il ne sera accessible qu'en interne.
         grpc:
           endpoint: "0.0.0.0:4317"
 
@@ -24,11 +24,11 @@ distributor:
 storage:
   trace:
     backend: local
-    # 🚨 CORRECTION CRITIQUE : Utiliser /tmp pour l'écriture
+    # Utiliser /tmp/ pour l'écriture (obligatoire sur les plateformes PaaS)
     wal:
       path: /tmp/tempo-data/wal 
     local:
-      path: /tmp/tempo-data/blocks # 🚨 CORRECTION CRITIQUE : Utiliser /tmp pour l'écriture
+      path: /tmp/tempo-data/blocks 
 
 # Configuration du compresseur
 compactor:
