@@ -1,24 +1,17 @@
+# tempo.yaml
 server:
   http_listen_address: "0.0.0.0"
-  # Le YML ne gère pas ${PORT} comme un entier. On met un défaut (3200) 
-  # et on laisse le script start-tempo le surcharger en ligne de commande.
-  http_listen_port: 3200 
+  http_listen_port: ${PORT} # <--- L'expansion d'env var va remplacer ceci
   log_level: info
 
-# Configuration du distributeur (reçoit les traces OTLP)
 distributor:
   receivers:
     otlp:
       protocols:
-        # OTLP HTTP : Écoute sur le port public ($PORT)
-        # On utilise le même port que le serveur principal (3200) dans le YML pour la cohérence
         http:
-          endpoint: "0.0.0.0:3200"
-        
-        # OTLP gRPC : Port 4317 interne
+          endpoint: "0.0.0.0:${PORT}" # <--- L'expansion d'env var va remplacer ceci
         grpc:
           endpoint: "0.0.0.0:4317"
-
 # Configuration du stockage (backend 'local' pour le stockage sur le disque du conteneur)
 storage:
   trace:
