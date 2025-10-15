@@ -9,9 +9,14 @@ distributor:
   receivers:
     otlp:
       protocols:
+        # NOTE : Utiliser 0.0.0.0:${PORT} pour l'HTTP OTLP peut causer des conflits si 
+        # le serveur HTTP principal est déjà sur ce port. Il est plus sûr de laisser 
+        # Tempo gérer les ports par défaut si possible, ou d'utiliser un port différent (comme 4318)
+        # et de mapper ce port dans Scalingo si vous n'utilisez pas l'écoute HTTP principale.
         http:
+          # Ici, nous laissons le port ${PORT} si vous n'exposez que ce récepteur
           endpoint: "0.0.0.0:${PORT}"
-        # Grpc peut causer des conflits si non nécessaire, mais peut être conservé
+        # Port GRPC OTLP standard, non exposé par défaut
         grpc:
           endpoint: "0.0.0.0:4317"
 
@@ -19,10 +24,11 @@ distributor:
 storage:
   trace:
     backend: local
+    # 🚨 CORRECTION CRITIQUE : Utiliser /tmp pour l'écriture
     wal:
-      path: /app/storage/wal # Chemins dans le conteneur
+      path: /tmp/tempo-data/wal 
     local:
-      path: /app/storage/blocks
+      path: /tmp/tempo-data/blocks # 🚨 CORRECTION CRITIQUE : Utiliser /tmp pour l'écriture
 
 # Configuration du compresseur
 compactor:

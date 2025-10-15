@@ -1,13 +1,17 @@
 #!/bin/bash
 set -e
 
+# Chemin d'accès racine de l'application sur la plateforme Scalingo/Heroku
 APP_DIR="/app"
+
+# Chemin du fichier de configuration, tel que copié par le buildpack 'compile'
+# (qui l'a placé dans /app/config/)
 CONFIG_FILE="${APP_DIR}/config/tempo.yaml"
 
 echo "===== STARTING TEMPO ====="
 echo "PORT: ${PORT}" # Variable d'environnement fournie par Scalingo
 
-# 1. Vérification des fichiers
+# 1. Vérification des fichiers et du binaire
 if [ ! -x "${APP_DIR}/bin/tempo" ]; then
   echo "Error: Tempo binary not found or not executable!" >&2
   exit 1
@@ -17,12 +21,18 @@ if [ ! -f "${CONFIG_FILE}" ]; then
   exit 1
 fi
 
-# 2. Créer les répertoires de stockage (obligatoire pour le backend local)
-mkdir -p "${APP_DIR}/storage/wal"
-mkdir -p "${APP_DIR}/storage/blocks"
-echo "Storage directories created/verified in /app/storage"
+# 2. Créer les répertoires de stockage
+# Le répertoire /tmp est le seul inscriptible et destiné au stockage éphémère sur les plateformes PaaS.
+STORAGE_DIR="/tmp/tempo-data"
+mkdir -p "${STORAGE_DIR}/wal"
+mkdir -p "${STORAGE_DIR}/blocks"
+echo "Storage directories created/verified in ${STORAGE_DIR}"
 
 # 3. Lancer Tempo
 echo "-----> Launching Tempo..."
-# 'exec' est utilisé pour remplacer le shell actuel par le processus Tempo, ce qui est la bonne pratique Heroku/Scalingo
-exec "${APP_DIR}/bin/tempo" --config.file="${CONFIG_FILE}" --server.http-listen-port="${PORT}"
+# 'exec' remplace le shell par le processus Tempo (bonne pratique PaaS).
+# Nous passons le fichier de config, et nous surchargeons explicitement le port HTTP avec $PORT 
+# pour garantir que Tempo écoute sur le port assigné par Scalingo.
+exec "${APP_DIR}/bin/tempo" \
+  --config.file="${CONFIG_FILE}" \
+  --server.http-listen-port="${PORT}"

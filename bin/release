@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Le contenu YAML est imprimé sur la sortie standard, 
+# ce qui définit la configuration de démarrage (Procfile) finale.
 cat <<EOF
 ---
 addons: []
