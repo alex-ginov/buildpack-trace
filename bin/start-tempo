@@ -32,6 +32,13 @@ echo "-----> Launching Tempo..."
 # Dans ce cas, Tempo peut lier le port $PORT pour le serveur principal ET le récepteur OTLP/HTTP.
 # Si Tempo ne peut pas lier deux services différents sur le même port, le service OTLP HTTP
 # défini dans le fichier YML sera prioritaire.
+#exec "${APP_DIR}/bin/tempo" \
+#  --config.file="${CONFIG_FILE}" \
+#  --server.http-listen-port="${PORT:-3200}"
+
+
+  
 exec "${APP_DIR}/bin/tempo" \
   --config.file="${CONFIG_FILE}" \
-  --server.http-listen-port="${PORT:-3200}"
+  --server.http-listen-port="${PORT:-3200}" \
+  --distributor.receivers.otlp.protocols.http.endpoint="0.0.0.0:${PORT:-4318}" 
