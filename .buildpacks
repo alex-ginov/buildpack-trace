@@ -1,2 +1,7 @@
-https://github.com/alex-ginov/buildpack-trace.git
-https://github.com/Scalingo/buildpack-binary.git
+# .buildpacks
+# 1. Le Buildpack APT pour installer le paquet .deb (DOIT être le premier)
+https://github.com/heroku/heroku-buildpack-apt.git
+
+# 2. Un Buildpack de "runtime" général (le Go buildpack est souvent utilisé
+#    comme un "no-op" minimaliste pour garantir l'étape de "release").
+https://github.com/heroku/heroku-buildpack-go.git

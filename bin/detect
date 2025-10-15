@@ -1,4 +1,0 @@
-#!/bin/bash
-# Toujours retourner succès pour ce buildpack auto-déployable
-echo "Tempo"
-exit 0

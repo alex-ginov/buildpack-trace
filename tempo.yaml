@@ -1,2 +1,37 @@
-# Fichier de détection pour le buildpack
-# La vraie configuration est dans config/tempo.yaml
+# Configuration de base du serveur
+server:
+  http_listen_address: "0.0.0.0"
+  http_listen_port: ${PORT} # IMPORTANT : Utiliser la variable PORT fournie par l'environnement
+  log_level: info
+
+# Configuration du distributeur (reçoit les traces OTLP)
+distributor:
+  receivers:
+    otlp:
+      protocols:
+        http:
+          endpoint: "0.0.0.0:${PORT}"
+        # Grpc peut causer des conflits si non nécessaire, mais peut être conservé
+        grpc:
+          endpoint: "0.0.0.0:4317"
+
+# Configuration du stockage (backend 'local' pour le stockage sur le disque du conteneur)
+storage:
+  trace:
+    backend: local
+    wal:
+      path: /app/storage/wal # Chemins dans le conteneur
+    local:
+      path: /app/storage/blocks
+
+# Configuration du compresseur
+compactor:
+  compaction:
+    block_retention: 24h
+    compacted_block_retention: 1h
+
+# Limites
+limits:
+  max_bytes_per_trace: 1000000
+
+  

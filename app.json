@@ -1,9 +1,0 @@
-{
-    "name": "poc-trace",
-    "description": "Tempo distributed tracing backend",
-    "buildpacks": [
-      {
-        "url": "https://github.com/alex-ginov/buildpack-trace.git"
-      }
-    ]
-  }

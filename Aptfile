@@ -1,0 +1,4 @@
+# Aptfile
+# Remplacez "v2.5.0" par la version exacte de Tempo que vous souhaitez.
+# L'URL doit pointer directement vers le fichier .deb.
+https://github.com/grafana/tempo/releases/download/v2.2.0/tempo_2.2.0_linux_amd64.deb
