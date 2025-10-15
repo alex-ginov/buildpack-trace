@@ -1,1 +1,1 @@
-web: /app/bin/start-tempo
+web: $APP_DIR/bin/start-tempo

@@ -25,4 +25,4 @@ echo "Storage directories created/verified in /app/storage"
 # 3. Lancer Tempo
 echo "-----> Launching Tempo..."
 # 'exec' est utilisé pour remplacer le shell actuel par le processus Tempo, ce qui est la bonne pratique Heroku/Scalingo
-exec "${APP_DIR}/bin/tempo" --config.file="${CONFIG_FILE}"
+exec "${APP_DIR}/bin/tempo" --config.file="${CONFIG_FILE}" --server.http-listen-port="${PORT}"
