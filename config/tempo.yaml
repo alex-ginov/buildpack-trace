@@ -6,38 +6,22 @@ server:
   http_listen_port: ${PORT}
   grpc_listen_port: 9095    # Port interne pour les communications gRPC
 
-# Configuration du distributeur (réception des traces)
-distributor:
-  log_received_spans:
-    enabled: true     # Active les logs pour le debugging
-  receivers:
-    otlp:
-      protocols:
-        http:
-          endpoint: "0.0.0.0:${PORT}"
-          include_metadata: true
-          cors:
-            allowed_origins:
-              - "*"
-            allowed_headers:
-              - "content-type"
-              - "accept"
-              - "traceparent"
-              - "x-b3-traceid"
-              - "x-b3-spanid"
-            exposed_headers:
-              - "traceparent"
-              - "x-b3-traceid"
-              - "x-b3-spanid"
+# Configuration des récepteurs de traces
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: "0.0.0.0:${PORT}"
+        cors:
+          allowed_origins: ["*"]
+          allowed_headers: ["*"]
           
-# Configuration du stockage (backend 'local' pour le stockage sur le disque du conteneur)
+# Configuration du stockage
 storage:
-  trace:
-    backend: local     # Utilisation du backend local
-    wal:
-      path: /tmp/tempo-data/wal    # Chemin pour le Write Ahead Log
-    local:
-      path: /tmp/tempo-data/blocks # Chemin pour les blocs de données
+  wal:
+    path: /tmp/tempo-data/wal
+  blocks:
+    path: /tmp/tempo-data/blocks
 
 # Configuration du compresseur
 compactor:
