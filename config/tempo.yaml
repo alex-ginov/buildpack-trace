@@ -29,8 +29,10 @@ distributor:
         http:
           endpoint: "0.0.0.0:${PORT}"
           cors:
-            allow_origins: ["*"]
-            allow_headers: ["*"]
+            allowed_origins:
+              - "*"
+            allowed_headers:
+              - "*"
 
 # Configuration du compresseur
 compactor:
