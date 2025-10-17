@@ -1,9 +1,8 @@
-# /app/config/tempo.yaml
-
 # Configuration du serveur
 server:
-  http_listen_address: "0.0.0.0"
-  http_listen_port: ${PORT}
+  http_listen_address: "127.0.0.1"  # Écoute en local seulement
+  http_listen_port: 3200            # Port interne fixe
+  log_level: info
 
 # Configuration de l'ingestion des traces
 ingester:
@@ -24,22 +23,28 @@ storage:
     wal:
       path: /tmp/tempo-data/wal
 
-# Configuration OTLP
+# Configuration OTLP simplifiée
 distributor:
   receivers:
     otlp:
       protocols:
-        http:
-          cors:
-            allowed_origins:
-              - "*"
-            allowed_headers:
-              - "*"
+        http: {}  # Configuration simplifiée, le routage est géré par nginx
 
-# Configuration Query Frontend
-query_frontend:
+# Configuration du query frontend et des composants de recherche
+query_frontend: {}
+
+compactor:
+  compaction:
+    block_retention: 24h
+
+storage:
   trace:
-    pool_max_idle_streams: 100
+    backend: local
+    local:
+      path: /tmp/tempo-data/blocks
+    pool:
+      max_workers: 100
+      queue_depth: 10000
 
 # Configuration du compresseur
 compactor:

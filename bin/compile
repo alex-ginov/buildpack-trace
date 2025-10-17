@@ -6,6 +6,18 @@ CACHE_DIR=$2
 BUILDPACK_DIR="$(cd -P "$(dirname "$0")/.." && pwd)"
 
 TEMPO_VERSION="2.4.0" # Version de Tempo à installer
+NGINX_VERSION="1.24.0" # Version de Nginx à installer
+
+# Installation des dépendances système nécessaires
+export DEBIAN_FRONTEND=noninteractive
+apt-get update
+apt-get install -y \
+    build-essential \
+    libpcre3 \
+    libpcre3-dev \
+    zlib1g \
+    zlib1g-dev \
+    libssl-dev
 
 echo "-----> Installing Tempo v${TEMPO_VERSION}"
 
@@ -31,17 +43,49 @@ echo "-----> Installing binaries and scripts"
 cp /tmp/tempo-extract/tempo "$BUILD_DIR/bin/"
 chmod +x "$BUILD_DIR/bin/tempo"
 
+# Installation de Nginx
+echo "-----> Installing Nginx v${NGINX_VERSION}"
+NGINX_ARCHIVE="nginx-${NGINX_VERSION}.tar.gz"
+NGINX_URL="https://nginx.org/download/${NGINX_ARCHIVE}"
+
+# Télécharger et extraire Nginx
+cd /tmp
+curl -L --silent --show-error --retry 3 --fail -o "$NGINX_ARCHIVE" "$NGINX_URL"
+tar -xzf "$NGINX_ARCHIVE"
+cd "nginx-${NGINX_VERSION}"
+
+# Compiler et installer Nginx
+./configure \
+    --prefix="$BUILD_DIR/nginx" \
+    --with-http_ssl_module \
+    --with-http_stub_status_module \
+    --with-cc-opt="-Wno-error"
+make
+make install
+
+# Créer le lien symbolique pour nginx dans le PATH
+mkdir -p "$BUILD_DIR/bin"
+ln -sf "$BUILD_DIR/nginx/sbin/nginx" "$BUILD_DIR/bin/nginx"
+
 # Copier le script de démarrage depuis le buildpack
 cp "$BUILDPACK_DIR/bin/start-tempo" "$BUILD_DIR/bin/"
 chmod +x "$BUILD_DIR/bin/start-tempo"
 
-# 4. Copier la configuration par défaut
+# 4. Copier les configurations par défaut
 if [ -f "$BUILDPACK_DIR/config/tempo.yaml" ]; then
   cp "$BUILDPACK_DIR/config/tempo.yaml" "$BUILD_DIR/config/"
 fi
 
+if [ -f "$BUILDPACK_DIR/config/nginx.conf" ]; then
+  cp "$BUILDPACK_DIR/config/nginx.conf" "$BUILD_DIR/config/"
+fi
+
+# Créer les répertoires nécessaires pour nginx
+mkdir -p "$BUILD_DIR/nginx/logs"
+mkdir -p "$BUILD_DIR/nginx/temp"
+
 # Nettoyage
-rm -rf /tmp/tempo-extract
+rm -rf /tmp/tempo-extract /tmp/nginx-*
 rm -f "/tmp/$TEMPO_ARCHIVE"
 
-echo "-----> Tempo v${TEMPO_VERSION} installed successfully."
+echo "-----> Tempo v${TEMPO_VERSION} and Nginx v${NGINX_VERSION} installed successfully."
