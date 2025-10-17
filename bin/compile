@@ -8,16 +8,8 @@ BUILDPACK_DIR="$(cd -P "$(dirname "$0")/.." && pwd)"
 TEMPO_VERSION="2.4.0" # Version de Tempo à installer
 NGINX_VERSION="1.24.0" # Version de Nginx à installer
 
-# Installation des dépendances système nécessaires
-export DEBIAN_FRONTEND=noninteractive
-apt-get update
-apt-get install -y \
-    build-essential \
-    libpcre3 \
-    libpcre3-dev \
-    zlib1g \
-    zlib1g-dev \
-    libssl-dev
+# Nous n'avons pas besoin d'installer des dépendances système
+# car nous allons utiliser un binaire nginx précompilé
 
 echo "-----> Installing Tempo v${TEMPO_VERSION}"
 
@@ -43,29 +35,27 @@ echo "-----> Installing binaries and scripts"
 cp /tmp/tempo-extract/tempo "$BUILD_DIR/bin/"
 chmod +x "$BUILD_DIR/bin/tempo"
 
-# Installation de Nginx
+# Installation de Nginx depuis un binaire précompilé
 echo "-----> Installing Nginx v${NGINX_VERSION}"
-NGINX_ARCHIVE="nginx-${NGINX_VERSION}.tar.gz"
-NGINX_URL="https://nginx.org/download/${NGINX_ARCHIVE}"
+NGINX_BINARY_URL="https://github.com/alex-ginov/nginx-binaries/releases/download/v${NGINX_VERSION}/nginx-linux-amd64"
 
-# Télécharger et extraire Nginx
-cd /tmp
-curl -L --silent --show-error --retry 3 --fail -o "$NGINX_ARCHIVE" "$NGINX_URL"
-tar -xzf "$NGINX_ARCHIVE"
-cd "nginx-${NGINX_VERSION}"
+# Créer les répertoires pour nginx
+mkdir -p "$BUILD_DIR/nginx/sbin"
+mkdir -p "$BUILD_DIR/nginx/conf"
+mkdir -p "$BUILD_DIR/nginx/logs"
 
-# Compiler et installer Nginx
-./configure \
-    --prefix="$BUILD_DIR/nginx" \
-    --with-http_ssl_module \
-    --with-http_stub_status_module \
-    --with-cc-opt="-Wno-error"
-make
-make install
+# Télécharger le binaire nginx précompilé
+echo "Downloading nginx binary from: $NGINX_BINARY_URL"
+curl -L --silent --show-error --retry 3 --fail -o "$BUILD_DIR/nginx/sbin/nginx" "$NGINX_BINARY_URL"
+chmod +x "$BUILD_DIR/nginx/sbin/nginx"
 
 # Créer le lien symbolique pour nginx dans le PATH
 mkdir -p "$BUILD_DIR/bin"
 ln -sf "$BUILD_DIR/nginx/sbin/nginx" "$BUILD_DIR/bin/nginx"
+
+# Copier les fichiers de configuration nginx par défaut
+mkdir -p "$BUILD_DIR/nginx/conf"
+cp -r "/usr/share/nginx/conf/" "$BUILD_DIR/nginx/" || true  # Ne pas échouer si les fichiers n'existent pas
 
 # Copier le script de démarrage depuis le buildpack
 cp "$BUILDPACK_DIR/bin/start-tempo" "$BUILD_DIR/bin/"
