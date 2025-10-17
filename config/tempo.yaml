@@ -34,14 +34,24 @@ distributor:
 storage:
   trace:
     backend: local
-    # Utiliser /tmp/ pour l'écriture (obligatoire sur les plateformes PaaS)
+    block:
+      # Taille maximale des blocs avant compression
+      bloom_filter_false_positive: .05
+      # Définir des limites de taille raisonnables pour Scalingo
+      v2_index_downsample_bytes: 1000
+      v2_encoding: zstd
+      version: vParquet
+
     wal:
       path: /tmp/tempo-data/wal
-      # Limites de taille pour éviter de saturer le stockage
-      max_block_bytes: 1_000_000  # 1MB max par bloc
+      encoding: snappy    # Compression pour réduire l'utilisation du disque
+
     local:
       path: /tmp/tempo-data/blocks
-      max_block_bytes: 100_000_000 # 100MB total max
+
+    pool:
+      max_workers: 100    # Limite le nombre de workers
+      queue_depth: 10000  # Limite la queue
 
 # Configuration du compresseur
 compactor:
