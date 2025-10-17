@@ -4,7 +4,6 @@
 server:
   http_listen_address: "0.0.0.0"
   http_listen_port: ${PORT}
-  grpc_listen_port: ${PORT}
 
 # Configuration de l'ingestion des traces
 ingester:
@@ -31,20 +30,16 @@ distributor:
     otlp:
       protocols:
         http:
-          endpoint: "0.0.0.0:${PORT}"
           cors:
             allowed_origins:
               - "*"
             allowed_headers:
               - "*"
 
-# Configuration Search
-search_enabled: true
-
 # Configuration Query Frontend
 query_frontend:
-  search:
-    query_backend: local
+  trace:
+    pool_max_idle_streams: 100
 
 # Configuration du compresseur
 compactor:
