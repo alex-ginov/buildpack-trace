@@ -35,19 +35,58 @@ echo "-----> Installing binaries and scripts"
 cp /tmp/tempo-extract/tempo "$BUILD_DIR/bin/"
 chmod +x "$BUILD_DIR/bin/tempo"
 
-# Installation de Nginx depuis un binaire précompilé
+# Installation de Nginx depuis une version statique
 echo "-----> Installing Nginx v${NGINX_VERSION}"
-NGINX_BINARY_URL="https://github.com/alex-ginov/nginx-binaries/releases/download/v${NGINX_VERSION}/nginx-linux-amd64"
 
 # Créer les répertoires pour nginx
 mkdir -p "$BUILD_DIR/nginx/sbin"
 mkdir -p "$BUILD_DIR/nginx/conf"
-mkdir -p "$BUILD_DIR/nginx/logs"
 
-# Télécharger le binaire nginx précompilé
-echo "Downloading nginx binary from: $NGINX_BINARY_URL"
-curl -L --silent --show-error --retry 3 --fail -o "$BUILD_DIR/nginx/sbin/nginx" "$NGINX_BINARY_URL"
-chmod +x "$BUILD_DIR/nginx/sbin/nginx"
+# Télécharger le binaire nginx statique
+NGINX_URL="https://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz"
+
+cd /tmp
+echo "Downloading and building static nginx..."
+curl -L --silent --show-error --retry 3 --fail -o nginx.tar.gz "$NGINX_URL"
+tar xzf nginx.tar.gz
+cd "nginx-${NGINX_VERSION}"
+
+# Installation des dépendances minimales requises dans /tmp
+mkdir -p /tmp/nginx-build
+cd /tmp/nginx-build
+
+# Télécharger et installer PCRE (requis pour nginx)
+curl -L --silent --show-error --retry 3 --fail -o pcre.tar.gz https://sourceforge.net/projects/pcre/files/pcre/8.45/pcre-8.45.tar.gz
+tar xzf pcre.tar.gz
+cd pcre-8.45
+./configure --prefix=/tmp/nginx-build
+make && make install
+cd ..
+
+# Retour à nginx et configuration statique
+cd "/tmp/nginx-${NGINX_VERSION}"
+./configure \
+    --prefix="$BUILD_DIR/nginx" \
+    --with-pcre=/tmp/nginx-build/pcre-8.45 \
+    --with-http_ssl_module \
+    --with-http_stub_status_module \
+    --with-compat \
+    --with-file-aio \
+    --with-threads \
+    --with-http_realip_module \
+    --without-http_rewrite_module \
+    --without-http_fastcgi_module \
+    --without-http_uwsgi_module \
+    --without-http_scgi_module \
+    --without-mail_pop3_module \
+    --without-mail_imap_module \
+    --without-mail_smtp_module
+
+make && make install
+
+# Créer les répertoires nécessaires
+mkdir -p logs conf temp
+chmod 755 logs conf temp
 
 # Créer le lien symbolique pour nginx dans le PATH
 mkdir -p "$BUILD_DIR/bin"

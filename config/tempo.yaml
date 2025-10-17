@@ -37,18 +37,3 @@ compactor:
   compaction:
     block_retention: 24h
 
-storage:
-  trace:
-    backend: local
-    local:
-      path: /tmp/tempo-data/blocks
-    pool:
-      max_workers: 100
-      queue_depth: 10000
-
-# Configuration du compresseur
-compactor:
-  compaction:
-    block_retention: 24h
-    compacted_block_retention: 1h
-
