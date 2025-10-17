@@ -33,25 +33,11 @@ distributor:
 # Configuration du stockage (backend 'local' pour le stockage sur le disque du conteneur)
 storage:
   trace:
-    backend: local
-    block:
-      # Taille maximale des blocs avant compression
-      bloom_filter_false_positive: .05
-      # Définir des limites de taille raisonnables pour Scalingo
-      v2_index_downsample_bytes: 1000
-      v2_encoding: zstd
-      version: vParquet
-
+    backend: local     # Utilisation du backend local
     wal:
-      path: /tmp/tempo-data/wal
-      encoding: snappy    # Compression pour réduire l'utilisation du disque
-
+      path: /tmp/tempo-data/wal    # Chemin pour le Write Ahead Log
     local:
-      path: /tmp/tempo-data/blocks
-
-    pool:
-      max_workers: 100    # Limite le nombre de workers
-      queue_depth: 10000  # Limite la queue
+      path: /tmp/tempo-data/blocks # Chemin pour les blocs de données
 
 # Configuration du compresseur
 compactor:
