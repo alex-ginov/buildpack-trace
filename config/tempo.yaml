@@ -1,11 +1,10 @@
 # /app/config/tempo.yaml
 
-# Configuration du serveur principal (pour l'interface UI, les métriques, etc.)
+# Configuration du serveur
 server:
   http_listen_address: "0.0.0.0"
   http_listen_port: ${PORT}
-  grpc_listen_port: 9095    # Port interne non exposé
-  http_path_prefix: "/ui"   # L'UI sera accessible sur /ui
+  grpc_listen_port: 9095    # Port interne pour les communications gRPC
 
 # Configuration du distributeur (réception des traces)
 distributor:
@@ -17,7 +16,6 @@ distributor:
         http:
           endpoint: "0.0.0.0:${PORT}"
           include_metadata: true
-          path: "/otlp/v1/traces"   # Endpoint OTLP spécifique
           cors:
             allowed_origins:
               - "*"
