@@ -5,6 +5,7 @@ server:
   http_listen_address: "0.0.0.0"
   http_listen_port: ${PORT} # <--- Le serveur principal utilise ${PORT}
   grpc_listen_port: 9095    # <--- Un port interne non exposé
+  http_path_prefix: "" # <--- Racine pour l'UI
 
 # Configuration du distributeur (réception des traces)
 distributor:
@@ -13,12 +14,24 @@ distributor:
       protocols:
         http:
           endpoint: "0.0.0.0:${PORT}"
+          include_metadata: true
           cors:
             allowed_origins:
               - "*"
             allowed_headers:
               - "content-type"
               - "accept"
+              - "traceparent"
+              - "x-b3-traceid"
+              - "x-b3-spanid"
+            exposed_headers:
+              - "traceparent"
+              - "x-b3-traceid"
+              - "x-b3-spanid"
+    jaeger:
+      protocols:
+        thrift_http:
+          endpoint: "0.0.0.0:${PORT}"
           
 # Configuration du stockage (backend 'local' pour le stockage sur le disque du conteneur)
 storage:
@@ -26,13 +39,12 @@ storage:
     backend: local
     # Utiliser /tmp/ pour l'écriture (obligatoire sur les plateformes PaaS)
     wal:
-      path: /tmp/tempo-data/wal 
+      path: /tmp/tempo-data/wal
+      # Limites de taille pour éviter de saturer le stockage
+      max_block_bytes: 1_000_000  # 1MB max par bloc
     local:
-      path: /tmp/tempo-data/blocks 
-
-  cache:
-    max_block_bytes: 1_000_000  # 1MB max par bloc
-    max_total_bytes: 100_000_000 # 100MB total max
+      path: /tmp/tempo-data/blocks
+      max_block_bytes: 100_000_000 # 100MB total max
 
 # Configuration du compresseur
 compactor:
