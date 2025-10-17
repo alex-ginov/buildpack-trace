@@ -3,18 +3,21 @@
 # Configuration du serveur principal (pour l'interface UI, les métriques, etc.)
 server:
   http_listen_address: "0.0.0.0"
-  http_listen_port: ${PORT} # <--- Le serveur principal utilise ${PORT}
-  grpc_listen_port: 9095    # <--- Un port interne non exposé
-  http_path_prefix: "" # <--- Racine pour l'UI
+  http_listen_port: ${PORT}
+  grpc_listen_port: 9095    # Port interne non exposé
+  http_path_prefix: "/ui"   # L'UI sera accessible sur /ui
 
 # Configuration du distributeur (réception des traces)
 distributor:
+  log_received_spans:
+    enabled: true     # Active les logs pour le debugging
   receivers:
     otlp:
       protocols:
         http:
           endpoint: "0.0.0.0:${PORT}"
           include_metadata: true
+          path: "/otlp/v1/traces"   # Endpoint OTLP spécifique
           cors:
             allowed_origins:
               - "*"
@@ -28,10 +31,6 @@ distributor:
               - "traceparent"
               - "x-b3-traceid"
               - "x-b3-spanid"
-    jaeger:
-      protocols:
-        thrift_http:
-          endpoint: "0.0.0.0:${PORT}"
           
 # Configuration du stockage (backend 'local' pour le stockage sur le disque du conteneur)
 storage:
