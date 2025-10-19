@@ -28,13 +28,14 @@ echo "Storage directories created/verified in ${STORAGE_DIR}"
 
 # 3. Lancer Tempo
 echo "-----> Launching Tempo..."
-# 
-# CORRECTION DÉFINITIVE : 
-# - Suppression du flag `--distributor...` non reconnu.
-# - Ajout du flag --config.expand-env=true pour que Tempo lise ${PORT} directement dans tempo.yaml.
-# - On conserve --server.http-listen-port comme double sécurité.
-# 
-exec "${APP_DIR}/bin/tempo" \
-  --config.file="${CONFIG_FILE}" \
+#exec "${APP_DIR}/bin/tempo" \
+#  --config.file="${CONFIG_FILE}" \
+#  --config.expand-env=true \
+#  --server.http-listen-port="${PORT:-3200}"
+
+--config.file="${CONFIG_FILE}" \
   --config.expand-env=true \
-  --server.http-listen-port="${PORT:-3200}"
+  --target=query-frontend \
+  --server.http-listen-address=0.0.0.0 \
+  --server.http-listen-port="${PORT:-3200}" \
+  --server.grpc-listen-address=""

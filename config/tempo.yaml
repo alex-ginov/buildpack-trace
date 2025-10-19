@@ -1,20 +1,9 @@
-# Configuration du serveur
 server:
   http_listen_address: "0.0.0.0"
-  http_listen_port: ${PORT}
-  grpc_listen_port: 9095
+  http_listen_port: ${PORT}  # Pour l'interface web
+  grpc_listen_address: "0.0.0.0"
+  grpc_listen_port: 0  # Désactivé car géré par un processus séparé
 
-# Configuration de l'ingestion des traces
-ingester:
-  trace_idle_period: "30s"
-  max_block_bytes: 1000000
-  max_block_duration: "5m"
-  lifecycler:
-    ring:
-      kvstore:
-        store: inmemory
-
-# Configuration du stockage
 storage:
   trace:
     backend: local
@@ -23,19 +12,19 @@ storage:
     wal:
       path: /tmp/tempo-data/wal
 
-# Configuration OTLP
 distributor:
   receivers:
     otlp:
       protocols:
         http:
-          cors:
-            allowed_origins: ["*"]
-            allowed_headers: ["*"]
-    
+          endpoint: "0.0.0.0:${TCP_HTTP_PORT}"
+        grpc:
+          endpoint: "0.0.0.0:${TCP_GRPC_PORT}"
 
-# Configuration du compresseur
+query_frontend:
+  trace:
+    pool_max_idle_streams: 100
+
 compactor:
   compaction:
     block_retention: 24h
-    compacted_block_retention: 1h

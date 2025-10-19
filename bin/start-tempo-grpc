@@ -1,0 +1,23 @@
+#!/bin/bash
+set -e
+
+APP_DIR="/app"
+CONFIG_FILE="${APP_DIR}/config/tempo.yaml"
+
+echo "===== STARTING TEMPO OTLP gRPC ====="
+
+# Vérification des fichiers
+[ ! -x "${APP_DIR}/bin/tempo" ] && { echo "Error: Tempo binary not found!" >&2; exit 1; }
+[ ! -f "${CONFIG_FILE}" ] && { echo "Error: Config file not found!" >&2; exit 1; }
+
+# Création des répertoires
+STORAGE_DIR="/tmp/tempo-data"
+mkdir -p "${STORAGE_DIR}/wal" "${STORAGE_DIR}/blocks"
+
+echo "-----> Starting Tempo OTLP gRPC Receiver..."
+exec "${APP_DIR}/bin/tempo" \
+  --config.file="${CONFIG_FILE}" \
+  --target=all \
+  --server.grpc-listen-address=0.0.0.0 \
+  --server.grpc-listen-port=4317 \
+  --server.http-listen-address=""
