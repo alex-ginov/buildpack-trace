@@ -1,5 +1,3 @@
-# /app/config/tempo.yaml
-
 # Configuration du serveur
 server:
   http_listen_address: "0.0.0.0"
@@ -34,12 +32,10 @@ distributor:
 
 # Configuration Query Frontend
 query_frontend:
-  trace:
-    pool_max_idle_streams: 100
+  max_outstanding_per_tenant: 100  # Ligne corrigée
 
 # Configuration du compresseur
 compactor:
   compaction:
     block_retention: 24h
     compacted_block_retention: 1h
-
