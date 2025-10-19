@@ -2,6 +2,7 @@
 server:
   http_listen_address: "0.0.0.0"
   http_listen_port: ${PORT}
+  grpc_listen_port: 9095
 
 # Configuration de l'ingestion des traces
 ingester:
@@ -28,11 +29,10 @@ distributor:
     otlp:
       protocols:
         http:
-          endpoint: "0.0.0.0:${PORT}"
-
-# Configuration Query Frontend
-query_frontend:
-  max_outstanding_per_tenant: 100  # Ligne corrigée
+          cors:
+            allowed_origins: ["*"]
+            allowed_headers: ["*"]
+    
 
 # Configuration du compresseur
 compactor:
