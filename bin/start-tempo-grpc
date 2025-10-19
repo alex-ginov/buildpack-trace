@@ -18,6 +18,7 @@ echo "-----> Starting Tempo OTLP gRPC Receiver..."
 exec "${APP_DIR}/bin/tempo" \
   --config.file="${CONFIG_FILE}" \
   --target=all \
+  --config.expand-env=true \
   --server.grpc-listen-address=0.0.0.0 \
-  --server.grpc-listen-port=4317 \
+  --server.grpc-listen-port=${TCP_GRPC_PORT} \
   --server.http-listen-address=""

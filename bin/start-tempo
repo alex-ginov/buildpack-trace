@@ -26,16 +26,13 @@ mkdir -p "${STORAGE_DIR}/wal"
 mkdir -p "${STORAGE_DIR}/blocks"
 echo "Storage directories created/verified in ${STORAGE_DIR}"
 
-# 3. Lancer Tempo
-echo "-----> Launching Tempo..."
-#exec "${APP_DIR}/bin/tempo" \
-#  --config.file="${CONFIG_FILE}" \
-#  --config.expand-env=true \
-#  --server.http-listen-port="${PORT:-3200}"
+# 3. Lancer Tempo (uniquement le query-frontend)
+echo "-----> Starting Tempo Query Frontend..."
 
---config.file="${CONFIG_FILE}" \
-  --config.expand-env=true \
+exec "${APP_DIR}/bin/tempo" \
+  --config.file="${CONFIG_FILE}" \
   --target=query-frontend \
+  --config.expand-env=true \
   --server.http-listen-address=0.0.0.0 \
-  --server.http-listen-port="${PORT:-3200}" \
+  --server.http-listen-port=${PORT} \
   --server.grpc-listen-address=""
