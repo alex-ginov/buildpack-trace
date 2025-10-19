@@ -30,11 +30,7 @@ distributor:
     otlp:
       protocols:
         http:
-          cors:
-            allowed_origins:
-              - "*"
-            allowed_headers:
-              - "*"
+          endpoint: "0.0.0.0:${PORT}"
 
 # Configuration Query Frontend
 query_frontend:
