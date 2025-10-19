@@ -20,5 +20,5 @@ exec "${APP_DIR}/bin/tempo" \
   --target=all \
   --config.expand-env=true \
   --server.grpc-listen-address=0.0.0.0 \
-  --server.grpc-listen-port=${TCP_GRPC_PORT} \
+  --server.grpc-listen-port=${TCP_GRPC_PORT:-4317} \
   --server.http-listen-address=""
