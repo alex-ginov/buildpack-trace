@@ -23,14 +23,10 @@ mkdir -p "${STORAGE_DIR}/wal"
 mkdir -p "${STORAGE_DIR}/blocks"
 echo "Storage directories created/verified in ${STORAGE_DIR}"
 
-# 3. Lancer Tempo en mode gRPC pour TCP Gateway
+# 3. Lancer Tempo avec la configuration uniquement (comme start-tempo)
 echo "-----> Starting Tempo gRPC process..."
 
 exec "${APP_DIR}/bin/tempo" \
   --config.file="${CONFIG_FILE}" \
   --target=all \
-  --config.expand-env=true \
-  --server.grpc-listen-address=0.0.0.0 \
-  --server.grpc-listen-port=${TCP_GRPC_PORT:-4317} \
-  --querier.frontend-address="127.0.0.1:${TCP_GRPC_PORT:-4317}" \
-  --target.config.ring_http_prefix="http://127.0.0.1:${TCP_GRPC_PORT:-4317}"
+  --config.expand-env=true
