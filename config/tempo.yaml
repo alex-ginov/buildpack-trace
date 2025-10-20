@@ -1,11 +1,11 @@
-# tempo.yaml complet
+# Configuration Tempo corrigée pour Scalingo
 server:
   http_listen_address: "0.0.0.0"
   http_listen_port: ${PORT}
   grpc_listen_address: "0.0.0.0"
   grpc_listen_port: ${TCP_GRPC_PORT:-4317}
-  grpc_external_address: 127.0.0.1:${TCP_GRPC_PORT:-4317}
 
+# Configuration du stockage local
 storage:
   trace:
     backend: local
@@ -14,25 +14,24 @@ storage:
     wal:
       path: /tmp/tempo-data/wal
 
+# Configuration des récepteurs OTLP (version moderne)
 distributor:
   receivers:
     otlp:
       protocols:
         grpc:
           endpoint: "0.0.0.0:${TCP_GRPC_PORT:-4317}"
+        http:
+          endpoint: "0.0.0.0:${PORT}"
 
-# Correction de l'anneau pour le mode monolithique local
+# Configuration de l'anneau pour le mode monolithique
 ring:
   instance_addr: 127.0.0.1
   instance_port: ${TCP_GRPC_PORT:-4317}
   kvstore:
-    store: inmemory 
+    store: inmemory
 
-# Désactiver le Query Frontend pour éliminer la source d'erreur
-querier:
-  search:
-    query_frontend_enabled: false
-
+# Configuration du compactor
 compactor:
   compaction:
     block_retention: 24h
