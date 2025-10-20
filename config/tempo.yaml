@@ -1,20 +1,38 @@
 server:
-  http_listen_port: 3200
+  http_listen_port: ${PORT:-3200}
+  grpc_listen_address: 0.0.0.0:${TCP_GRPC_PORT:-4317}
+  log_level: info
 
 distributor:
   receivers:
     otlp:
       protocols:
         grpc:
+          endpoint: 0.0.0.0:${TCP_GRPC_PORT:-4317}
         http:
-        
+          endpoint: 0.0.0.0:${PORT:-3200}
+  log_received_traces: true
+  log_received_spans:
+    enabled: true
+    include_all_attributes: false
+    filter:
+      include:
+        match_type: strict
+        services: []
+
 ingester:
   trace_idle_period: 10s
   max_block_duration: 5m
+  lifecycler:
+    ring:
+      kvstore:
+        store: inmemory
+      replication_factor: 1
 
 compactor:
   compaction:
-    block_retention: 1h
+    block_retention: 24h
+    compacted_block_retention: 1h
 
 storage:
   trace:
@@ -23,3 +41,16 @@ storage:
       path: /tmp/tempo-data/traces
     wal:
       path: /tmp/tempo-data/wal
+    pool:
+      max_workers: 100
+      queue_depth: 10000
+
+# Configuration pour l'exportation des métriques
+metrics_generator:
+  registry:
+    external_labels:
+      source: tempo
+      environment: ${ENVIRONMENT:-development}
+  storage:
+    path: /tmp/tempo-data/metrics
+    wal: /tmp/tempo-data/wal-metrics

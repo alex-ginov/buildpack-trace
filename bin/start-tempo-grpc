@@ -5,6 +5,7 @@ echo "===== TCP GATEWAY DUMMY PROCESS ====="
 echo "This process is only here to expose gRPC port ${TCP_GRPC_PORT:-4317} via Scalingo's TCP Gateway."
 echo "Tempo is running in the 'web' process."
 
-# Sleep indéfiniment pour garder le processus en vie 
-# et maintenir l'ouverture de la connexion TCP.
-sleep infinity
+# Boucle infinie portable
+while true; do
+    sleep 3600
+done
