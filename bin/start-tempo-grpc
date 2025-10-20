@@ -1,32 +1,10 @@
 #!/bin/bash
 set -e
 
-APP_DIR="/app"
-CONFIG_FILE="${APP_DIR}/config/tempo.yaml"
+echo "===== TCP GATEWAY DUMMY PROCESS ====="
+echo "This process is only here to expose gRPC port ${TCP_GRPC_PORT:-4317} via Scalingo's TCP Gateway."
+echo "Tempo is running in the 'web' process."
 
-echo "===== STARTING TEMPO gRPC (TCP GATEWAY) ====="
-echo "gRPC PORT: ${TCP_GRPC_PORT:-4317}"
-
-# 1. Vérification des fichiers et du binaire
-if [ ! -x "${APP_DIR}/bin/tempo" ]; then
-  echo "Error: Tempo binary not found or not executable!" >&2
-  exit 1
-fi
-if [ ! -f "${CONFIG_FILE}" ]; then
-  echo "Error: Configuration file ${CONFIG_FILE} not found!" >&2
-  exit 1
-fi
-
-# 2. Créer les répertoires de stockage dans /tmp/
-STORAGE_DIR="/tmp/tempo-data"
-mkdir -p "${STORAGE_DIR}/wal"
-mkdir -p "${STORAGE_DIR}/blocks"
-echo "Storage directories created/verified in ${STORAGE_DIR}"
-
-# 3. Lancer Tempo avec la configuration uniquement (comme start-tempo)
-echo "-----> Starting Tempo gRPC process..."
-
-exec "${APP_DIR}/bin/tempo" \
-  --config.file="${CONFIG_FILE}" \
-  --target=all \
-  --config.expand-env=true
+# Sleep indéfiniment pour garder le processus en vie 
+# et maintenir l'ouverture de la connexion TCP.
+sleep infinity
