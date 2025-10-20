@@ -1,36 +1,29 @@
 server:
-  http_listen_address: "0.0.0.0"
   http_listen_port: ${PORT}
-  grpc_listen_address: "0.0.0.0"
-  grpc_listen_port: ${TCP_GRPC_PORT:-4317}
+  grpc_listen_port: ${PORT}
+
+distributor:
+  receivers:
+    otlp:
+      protocols:
+        grpc: {}
+        http: {}
+
+ingester:
+  lifecycler:
+    ring:
+      kvstore:
+        store: inmemory
+      replication_factor: 1
 
 storage:
   trace:
     backend: local
-    local:
-      path: /tmp/tempo-data/blocks
     wal:
       path: /tmp/tempo-data/wal
-
-distributor:
-  # Laisse vide pour utiliser le serveur gRPC principal
-
-# Nouvelle configuration memberlist/ring
-memberlist:
-  # 💡 CORRECTION: instance_addr et instance_port DOIVENT être ici
-  instance_addr: 0.0.0.0
-  instance_port: ${TCP_GRPC_PORT:-4317}
-  # Le kvstore pour l'anneau est maintenant une sous-section de memberlist
-  kvstore:
-    store: inmemory 
-  
-# Configuration Querier
-querier:
-  # 💡 CORRECTION: query_frontend_enabled est bien sous querier
-  # Si l'erreur persiste sur ce champ, cela pourrait être dû à un autre
-  # champ manquant. Nous allons le laisser comme ceci pour l'instant.
-  query_frontend_enabled: false 
+    local:
+      path: /tmp/tempo-data/blocks
 
 compactor:
   compaction:
-    block_retention: 24h
+    block_retention: 1h
