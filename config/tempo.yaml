@@ -1,11 +1,11 @@
-# Configuration Tempo ultra-simplifiée pour Scalingo
+# Configuration Tempo MINIMALISTE - Mode monolithique pur
 server:
   http_listen_address: "0.0.0.0"
   http_listen_port: ${PORT}
   grpc_listen_address: "0.0.0.0"
   grpc_listen_port: ${TCP_GRPC_PORT:-4317}
 
-# Configuration du stockage local
+# Stockage local uniquement
 storage:
   trace:
     backend: local
@@ -14,7 +14,7 @@ storage:
     wal:
       path: /tmp/tempo-data/wal
 
-# Configuration des récepteurs OTLP
+# Récepteurs OTLP
 distributor:
   receivers:
     otlp:
@@ -24,24 +24,29 @@ distributor:
         http:
           endpoint: "0.0.0.0:${PORT}"
 
-# Configuration de l'anneau pour le mode monolithique
+# Anneau minimal
 ring:
   instance_addr: 127.0.0.1
   instance_port: ${TCP_GRPC_PORT:-4317}
   kvstore:
     store: inmemory
 
-# Configuration du compactor
+# Compactor simple
 compactor:
   compaction:
     block_retention: 24h
 
-# Configuration des limites pour éviter les erreurs
+# Limites minimales
 limits:
   per_tenant:
-    max_traces_per_user: 10000
-    max_bytes_per_trace: 5000000
+    max_traces_per_user: 1000
+    max_bytes_per_trace: 1000000
 
-# Désactiver le query frontend pour éviter les erreurs de connexion
+# FORCER le mode monolithique - DÉSACTIVER le query frontend
 querier:
   frontend_address: ""
+  frontend_enabled: false
+
+# DÉSACTIVER complètement le query frontend
+query_frontend:
+  enabled: false
