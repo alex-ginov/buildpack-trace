@@ -1,13 +1,9 @@
+# tempo.yaml complet
 server:
   http_listen_address: "0.0.0.0"
   http_listen_port: ${PORT}
-  
-  # CORRECTION 1: Le server DOIT écouter le gRPC pour les communications internes et la TCP Gateway
   grpc_listen_address: "0.0.0.0"
   grpc_listen_port: ${TCP_GRPC_PORT:-4317}
-  
-  # CORRECTION 2: Adresse d'enregistrement pour le Ring (résout l'erreur 127.0.0.1:0)
-  # Ceci permet aux composants de Tempo (Querier, Frontend) de se trouver
   grpc_external_address: 127.0.0.1:${TCP_GRPC_PORT:-4317}
 
 storage:
@@ -23,14 +19,19 @@ distributor:
     otlp:
       protocols:
         grpc:
-          # CORRECTION 3: L'endpoint ici est désormais géré par le port gRPC du 'server' principal
-          # On peut le laisser vide si le server.grpc_listen_port est défini. 
-          # Mais pour être explicite et éviter des conflits, on le fait pointer vers le même port.
           endpoint: "0.0.0.0:${TCP_GRPC_PORT:-4317}"
 
-# Le mode target: all est implicitement activé par votre script de démarrage, 
-# mais si vous voulez le laisser ici, c'est aussi possible.
-# target: all 
+# Correction de l'anneau pour le mode monolithique local
+ring:
+  instance_addr: 127.0.0.1
+  instance_port: ${TCP_GRPC_PORT:-4317}
+  kvstore:
+    store: inmemory 
+
+# Désactiver le Query Frontend pour éliminer la source d'erreur
+querier:
+  search:
+    query_frontend_enabled: false
 
 compactor:
   compaction:
