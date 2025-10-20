@@ -39,5 +39,5 @@ metrics_generator:
       source: tempo
       environment: ${ENVIRONMENT:-development}
   storage:
-    path: /tmp/tempo-data/metrics
-    wal: /tmp/tempo-data/wal-metrics
+    path: /tmp/tempo-data/blocks
+    wal: /tmp/tempo-data/wal
