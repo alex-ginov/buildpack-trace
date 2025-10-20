@@ -29,10 +29,12 @@ echo "Storage directories created/verified in ${STORAGE_DIR}"
 # 3. Lancer Tempo (uniquement le query-frontend)
 echo "-----> Starting Tempo Query Frontend..."
 
+
 exec "${APP_DIR}/bin/tempo" \
   --config.file="${CONFIG_FILE}" \
   --target=query-frontend \
   --config.expand-env=true \
   --server.http-listen-address=0.0.0.0 \
   --server.http-listen-port=${PORT} \
-  --server.grpc-listen-address=""
+  --server.grpc-listen-address="" \
+  --querier.frontend-address="127.0.0.1:${TCP_GRPC_PORT:-4317}" # <--- AJOUT CRUCIAL
