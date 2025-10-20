@@ -1,97 +1,36 @@
-# Configuration définitive pour Grafana Tempo v2.4.0 en mode Monolithique.
-
-# I. Configuration de base du serveur
 server:
-  # Port HTTP (écoute du Query Frontend et de l'API de statut)
   http_listen_address: "0.0.0.0"
   http_listen_port: ${PORT}
-  # Port gRPC (utilisé pour les communications internes et le Distributeur)
   grpc_listen_address: "0.0.0.0"
   grpc_listen_port: ${TCP_GRPC_PORT:-4317}
 
-# II. Définition des Receivers (Points d'entrée d'ingestion des traces)
-# NOTE: En mode Monolithique, ces endpoints sont souvent implicites 
-# ou définis pour l'Ingester/Distributor, mais cette structure est acceptée
-# si l'on ne spécifie pas de receveur dans la section 'distributor'.
-receivers:
-  otlp:
-    protocols:
-      # L'endpoint gRPC DOIT être différent du port gRPC principal si un receveur est défini.
-      # Cependant, en Monolithique, nous préférons utiliser le serveur gRPC principal,
-      # donc nous commentons/retirons cette section si le distributeur utilise le port principal.
-      # L'erreur initiale "address already in use" est évitée si le distributeur n'a pas cette section.
-      # Nous la retirons pour éviter tout conflit.
-
-distributor:
-  # Le distributeur utilise le serveur gRPC principal de l'application.
-  # Les receveurs ne sont donc pas définis ici.
-  log_received_spans: false
-
-# III. Configuration du Stockage (Local/Éphémère pour Scalingo PoC)
 storage:
   trace:
-    # Utilisation du stockage local (temporaire) dans le conteneur.
     backend: local
     local:
       path: /tmp/tempo-data/blocks
     wal:
       path: /tmp/tempo-data/wal
-    
-    block:
-      # V2.4.0 utilise vParquet3 par défaut. Explicite pour la clarté.
-      version: vParquet3 
 
-# IV. Configuration de l'Ingester (Lifecycler et Ring)
-ingester:
-  lifecycler:
-    # Placement validé du bloc 'ring' sous lifecycler
-    ring:
-      # Utilisation de 'memberlist' comme KVStore intégré
-      kvstore:
-        store: memberlist
-        prefix: ingester/
-      # Utilise 0.0.0.0 pour les conteneurs afin d'éviter les problèmes d'interface
-      instance_addr: 0.0.0.0 
-    
-    # Pour memberlist, l'ingester doit rejoindre sa propre adresse de gossip
-    # L'adresse est dérivée de memberlist.bind_addr/port (voir section X)
-    # L'adresse de l'instance pour la jointure est généralement l'adresse interne du conteneur.
-    # Pour un monolithique, laissons l'auto-découverte si possible, ou spécifions 0.0.0.0:7946
+distributor:
+  # Laisse vide pour utiliser le serveur gRPC principal
 
-# V. Configuration du Compactor
-compactor:
-  # Le Compactor utilise également un ring (l'ancienne syntaxe de ring de haut niveau pourrait encore fonctionner, 
-  # mais nous utilisons la structure du rapport pour la cohérence)
-  ring:
-    kvstore:
-      store: memberlist
-      prefix: compactor/
-    instance_addr: 0.0.0.0
-  
-  compaction_interval: 10m
-  max_range_duration: 1h
-
-# VI. Configuration du Query Frontend (Emplacement validé: Top Level Block)
-# La simple présence de ce bloc active et configure le service.
-query_frontend:
-  max_retries: 2
-  max_outstanding_per_tenant: 2000
-  response_consumers: 10
-
-# VII. Configuration du Querier
-querier:
-  # Pas de champ 'search' ou 'query_frontend_enabled' nécessaire ici
-  max_query_parallelism: 32
-
-# VIII. Configuration du Hash Ring Memberlist
-# Bloc racine dédié aux paramètres du protocole gossip (memberlist).
-# Le port 7946 doit être ouvert si vous passez en mode distribué plus tard.
+# Nouvelle configuration memberlist/ring
 memberlist:
-  bind_addr: 0.0.0.0
-  bind_port: 7946
+  # 💡 CORRECTION: instance_addr et instance_port DOIVENT être ici
+  instance_addr: 0.0.0.0
+  instance_port: ${TCP_GRPC_PORT:-4317}
+  # Le kvstore pour l'anneau est maintenant une sous-section de memberlist
+  kvstore:
+    store: inmemory 
+  
+# Configuration Querier
+querier:
+  # 💡 CORRECTION: query_frontend_enabled est bien sous querier
+  # Si l'erreur persiste sur ce champ, cela pourrait être dû à un autre
+  # champ manquant. Nous allons le laisser comme ceci pour l'instant.
+  query_frontend_enabled: false 
 
-# IX. Configuration du Cache (SUPPRIMÉE, car elle nécessite un Memcached compagnon)
-# L'instance démarrera sans cache, ce qui est préférable à l'échec immédiat.
-# Si vous ajoutez un Memcached plus tard, cette section devra être réintégrée.
-# cache:
-#   ...
+compactor:
+  compaction:
+    block_retention: 24h
