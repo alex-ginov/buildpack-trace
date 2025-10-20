@@ -6,7 +6,6 @@ CONFIG_FILE="${APP_DIR}/config/tempo.yaml"
 
 echo "===== STARTING TEMPO (FIXED) ====="
 echo "HTTP PORT: ${PORT}" 
-echo "gRPC PORT: ${TCP_GRPC_PORT:-4317}"
 
 # 1. Vérification des fichiers et du binaire
 if [ ! -x "${APP_DIR}/bin/tempo" ]; then
