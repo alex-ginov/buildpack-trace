@@ -16,8 +16,6 @@ distributor:
   receivers:
     otlp:
       protocols:
-        http:
-          endpoint: "0.0.0.0:${TCP_HTTP_PORT:-4318}"
         grpc:
           endpoint: "0.0.0.0:${TCP_GRPC_PORT:-4317}"
 
