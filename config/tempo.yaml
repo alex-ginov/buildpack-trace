@@ -19,9 +19,6 @@ distributor:
         grpc:
           endpoint: "0.0.0.0:${TCP_GRPC_PORT:-4317}"
 
-query_frontend:
-    pool_max_idle_streams: 100
-
 # Désactive les composants inutiles pour le récepteur gRPC
 target: all
 
