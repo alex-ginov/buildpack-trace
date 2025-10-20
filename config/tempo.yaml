@@ -1,4 +1,4 @@
-# Configuration Tempo optimisée pour TCP Gateway Scalingo
+# Configuration Tempo simplifiée pour Scalingo
 server:
   http_listen_address: "0.0.0.0"
   http_listen_port: ${PORT}
@@ -31,17 +31,7 @@ ring:
   kvstore:
     store: inmemory
 
-# Configuration du querier (CRUCIAL pour éviter les erreurs frontend)
-querier:
-  frontend_address: "127.0.0.1:${TCP_GRPC_PORT:-4317}"
-
 # Configuration du compactor
 compactor:
   compaction:
     block_retention: 24h
-
-# Configuration des limites pour éviter les erreurs
-limits:
-  per_tenant:
-    max_traces_per_user: 10000
-    max_bytes_per_trace: 5000000

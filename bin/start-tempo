@@ -4,18 +4,18 @@ set -e
 APP_DIR="/app"
 CONFIG_FILE="${APP_DIR}/config/tempo.yaml"
 
-echo "===== STARTING TEMPO  (ALL COMPONENTS) ====="
+echo "===== STARTING TEMPO (SIMPLIFIED) ====="
 echo "HTTP PORT: ${PORT}" 
-echo "gRPC PORT: 4317 (for TCP Gateway)"
+echo "gRPC PORT: ${TCP_GRPC_PORT:-4317}"
 
 # 1. Vérification des fichiers et du binaire
 if [ ! -x "${APP_DIR}/bin/tempo" ]; then
-  echo "Error: Tempo binary not found or not executable!" >&2
-  exit 1
+  echo "Error: Tempo binary not found or not executable!" >&2
+  exit 1
 fi
 if [ ! -f "${CONFIG_FILE}" ]; then
-  echo "Error: Configuration file ${CONFIG_FILE} not found!" >&2
-  exit 1
+  echo "Error: Configuration file ${CONFIG_FILE} not found!" >&2
+  exit 1
 fi
 
 # 2. Créer les répertoires de stockage dans /tmp/
@@ -24,16 +24,10 @@ mkdir -p "${STORAGE_DIR}/wal"
 mkdir -p "${STORAGE_DIR}/blocks"
 echo "Storage directories created/verified in ${STORAGE_DIR}"
 
-# 3. Lancer Tempo en mode ALL
+# 3. Lancer Tempo en mode monolithique simplifié
 echo "-----> Starting Tempo process..."
 
 exec "${APP_DIR}/bin/tempo" \
   --config.file="${CONFIG_FILE}" \
   --target=all \
-  --config.expand-env=true \
-  --server.http-listen-address=0.0.0.0 \
-  --server.http-listen-port=${PORT} \
-  --server.grpc-listen-address=0.0.0.0 \
-  --server.grpc-listen-port=${TCP_GRPC_PORT:-4317} \
-  --querier.frontend-address="127.0.0.1:${TCP_GRPC_PORT:-4317}" \
-  --target.config.ring_http_prefix="http://127.0.0.1:${TCP_GRPC_PORT:-4317}" # <-- AJOUT CRUCIAL
+  --config.expand-env=true
