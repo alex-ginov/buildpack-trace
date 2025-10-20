@@ -1,11 +1,12 @@
+# Configuration Serveur
 server:
   http_listen_address: "0.0.0.0"
   http_listen_port: ${PORT}
   grpc_listen_address: "0.0.0.0"
   grpc_listen_port: ${TCP_GRPC_PORT:-4317}
-  # L'adresse externe doit correspondre au port d'écoute gRPC
-  grpc_external_address: 0.0.0.0:${TCP_GRPC_PORT:-4317} 
+  # grpc_external_address est supprimé dans les versions récentes
 
+# Configuration Stockage (Local pour monolithique)
 storage:
   trace:
     backend: local
@@ -14,26 +15,27 @@ storage:
     wal:
       path: /tmp/tempo-data/wal
 
+# Configuration Distributeur (sans endpoint, utilise le serveur gRPC principal)
 distributor:
-  # 💡 CORRECTION CRITIQUE : Cette section DOIT être retirée en mode monolithique
-  # car le serveur principal gRPC écoute déjà sur ce port (4317).
-  # receivers:
-  #   otlp:
-  #     protocols:
-  #       grpc:
-  #         endpoint: "0.0.0.0:${TCP_GRPC_PORT:-4317}"
+  # Laisse les receivers vides pour utiliser le port gRPC du serveur principal
 
-ring:
-  # Utiliser 0.0.0.0 est nécessaire dans la plupart des environnements conteneurisés
-  instance_addr: 0.0.0.0 
+# Configuration des membres du cluster (remplace l'ancienne section 'ring')
+memberlist:
+  # L'ancienne 'ring.instance_addr' et 'ring.instance_port' sont ici:
+  instance_addr: 0.0.0.0
   instance_port: ${TCP_GRPC_PORT:-4317}
-  kvstore:
-    store: inmemory 
+  # L'ancienne 'ring.kvstore' est maintenant configurée dans 'memberlist_kv'
 
+# L'ancienne section 'ring' est déplacée sous 'memberlist_kv'
+memberlist_kv:
+  store: inmemory 
+
+# Configuration Querier
 querier:
-  search:
-    query_frontend_enabled: false
-
+  # 💡 CORRECTION: Le champ est maintenant directement sous 'querier'
+  query_frontend_enabled: false 
+  
+# Configuration Compactor
 compactor:
   compaction:
     block_retention: 24h
