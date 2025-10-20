@@ -1,11 +1,11 @@
-# Configuration Tempo 2.4.0 COMPATIBLE - Mode monolithique pur
 server:
   http_listen_address: "0.0.0.0"
   http_listen_port: ${PORT}
   grpc_listen_address: "0.0.0.0"
   grpc_listen_port: ${TCP_GRPC_PORT:-4317}
+  # L'adresse externe doit correspondre au port d'écoute gRPC
+  grpc_external_address: 0.0.0.0:${TCP_GRPC_PORT:-4317} 
 
-# Stockage local uniquement
 storage:
   trace:
     backend: local
@@ -14,17 +14,26 @@ storage:
     wal:
       path: /tmp/tempo-data/wal
 
-# Récepteurs OTLP
 distributor:
-  receivers:
-    otlp:
-      protocols:
-        grpc:
-          endpoint: "0.0.0.0:${TCP_GRPC_PORT:-4317}"
-        http:
-          endpoint: "0.0.0.0:${PORT}"
+  # 💡 CORRECTION CRITIQUE : Cette section DOIT être retirée en mode monolithique
+  # car le serveur principal gRPC écoute déjà sur ce port (4317).
+  # receivers:
+  #   otlp:
+  #     protocols:
+  #       grpc:
+  #         endpoint: "0.0.0.0:${TCP_GRPC_PORT:-4317}"
 
-# Compactor simple
+ring:
+  # Utiliser 0.0.0.0 est nécessaire dans la plupart des environnements conteneurisés
+  instance_addr: 0.0.0.0 
+  instance_port: ${TCP_GRPC_PORT:-4317}
+  kvstore:
+    store: inmemory 
+
+querier:
+  search:
+    query_frontend_enabled: false
+
 compactor:
   compaction:
     block_retention: 24h
