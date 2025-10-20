@@ -28,16 +28,8 @@ storage:
   trace:
     backend: local
     local:
-      path: /tmp/tempo-data/traces
+      path: /tmp/tempo-data/blocks
     wal:
       path: /tmp/tempo-data/wal
    
-# Configuration pour l'exportation des métriques
-metrics_generator:
-  registry:
-    external_labels:
-      source: tempo
-      environment: ${ENVIRONMENT:-development}
-  storage:
-    path: /tmp/tempo-data/blocks
-    wal: /tmp/tempo-data/wal
+    
