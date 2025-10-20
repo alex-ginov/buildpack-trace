@@ -1,4 +1,4 @@
-# Configuration Tempo corrigée pour Scalingo
+# Configuration Tempo optimisée pour TCP Gateway Scalingo
 server:
   http_listen_address: "0.0.0.0"
   http_listen_port: ${PORT}
@@ -14,7 +14,7 @@ storage:
     wal:
       path: /tmp/tempo-data/wal
 
-# Configuration des récepteurs OTLP (version moderne)
+# Configuration des récepteurs OTLP
 distributor:
   receivers:
     otlp:
@@ -30,6 +30,10 @@ ring:
   instance_port: ${TCP_GRPC_PORT:-4317}
   kvstore:
     store: inmemory
+
+# Configuration du querier (CRUCIAL pour éviter les erreurs frontend)
+querier:
+  frontend_address: "127.0.0.1:${TCP_GRPC_PORT:-4317}"
 
 # Configuration du compactor
 compactor:
