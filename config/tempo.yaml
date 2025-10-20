@@ -1,4 +1,4 @@
-# Configuration Tempo MINIMALISTE - Mode monolithique pur
+# Configuration Tempo 2.4.0 COMPATIBLE - Mode monolithique pur
 server:
   http_listen_address: "0.0.0.0"
   http_listen_port: ${PORT}
@@ -24,29 +24,7 @@ distributor:
         http:
           endpoint: "0.0.0.0:${PORT}"
 
-# Anneau minimal
-ring:
-  instance_addr: 127.0.0.1
-  instance_port: ${TCP_GRPC_PORT:-4317}
-  kvstore:
-    store: inmemory
-
 # Compactor simple
 compactor:
   compaction:
     block_retention: 24h
-
-# Limites minimales
-limits:
-  per_tenant:
-    max_traces_per_user: 1000
-    max_bytes_per_trace: 1000000
-
-# FORCER le mode monolithique - DÉSACTIVER le query frontend
-querier:
-  frontend_address: ""
-  frontend_enabled: false
-
-# DÉSACTIVER complètement le query frontend
-query_frontend:
-  enabled: false
