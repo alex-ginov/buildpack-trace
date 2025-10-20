@@ -39,3 +39,9 @@ querier:
 compactor:
   compaction:
     block_retention: 24h
+
+# Configuration des limites pour éviter les erreurs
+limits:
+  per_tenant:
+    max_traces_per_user: 10000
+    max_bytes_per_trace: 5000000
