@@ -1,67 +1,3 @@
-2025-10-21 12:47:59.007431044 +0200 CEST [web-1] level=warn ts=2025-10-21T10:47:59.007272445Z caller=modules.go:456 msg="Worker address is empty in single binary mode. Attempting automatic worker configuration. If queries are unresponsive consider configuring the worker explicitly." address=127.0.0.1:9095
-2025-10-21 12:47:59.007675413 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.007489705Z caller=worker.go:108 msg="Starting querier worker connected to query-frontend" frontend=127.0.0.1:9095
-2025-10-21 12:47:59.011050212 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.010867322Z caller=module_service.go:82 msg=starting module=store
-2025-10-21 12:47:58.952149838 +0200 CEST [web-1] ✅ Directories created (if missing)
-2025-10-21 12:47:59.008063199 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.007879984Z caller=frontend.go:69 msg="creating middleware in query frontend"
-2025-10-21 12:47:58.952193735 +0200 CEST [web-1] 🚀 Starting Tempo...
-2025-10-21 12:47:59.000115422 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:58.999722431Z caller=main.go:103 msg="Starting Tempo" version="(version=2.9.0, branch=HEAD, revision=607c7fb69)" target=all
-2025-10-21 12:47:59.011163861 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.010933678Z caller=module_service.go:82 msg=starting module=memberlist-kv
-2025-10-21 12:47:59.008100231 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.007948419Z caller=sync_handler_cache.go:131 msg="init frontend cache" role=frontend-search enabled=false
-2025-10-21 12:47:59.008149649 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.007974181Z caller=sync_handler_cache.go:131 msg="init frontend cache" role=frontend-search enabled=false
-2025-10-21 12:47:59.011164566 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.010973156Z caller=module_service.go:82 msg=starting module=overrides
-2025-10-21 12:47:59.011164971 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.011060447Z caller=module_service.go:82 msg=starting module=live-store-ring
-2025-10-21 12:47:59.000478540 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.000205826Z caller=cache.go:55 msg="caches available to storage backend" parquet-footer=false bloom=false parquet-offset-idx=false parquet-column-idx=false trace-id-index=false parquet-page=false
-2025-10-21 12:47:59.008150735 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.007980683Z caller=sync_handler_cache.go:131 msg="init frontend cache" role=frontend-search enabled=false
-2025-10-21 12:47:59.011371361 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.011092088Z caller=module_service.go:82 msg=starting module=overrides-api
-2025-10-21 12:47:59.008151509 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.007986882Z caller=sync_handler_cache.go:131 msg="init frontend cache" role=frontend-search enabled=false
-2025-10-21 12:47:59.011374033 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.011103651Z caller=module_service.go:82 msg=starting module=secondary-ring
-2025-10-21 12:47:59.008152153 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.007996205Z caller=sync_handler_cache.go:131 msg="init frontend cache" role=frontend-search enabled=false
-2025-10-21 12:47:59.011374617 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.011145256Z caller=module_service.go:82 msg=starting module=ring
-2025-10-21 12:47:59.014166309 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.014088144Z caller=ingester.go:465 msg="reloading local blocks" tenants=0
-2025-10-21 12:47:59.011375466 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.011172014Z caller=module_service.go:82 msg=starting module=usage-report
-2025-10-21 12:47:59.008155053 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.008002222Z caller=sync_handler_cache.go:131 msg="init frontend cache" role=frontend-search enabled=false
-2025-10-21 12:47:59.011543198 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.011434791Z caller=module_service.go:82 msg=starting module=block-builder
-2025-10-21 12:47:59.014103220 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.011892514Z caller=module_service.go:82 msg=starting module=metrics-generator
-2025-10-21 12:47:59.011375942 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.011258525Z caller=ring.go:365 msg="ring doesn't exist in KV store yet"
-2025-10-21 12:47:59.014278423 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.014136679Z caller=lifecycler.go:687 msg="not loading tokens from file, tokens file path is empty"
-2025-10-21 12:47:59.014165366 +0200 CEST [web-1] level=warn ts=2025-10-21T10:47:59.014036376Z caller=wal.go:103 msg="unowned file entry ignored during wal replay" file=blocks err=null
-2025-10-21 12:47:59.011375049 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.011166196Z caller=module_service.go:82 msg=starting module=metrics-generator-ring
-2025-10-21 12:47:59.011543752 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.011447716Z caller=module_service.go:82 msg=starting module=ingester
-2025-10-21 12:47:59.014395096 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.012068565Z caller=worker.go:184 msg="adding connection" addr=127.0.0.1:9095
-2025-10-21 12:47:59.011376348 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.011286111Z caller=ring.go:365 msg="ring doesn't exist in KV store yet"
-2025-10-21 12:47:59.014165904 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.014058339Z caller=ingester.go:451 msg="wal replay complete"
-2025-10-21 12:47:59.011827362 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.01134702Z caller=module_service.go:82 msg=starting module=compactor
-2025-10-21 12:47:59.014396255 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.014270932Z caller=lifecycler.go:714 msg="instance not found in ring, adding with no tokens" ring=ingester
-2025-10-21 12:47:59.014783819 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.014626381Z caller=tempodb.go:598 msg="compaction and retention enabled."
-2025-10-21 12:47:59.011376726 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.011295912Z caller=module_service.go:82 msg=starting module=query-frontend
-2025-10-21 12:47:59.014101146 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.011792783Z caller=ingester.go:413 msg="beginning wal replay"
-2025-10-21 12:47:59.011418436 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.011268489Z caller=ring.go:365 msg="ring doesn't exist in KV store yet"
-2025-10-21 12:47:59.015092984 +0200 CEST [web-1] ts=2025-10-21T10:47:59Z level=info msg="Starting HTTP server for Jaeger Thrift" component=tempo endpoint=127.0.0.1:14268
-2025-10-21 12:47:59.015367493 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.014963914Z caller=worker.go:250 msg="total worker concurrency updated" totalConcurrency=20
-2025-10-21 12:47:59.014674717 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.014450955Z caller=poller.go:252 msg="blocklist poll complete" seconds=4.3043e-05
-2025-10-21 12:47:59.014484175 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.014354529Z caller=lifecycler.go:556 msg="auto-joining cluster after timeout" ring=ingester
-2025-10-21 12:47:59.014760799 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.014572014Z caller=compactor.go:157 msg="enabling compaction"
-2025-10-21 12:47:59.014523392 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.011959955Z caller=module_service.go:82 msg=starting module=distributor
-2025-10-21 12:47:59.015558024 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.015300903Z caller=app.go:213 msg="Tempo started"
-2025-10-21 12:47:59.015368125 +0200 CEST [web-1] ts=2025-10-21T10:47:59Z level=info msg="Starting HTTP server" component=tempo endpoint=127.0.0.1:4318
-2025-10-21 12:47:59.014522792 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.014323845Z caller=tempodb.go:638 msg="polling enabled" interval=5m0s blocklist_concurrency=50
-2025-10-21 12:47:59.011542038 +0200 CEST [web-1] level=info ts=2025-10-21T10:47:59.011424258Z caller=module_service.go:82 msg=starting module=querier
-2025-10-21 12:47:59.015364825 +0200 CEST [web-1] ts=2025-10-21T10:47:59Z level=info msg="Starting GRPC server" component=tempo endpoint=127.0.0.1:4317
-2025-10-21 12:48:00.961454927 +0200 CEST [web-1] 2025/10/21 10:48:00 [emerg] 32#32: open() "/app/mime.types" failed (2: No such file or directory) in /app/nginx.conf:16
-2025-10-21 12:48:00.960123792 +0200 CEST [web-1] nginx: [alert] could not open error log file: open() "/var/log/nginx/error.log" failed (2: No such file or directory)
-2025-10-21 12:48:00.955940664 +0200 CEST [web-1] 🚀 Starting NGINX proxy...
-2025-10-21 12:49:57.878240023 +0200 CEST [manager] container [web-1] (68f7654e998269af45717948) started with the command 'nginx -c /app/nginx.conf & ./script/start.sh'
-2025-10-21 12:49:57.936445585 +0200 CEST [web-1] level=info ts=2025-10-21T10:49:57.936292053Z caller=module_service.go:82 msg=starting module=live-store-ring
-2025-10-21 12:49:57.935299808 +0200 CEST [web-1] level=info ts=2025-10-21T10:49:57.935171091Z caller=sync_handler_cache.go:131 msg="init frontend cache" role=frontend-search enabled=false
-2025-10-21 12:49:57.936445937 +0200 CEST [web-1] level=info ts=2025-10-21T10:49:57.936286813Z caller=tempodb.go:638 msg="polling enabled" interval=5m0s blocklist_concurrency=50
-2025-10-21 12:49:57.936446265 +0200 CEST [web-1] level=info ts=2025-10-21T10:49:57.936306655Z caller=ring.go:365 msg="ring doesn't exist in KV store yet"
-2025-10-21 12:49:57.936446611 +0200 CEST [web-1] level=info ts=2025-10-21T10:49:57.936259799Z caller=ring.go:365 msg="ring doesn't exist in KV store yet"
-2025-10-21 12:49:57.935313751 +0200 CEST [web-1] level=info ts=2025-10-21T10:49:57.935179068Z caller=sync_handler_cache.go:131 msg="init frontend cache" role=frontend-search enabled=false
-2025-10-21 12:49:57.928958294 +0200 CEST [web-1] level=info ts=2025-10-21T10:49:57.928852935Z caller=cache.go:55 msg="caches available to storage backend" parquet-footer=false bloom=false parquet-offset-idx=false parquet-column-idx=false trace-id-index=false parquet-page=false
-2025-10-21 12:49:57.936048036 +0200 CEST [web-1] level=info ts=2025-10-21T10:49:57.935855899Z caller=module_service.go:82 msg=starting module=cache-provider
-2025-10-21 12:49:57.935315762 +0200 CEST [web-1] level=info ts=2025-10-21T10:49:57.935185088Z caller=sync_handler_cache.go:131 msg="init frontend cache" role=frontend-search enabled=false
-2025-10-21 12:49:57.928127889 +0200 CEST [web-1] level=info ts=2025-10-21T10:49:57.928007256Z caller=cache.go:55 msg="caches available to storage backend" parquet-footer=false bloom=false parquet-offset-idx=false parquet-column-idx=false trace-id-index=false parquet-page=false
-2025-10-21 12:49:57.936514882 +0200 CEST [web-1] level=info ts=2025-10-21T10:49:57.936420653Z caller=module_service.go:82 msg=starting module=querier
 2025-10-21 12:49:57.936051524 +0200 CEST [web-1] level=info ts=2025-10-21T10:49:57.935928324Z caller=module_service.go:82 msg=starting module=store
 2025-10-21 12:49:57.932511484 +0200 CEST [web-1] level=info ts=2025-10-21T10:49:57.9322998Z caller=memberlist_client.go:484 msg="Using memberlist cluster label and node name" cluster_label= node=poc-trace-web-1-f883ab65
 2025-10-21 12:49:57.936052362 +0200 CEST [web-1] level=info ts=2025-10-21T10:49:57.935955452Z caller=module_service.go:82 msg=starting module=internal-server
@@ -498,3 +434,67 @@
 2025-10-21 14:18:55.785193442 +0200 CEST [web-1] nginx: [alert] could not open error log file: open() "/var/log/nginx/error.log" failed (2: No such file or directory)
 2025-10-21 14:18:55.781822646 +0200 CEST [web-1] 🚀 Starting NGINX proxy on port 21692...
 2025-10-21 14:18:55.788135856 +0200 CEST [web-1] 2025/10/21 12:18:55 [emerg] 34#34: mkdir() "/var/lib/nginx/uwsgi" failed (2: No such file or directory)
+2025-10-21 14:26:13.984030581 +0200 CEST [manager] container [web-1] (68f77bde99c3cd4ee90be532) started with the command './script/start.sh'
+2025-10-21 14:26:14.043443275 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.043155508Z caller=cache.go:55 msg="caches available to storage backend" parquet-footer=false bloom=false parquet-offset-idx=false parquet-column-idx=false trace-id-index=false parquet-page=false
+2025-10-21 14:26:13.986848268 +0200 CEST [web-1] 🚀 Preparing environment...
+2025-10-21 14:26:14.043186112 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.042762025Z caller=main.go:103 msg="Starting Tempo" version="(version=2.9.0, branch=HEAD, revision=607c7fb69)" target=all
+2025-10-21 14:26:14.000431108 +0200 CEST [web-1] ✅ Directories created
+2025-10-21 14:26:14.002454197 +0200 CEST [web-1] 🚀 Starting Tempo...
+2025-10-21 14:26:14.055757929 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.055554813Z caller=module_service.go:82 msg=starting module=server
+2025-10-21 14:26:14.056114432 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.055890957Z caller=ring.go:365 msg="ring doesn't exist in KV store yet"
+2025-10-21 14:26:14.055879534 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.055689267Z caller=module_service.go:82 msg=starting module=overrides
+2025-10-21 14:26:14.044961631 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.044701632Z caller=cache.go:55 msg="caches available to storage backend" parquet-footer=false bloom=false parquet-offset-idx=false parquet-column-idx=false trace-id-index=false parquet-page=false
+2025-10-21 14:26:14.056114779 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.055898328Z caller=ring.go:365 msg="ring doesn't exist in KV store yet"
+2025-10-21 14:26:14.047007896 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.046734842Z caller=server.go:281 msg="server listening on addresses" http=127.0.0.1:3200 grpc=[::]:9095
+2025-10-21 14:26:14.056814044 +0200 CEST [web-1] ts=2025-10-21T12:26:14Z level=info msg="Starting GRPC server" component=tempo endpoint=127.0.0.1:4317
+2025-10-21 14:26:14.055880136 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.055704262Z caller=module_service.go:82 msg=starting module=memberlist-kv
+2025-10-21 14:26:14.056191882 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.056015883Z caller=module_service.go:82 msg=starting module=query-frontend
+2025-10-21 14:26:14.049461294 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.049204283Z caller=memberlist_client.go:484 msg="Using memberlist cluster label and node name" cluster_label= node=poc-trace-web-1-44fea710
+2025-10-21 14:26:14.056833056 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.056557184Z caller=ingester.go:413 msg="beginning wal replay"
+2025-10-21 14:26:14.056192401 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.056059736Z caller=module_service.go:82 msg=starting module=querier
+2025-10-21 14:26:14.050885536 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.050514964Z caller=frontend.go:69 msg="creating middleware in query frontend"
+2025-10-21 14:26:14.057593047 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.056476841Z caller=tempodb.go:638 msg="polling enabled" interval=5m0s blocklist_concurrency=50
+2025-10-21 14:26:14.050887666 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.050600237Z caller=sync_handler_cache.go:131 msg="init frontend cache" role=frontend-search enabled=false
+2025-10-21 14:26:14.055880739 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.05571993Z caller=module_service.go:82 msg=starting module=overrides-api
+2025-10-21 14:26:14.057828955 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.057503568Z caller=poller.go:252 msg="blocklist poll complete" seconds=0.000107336
+2025-10-21 14:26:14.056193095 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.056100558Z caller=module_service.go:82 msg=starting module=compactor
+2025-10-21 14:26:14.055881116 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.055725103Z caller=module_service.go:82 msg=starting module=ring
+2025-10-21 14:26:14.057842935 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.057555414Z caller=compactor.go:157 msg="enabling compaction"
+2025-10-21 14:26:14.055881523 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.055739678Z caller=module_service.go:82 msg=starting module=usage-report
+2025-10-21 14:26:14.056235126 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.056165548Z caller=worker.go:184 msg="adding connection" addr=127.0.0.1:9095
+2025-10-21 14:26:14.056113421 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.055811921Z caller=module_service.go:82 msg=starting module=metrics-generator-ring
+2025-10-21 14:26:14.050888766 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.05065421Z caller=sync_handler_cache.go:131 msg="init frontend cache" role=frontend-search enabled=false
+2025-10-21 14:26:14.056283037 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.056194659Z caller=module_service.go:82 msg=starting module=distributor
+2025-10-21 14:26:14.056113730 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.055784383Z caller=module_service.go:82 msg=starting module=secondary-ring
+2025-10-21 14:26:14.056234575 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.056149845Z caller=module_service.go:82 msg=starting module=block-builder
+2025-10-21 14:26:14.058125174 +0200 CEST [web-1] ts=2025-10-21T12:26:14Z level=info msg="Starting HTTP server for Jaeger Thrift" component=tempo endpoint=127.0.0.1:14268
+2025-10-21 14:26:14.056192759 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.056069655Z caller=module_service.go:82 msg=starting module=metrics-generator
+2025-10-21 14:26:14.050889274 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.050664445Z caller=sync_handler_cache.go:131 msg="init frontend cache" role=frontend-search enabled=false
+2025-10-21 14:26:14.057843347 +0200 CEST [web-1] ts=2025-10-21T12:26:14Z level=info msg="Starting HTTP server" component=tempo endpoint=127.0.0.1:4318
+2025-10-21 14:26:14.050890053 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.050677161Z caller=sync_handler_cache.go:131 msg="init frontend cache" role=frontend-search enabled=false
+2025-10-21 14:26:14.056112427 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.055794327Z caller=ring.go:365 msg="ring doesn't exist in KV store yet"
+2025-10-21 14:26:14.050889649 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.050670569Z caller=sync_handler_cache.go:131 msg="init frontend cache" role=frontend-search enabled=false
+2025-10-21 14:26:14.057847812 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.057578299Z caller=tempodb.go:598 msg="compaction and retention enabled."
+2025-10-21 14:26:14.050890731 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.050701103Z caller=sync_handler_cache.go:131 msg="init frontend cache" role=frontend-search enabled=false
+2025-10-21 14:26:14.056114073 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.055881962Z caller=module_service.go:82 msg=starting module=live-store-ring
+2025-10-21 14:26:14.056621647 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.056396539Z caller=module_service.go:82 msg=starting module=ingester
+2025-10-21 14:26:14.051797493 +0200 CEST [web-1] ts=2025-10-21T12:26:14Z level=info msg="OTel Shim Logger Initialized" component=tempo
+2025-10-21 14:26:14.058126854 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.057309937Z caller=worker.go:250 msg="total worker concurrency updated" totalConcurrency=20
+2025-10-21 14:26:14.059854876 +0200 CEST [web-1] level=warn ts=2025-10-21T12:26:14.059603531Z caller=wal.go:103 msg="unowned file entry ignored during wal replay" file=blocks err=null
+2025-10-21 14:26:14.055397879 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.055085176Z caller=module_service.go:82 msg=starting module=cache-provider
+2025-10-21 14:26:14.055401169 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.055151489Z caller=module_service.go:82 msg=starting module=optional-store
+2025-10-21 14:26:14.053557600 +0200 CEST [web-1] level=warn ts=2025-10-21T12:26:14.053311643Z caller=modules.go:456 msg="Worker address is empty in single binary mode. Attempting automatic worker configuration. If queries are unresponsive consider configuring the worker explicitly." address=127.0.0.1:9095
+2025-10-21 14:26:14.055474388 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.055258273Z caller=module_service.go:82 msg=starting module=store
+2025-10-21 14:26:14.053800650 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.053568016Z caller=worker.go:108 msg="Starting querier worker connected to query-frontend" frontend=127.0.0.1:9095
+2025-10-21 14:26:14.059856736 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.059646545Z caller=ingester.go:451 msg="wal replay complete"
+2025-10-21 14:26:14.055691484 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.055263206Z caller=module_service.go:82 msg=starting module=internal-server
+2025-10-21 14:26:14.054618639 +0200 CEST [web-1] level=warn ts=2025-10-21T12:26:14.054365249Z caller=modules.go:353 msg="metrics-generator is not configured." err="no metrics_generator.storage.path configured, metrics generator will be disabled"
+2025-10-21 14:26:14.060129638 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.059731023Z caller=lifecycler.go:687 msg="not loading tokens from file, tokens file path is empty"
+2025-10-21 14:26:14.060130186 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.059802896Z caller=lifecycler.go:714 msg="instance not found in ring, adding with no tokens" ring=ingester
+2025-10-21 14:26:14.060127780 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.059696316Z caller=ingester.go:465 msg="reloading local blocks" tenants=0
+2025-10-21 14:26:14.060130540 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.0599416Z caller=lifecycler.go:556 msg="auto-joining cluster after timeout" ring=ingester
+2025-10-21 14:26:14.060345353 +0200 CEST [web-1] level=info ts=2025-10-21T12:26:14.060153854Z caller=app.go:213 msg="Tempo started"
+2025-10-21 14:26:16.006350731 +0200 CEST [web-1] 🚀 Starting NGINX proxy on port 24741...
+2025-10-21 14:26:16.010976090 +0200 CEST [web-1] nginx: [alert] could not open error log file: open() "/var/log/nginx/error.log" failed (2: No such file or directory)
+2025-10-21 14:26:16.011801738 +0200 CEST [web-1] 2025/10/21 12:26:16 [warn] 35#35: the "user" directive makes sense only if the master process runs with super-user privileges, ignored in /app/nginx.conf:1
+2025-10-21 14:26:16.014205542 +0200 CEST [web-1] 2025/10/21 12:26:16 [emerg] 35#35: mkdir() "/var/lib/nginx/uwsgi" failed (2: No such file or directory)
