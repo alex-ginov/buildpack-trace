@@ -1,7 +1,3 @@
-2025-10-21 10:21:09.678486046 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:09.678043644Z caller=mock.go:153 msg=Get key=collectors/metrics-generator wait_index=16
-2025-10-21 10:21:09.678453984 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:09.677936798Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/ring
-2025-10-21 10:21:09.678484427 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:09.678033791Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/metrics-generator
-2025-10-21 10:21:09.778652961 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:09.778183507Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/metrics-generator
 2025-10-21 10:21:09.778670046 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:09.778251991Z caller=mock.go:153 msg=Get key=collectors/metrics-generator wait_index=16
 2025-10-21 10:21:09.879172436 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:09.878619241Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/ring
 2025-10-21 10:21:09.780357234 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:09.778270229Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/ring
@@ -998,3 +994,7 @@
 2025-10-21 14:47:08.646082934 +0200 CEST [web-1] 🚀 Starting NGINX proxy on port 25514...
 2025-10-21 14:47:08.676413984 +0200 CEST [web-1] nginx: [alert] could not open error log file: open() "/var/log/nginx/error.log" failed (2: No such file or directory)
 2025-10-21 14:47:08.677374146 +0200 CEST [web-1] 2025/10/21 12:47:08 [emerg] 32#32: "client_body_temp_path" directive is duplicate in /app/nginx.conf:25
+2025-10-21 14:52:12.977624359 +0200 CEST [manager] container [web-1] (68f781f5998269af4571d8dc) started with the command './script/start.sh'
+2025-10-21 14:52:12.970242729 +0200 CEST [web-1] touch: cannot touch '/app/nginx/logs/error.log': No such file or directory
+2025-10-21 14:52:12.964962907 +0200 CEST [web-1] 🚀 Preparing environment...
+2025-10-21 14:52:12.970245935 +0200 CEST [web-1] touch: cannot touch '/app/nginx/logs/access.log': No such file or directory

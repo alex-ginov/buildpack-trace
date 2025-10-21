@@ -9,7 +9,7 @@ echo "🚀 Preparing environment..."
 mkdir -p /tmp/tempo-data/wal /tmp/tempo-data/blocks
 
 # --- NEW NGINX DIRECTORIES dans app---
-mkdir -p /app/nginx/{body,tmp,fastcgi,uwsgi,scgi}
+mkdir -p /app/nginx/{body,tmp,fastcgi,uwsgi,scgi,logs}
 chmod -R 777 /app/nginx
 touch /app/nginx/logs/error.log /app/nginx/logs/access.log
 
