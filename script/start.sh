@@ -7,8 +7,8 @@ echo "🚀 Preparing environment..."
 # Directories needed by Tempo and NGINX
 # ------------------------------------------------------------
 mkdir -p /tmp/tempo-data/wal /tmp/tempo-data/blocks
-touch /tmp/nginx_error.log
-touch /tmp/nginx_access.log;
+touch /tmp/error.log
+touch /tmp/access.log;
 
 
 echo "✅ Directories created (if missing)"
