@@ -7,11 +7,15 @@ echo "🚀 Preparing environment..."
 # Directories needed by Tempo and NGINX
 # ------------------------------------------------------------
 mkdir -p /tmp/tempo-data/wal /tmp/tempo-data/blocks
-touch /tmp/error.log /tmp/access.log
+# --- NEW NGINX DIRECTORIES ---
+mkdir -p /app/nginx/logs
+mkdir -p /app/nginx/tmp
 
-mkdir -p /app/nginx/body
-mkdir -p /app/nginx/proxy
-chmod -R 777 /app/nginx/proxy
+# Use the new paths for logs and temp files
+touch /app/nginx/logs/error.log /app/nginx/logs/access.log
+# Apply permissive permissions only to the new directories
+chmod -R 777 /app/nginx/logs
+chmod -R 777 /app/nginx/tmp
 
 echo "✅ Directories created"
 

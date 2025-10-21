@@ -1,65 +1,3 @@
-2025-10-21 10:21:03.559454066 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:03.559119323Z caller=mock.go:153 msg=Get key=collectors/ring wait_index=14
-2025-10-21 10:21:03.559448532 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:03.559040852Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/ring
-2025-10-21 10:21:03.659817692 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:03.659397007Z caller=mock.go:153 msg=Get key=collectors/metrics-generator wait_index=14
-2025-10-21 10:21:03.559455328 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:03.559136955Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/metrics-generator
-2025-10-21 10:21:03.559455720 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:03.55914436Z caller=mock.go:153 msg=Get key=collectors/metrics-generator wait_index=14
-2025-10-21 10:21:03.659818484 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:03.659415254Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/ring
-2025-10-21 10:21:03.659818880 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:03.65942239Z caller=mock.go:153 msg=Get key=collectors/ring wait_index=14
-2025-10-21 10:21:03.659810487 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:03.659319801Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/metrics-generator
-2025-10-21 10:21:03.760117937 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:03.759572104Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/ring
-2025-10-21 10:21:03.760133935 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:03.759652815Z caller=mock.go:153 msg=Get key=collectors/ring wait_index=14
-2025-10-21 10:21:03.760135418 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:03.759671745Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/metrics-generator
-2025-10-21 10:21:03.760135826 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:03.75967865Z caller=mock.go:153 msg=Get key=collectors/metrics-generator wait_index=14
-2025-10-21 10:21:03.806551179 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:03.806065147Z caller=mock.go:199 msg=Get key=collectors/ring modify_index=14 value="\"\\xc1\\x05\\xf4\\xc0\\x02\\n\\xbe\\x05\\n\\x0fpoc-trace-web-1\\x12\\xaa\\x05\\n\\x0e127.0.0.1:\""
-2025-10-21 10:21:03.806591713 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:03.806126147Z caller=mock.go:126 msg=CAS key=collectors/ring modify_index=14 value="\"\\xc1\\x05\\xf4\\xc0\\x02\\n\\xbe\\x05\\n\\x0fpoc-trace-web-1\\x12\\xaa\\x05\\n\\x0e127.0.0.1:\""
-2025-10-21 10:21:03.806592975 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:03.806185196Z caller=mock.go:199 msg=Get key=collectors/ring modify_index=15 value="\"\\xc1\\x05\\xf4\\xc0\\x02\\n\\xbe\\x05\\n\\x0fpoc-trace-web-1\\x12\\xaa\\x05\\n\\x0e127.0.0.1:\""
-2025-10-21 10:21:03.806540227 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:03.805986038Z caller=mock.go:153 msg=Get key=collectors/ring wait_index=0
-2025-10-21 10:21:03.806596938 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:03.806219521Z caller=mock.go:153 msg=Get key=collectors/ring wait_index=15
-2025-10-21 10:21:03.860763511 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:03.860190968Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/metrics-generator
-2025-10-21 10:21:03.860793817 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:03.860317381Z caller=mock.go:195 msg="Get - not found" key=collectors/metrics-generator
-2025-10-21 10:21:03.860800402 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:03.860324981Z caller=client.go:256 msg="value is nil" key=collectors/metrics-generator index=15
-2025-10-21 10:21:03.861481965 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:03.86033682Z caller=mock.go:153 msg=Get key=collectors/metrics-generator wait_index=15
-2025-10-21 10:21:03.860773788 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:03.860278351Z caller=mock.go:153 msg=Get key=collectors/metrics-generator wait_index=14
-2025-10-21 10:21:03.960951463 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:03.960467134Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/metrics-generator
-2025-10-21 10:21:03.960974340 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:03.960556Z caller=mock.go:153 msg=Get key=collectors/metrics-generator wait_index=15
-2025-10-21 10:21:03.961684840 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:03.960582538Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/ring
-2025-10-21 10:21:03.961721946 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:03.960592681Z caller=mock.go:153 msg=Get key=collectors/ring wait_index=15
-2025-10-21 10:21:04.061940478 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.060747121Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/ring
-2025-10-21 10:21:04.061952266 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.060823084Z caller=mock.go:153 msg=Get key=collectors/ring wait_index=15
-2025-10-21 10:21:04.061957387 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.060841832Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/metrics-generator
-2025-10-21 10:21:04.061958241 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.060859858Z caller=mock.go:153 msg=Get key=collectors/metrics-generator wait_index=15
-2025-10-21 10:21:04.161522500 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.161113347Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/ring
-2025-10-21 10:21:04.161521628 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.161094525Z caller=mock.go:153 msg=Get key=collectors/metrics-generator wait_index=15
-2025-10-21 10:21:04.161510667 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.161014625Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/metrics-generator
-2025-10-21 10:21:04.161522895 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.161119606Z caller=mock.go:153 msg=Get key=collectors/ring wait_index=15
-2025-10-21 10:21:04.261663230 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.261373726Z caller=mock.go:153 msg=Get key=collectors/ring wait_index=15
-2025-10-21 10:21:04.261664309 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.261396363Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/metrics-generator
-2025-10-21 10:21:04.261664989 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.26140546Z caller=mock.go:153 msg=Get key=collectors/metrics-generator wait_index=15
-2025-10-21 10:21:04.261655778 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.261304108Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/ring
-2025-10-21 10:21:04.362134625 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.361685083Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/ring
-2025-10-21 10:21:04.362119061 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.361577041Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/metrics-generator
-2025-10-21 10:21:04.362132498 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.36166552Z caller=mock.go:153 msg=Get key=collectors/metrics-generator wait_index=15
-2025-10-21 10:21:04.362135263 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.361694159Z caller=mock.go:153 msg=Get key=collectors/ring wait_index=15
-2025-10-21 10:21:04.462431641 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.461949049Z caller=mock.go:153 msg=Get key=collectors/ring wait_index=15
-2025-10-21 10:21:04.462432947 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.461971293Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/metrics-generator
-2025-10-21 10:21:04.462433850 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.461979268Z caller=mock.go:153 msg=Get key=collectors/metrics-generator wait_index=15
-2025-10-21 10:21:04.462420376 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.461866374Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/ring
-2025-10-21 10:21:04.562637099 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.562213983Z caller=mock.go:153 msg=Get key=collectors/metrics-generator wait_index=15
-2025-10-21 10:21:04.663008851 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.662505681Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/metrics-generator
-2025-10-21 10:21:04.663009233 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.662549719Z caller=mock.go:153 msg=Get key=collectors/metrics-generator wait_index=15
-2025-10-21 10:21:04.562638495 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.562233231Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/ring
-2025-10-21 10:21:04.562618670 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.562132508Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/metrics-generator
-2025-10-21 10:21:04.662996597 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.662404677Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/ring
-2025-10-21 10:21:04.663008018 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.662477497Z caller=mock.go:153 msg=Get key=collectors/ring wait_index=15
-2025-10-21 10:21:04.562639033 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.562240138Z caller=mock.go:153 msg=Get key=collectors/ring wait_index=15
-2025-10-21 10:21:04.763408025 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.762742188Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/metrics-generator
-2025-10-21 10:21:04.763416603 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.762823733Z caller=mock.go:153 msg=Get key=collectors/metrics-generator wait_index=15
-2025-10-21 10:21:04.763417602 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.762845598Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/ring
-2025-10-21 10:21:04.863769492 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.863223865Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/ring
-2025-10-21 10:21:04.763418140 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.762854397Z caller=mock.go:153 msg=Get key=collectors/ring wait_index=15
-2025-10-21 10:21:04.863779901 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.863328014Z caller=mock.go:153 msg=Get key=collectors/metrics-generator wait_index=15
-2025-10-21 10:21:04.863779502 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.863312648Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/metrics-generator
-2025-10-21 10:21:04.863778693 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.863295005Z caller=mock.go:153 msg=Get key=collectors/ring wait_index=15
 2025-10-21 10:21:04.964021877 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.963522314Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/ring
 2025-10-21 10:21:05.064330863 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:05.063845142Z caller=mock.go:153 msg=Get key=collectors/metrics-generator wait_index=15
 2025-10-21 10:21:04.964038847 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:04.963600044Z caller=mock.go:153 msg=Get key=collectors/ring wait_index=15
@@ -998,3 +936,65 @@
 2025-10-21 13:41:33.978780231 +0200 CEST [web-1] 🚀 Starting NGINX proxy on port 24939...
 2025-10-21 13:41:33.984149270 +0200 CEST [web-1] nginx: [alert] could not open error log file: open() "/var/log/nginx/error.log" failed (2: No such file or directory)
 2025-10-21 13:41:33.986228185 +0200 CEST [web-1] 2025/10/21 11:41:33 [emerg] 32#32: mkdir() "/var/lib/nginx/proxy" failed (2: No such file or directory)
+2025-10-21 13:59:32.101772452 +0200 CEST [manager] container [web-1] (68f7759c99c3cd4ee90bcca8) started with the command './script/start.sh'
+2025-10-21 13:59:32.311187933 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.310955588Z caller=memberlist_client.go:484 msg="Using memberlist cluster label and node name" cluster_label= node=poc-trace-web-1-13fe8b8a
+2025-10-21 13:59:32.312741400 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.31260126Z caller=sync_handler_cache.go:131 msg="init frontend cache" role=frontend-search enabled=false
+2025-10-21 13:59:32.305809509 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.305525979Z caller=main.go:103 msg="Starting Tempo" version="(version=2.9.0, branch=HEAD, revision=607c7fb69)" target=all
+2025-10-21 13:59:32.311454731 +0200 CEST [web-1] level=warn ts=2025-10-21T11:59:32.311253909Z caller=modules.go:456 msg="Worker address is empty in single binary mode. Attempting automatic worker configuration. If queries are unresponsive consider configuring the worker explicitly." address=127.0.0.1:9095
+2025-10-21 13:59:32.240831425 +0200 CEST [web-1] 🚀 Preparing environment...
+2025-10-21 13:59:32.307133335 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.306841655Z caller=cache.go:55 msg="caches available to storage backend" parquet-footer=false bloom=false parquet-offset-idx=false parquet-column-idx=false trace-id-index=false parquet-page=false
+2025-10-21 13:59:32.311714683 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.311510071Z caller=worker.go:108 msg="Starting querier worker connected to query-frontend" frontend=127.0.0.1:9095
+2025-10-21 13:59:32.259513057 +0200 CEST [web-1] ✅ Directories created
+2025-10-21 13:59:32.312741820 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.312611552Z caller=sync_handler_cache.go:131 msg="init frontend cache" role=frontend-search enabled=false
+2025-10-21 13:59:32.308558212 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.308327796Z caller=server.go:281 msg="server listening on addresses" http=127.0.0.1:3200 grpc=[::]:9095
+2025-10-21 13:59:32.315436563 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.315212015Z caller=module_service.go:82 msg=starting module=internal-server
+2025-10-21 13:59:32.264846499 +0200 CEST [web-1] 🚀 Starting Tempo...
+2025-10-21 13:59:32.312715240 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.312492432Z caller=frontend.go:69 msg="creating middleware in query frontend"
+2025-10-21 13:59:32.312717778 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.312573175Z caller=sync_handler_cache.go:131 msg="init frontend cache" role=frontend-search enabled=false
+2025-10-21 13:59:32.315635999 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.315489565Z caller=module_service.go:82 msg=starting module=secondary-ring
+2025-10-21 13:59:32.312770495 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.31261702Z caller=sync_handler_cache.go:131 msg="init frontend cache" role=frontend-search enabled=false
+2025-10-21 13:59:32.315644361 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.315516436Z caller=module_service.go:82 msg=starting module=live-store-ring
+2025-10-21 13:59:32.315634426 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.315356047Z caller=module_service.go:82 msg=starting module=server
+2025-10-21 13:59:32.315646270 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.315520842Z caller=module_service.go:82 msg=starting module=usage-report
+2025-10-21 13:59:32.315618070 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.315336321Z caller=module_service.go:82 msg=starting module=optional-store
+2025-10-21 13:59:32.317473786 +0200 CEST [web-1] ts=2025-10-21T11:59:32Z level=info msg="Starting HTTP server for Jaeger Thrift" component=tempo endpoint=127.0.0.1:14268
+2025-10-21 13:59:32.317388948 +0200 CEST [web-1] ts=2025-10-21T11:59:32Z level=info msg="Starting HTTP server" component=tempo endpoint=127.0.0.1:4318
+2025-10-21 13:59:32.312772218 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.312622873Z caller=sync_handler_cache.go:131 msg="init frontend cache" role=frontend-search enabled=false
+2025-10-21 13:59:32.312773052 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.312633902Z caller=sync_handler_cache.go:131 msg="init frontend cache" role=frontend-search enabled=false
+2025-10-21 13:59:32.315634839 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.31541916Z caller=module_service.go:82 msg=starting module=memberlist-kv
+2025-10-21 13:59:32.317506977 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.317279934Z caller=module_service.go:82 msg=starting module=querier
+2025-10-21 13:59:32.315718248 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.31553328Z caller=module_service.go:82 msg=starting module=ring
+2025-10-21 13:59:32.313521798 +0200 CEST [web-1] ts=2025-10-21T11:59:32Z level=info msg="OTel Shim Logger Initialized" component=tempo
+2025-10-21 13:59:32.317543414 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.317404541Z caller=module_service.go:82 msg=starting module=ingester
+2025-10-21 13:59:32.315635543 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.315439611Z caller=module_service.go:82 msg=starting module=overrides
+2025-10-21 13:59:32.317611114 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.317422317Z caller=module_service.go:82 msg=starting module=compactor
+2025-10-21 13:59:32.315719561 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.315547298Z caller=module_service.go:82 msg=starting module=metrics-generator-ring
+2025-10-21 13:59:32.314830577 +0200 CEST [web-1] level=warn ts=2025-10-21T11:59:32.314641561Z caller=modules.go:353 msg="metrics-generator is not configured." err="no metrics_generator.storage.path configured, metrics generator will be disabled"
+2025-10-21 13:59:32.315883985 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.315693318Z caller=module_service.go:82 msg=starting module=distributor
+2025-10-21 13:59:32.315941789 +0200 CEST [web-1] ts=2025-10-21T11:59:32Z level=info msg="Starting GRPC server" component=tempo endpoint=127.0.0.1:4317
+2025-10-21 13:59:32.317667553 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.317432257Z caller=ingester.go:413 msg="beginning wal replay"
+2025-10-21 13:59:32.317878722 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.317741513Z caller=worker.go:184 msg="adding connection" addr=127.0.0.1:9095
+2025-10-21 13:59:32.315879550 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.315584365Z caller=ring.go:365 msg="ring doesn't exist in KV store yet"
+2025-10-21 13:59:32.317878277 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.317744897Z caller=tempodb.go:598 msg="compaction and retention enabled."
+2025-10-21 13:59:32.317952280 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.317782552Z caller=ingester.go:451 msg="wal replay complete"
+2025-10-21 13:59:32.315942350 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.315841344Z caller=module_service.go:82 msg=starting module=cache-provider
+2025-10-21 13:59:32.317668041 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.3174995Z caller=module_service.go:82 msg=starting module=query-frontend
+2025-10-21 13:59:32.315882486 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.315585782Z caller=ring.go:365 msg="ring doesn't exist in KV store yet"
+2025-10-21 13:59:32.318090507 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.31797899Z caller=lifecycler.go:687 msg="not loading tokens from file, tokens file path is empty"
+2025-10-21 13:59:32.317668800 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.31734018Z caller=module_service.go:82 msg=starting module=block-builder
+2025-10-21 13:59:32.317953048 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.317825699Z caller=ingester.go:465 msg="reloading local blocks" tenants=0
+2025-10-21 13:59:32.316156271 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.315911048Z caller=module_service.go:82 msg=starting module=store
+2025-10-21 13:59:32.315883557 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.3156933Z caller=module_service.go:82 msg=starting module=metrics-generator
+2025-10-21 13:59:32.315883072 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.315499403Z caller=module_service.go:82 msg=starting module=overrides-api
+2025-10-21 13:59:32.317770967 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.317513193Z caller=tempodb.go:638 msg="polling enabled" interval=5m0s blocklist_concurrency=50
+2025-10-21 13:59:32.318427976 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.318300472Z caller=lifecycler.go:556 msg="auto-joining cluster after timeout" ring=ingester
+2025-10-21 13:59:32.317876180 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.31770165Z caller=poller.go:252 msg="blocklist poll complete" seconds=8.0907e-05
+2025-10-21 13:59:32.317877488 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.317722664Z caller=compactor.go:157 msg="enabling compaction"
+2025-10-21 13:59:32.315881924 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.31562742Z caller=ring.go:365 msg="ring doesn't exist in KV store yet"
+2025-10-21 13:59:32.318207831 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.318041604Z caller=lifecycler.go:714 msg="instance not found in ring, adding with no tokens" ring=ingester
+2025-10-21 13:59:32.318484519 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.318340227Z caller=app.go:213 msg="Tempo started"
+2025-10-21 13:59:32.318735788 +0200 CEST [web-1] level=info ts=2025-10-21T11:59:32.318525294Z caller=worker.go:250 msg="total worker concurrency updated" totalConcurrency=20
+2025-10-21 13:59:32.317877018 +0200 CEST [web-1] level=warn ts=2025-10-21T11:59:32.317707363Z caller=wal.go:103 msg="unowned file entry ignored during wal replay" file=blocks err=null
+2025-10-21 13:59:34.266537978 +0200 CEST [web-1] 🚀 Starting NGINX proxy on port 20863...
+2025-10-21 13:59:34.270453844 +0200 CEST [web-1] nginx: [alert] could not open error log file: open() "/var/log/nginx/error.log" failed (2: No such file or directory)
+2025-10-21 13:59:34.272342978 +0200 CEST [web-1] 2025/10/21 11:59:34 [emerg] 34#34: mkdir() "/var/lib/nginx/fastcgi" failed (2: No such file or directory)
