@@ -11,6 +11,10 @@ touch /tmp/error.log
 touch /tmp/access.log;
 
 
+# Remplacer le port dans nginx.conf
+NGINX_PORT=${PORT:-8080}
+sed -i "s/listen <%= ENV\['PORT'\] %>/listen ${NGINX_PORT}/" /app/nginx.conf
+
 echo "✅ Directories created (if missing)"
 
 # ------------------------------------------------------------
