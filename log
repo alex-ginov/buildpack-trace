@@ -1,72 +1,3 @@
-2025-10-21 10:21:11.684578556 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:11.684189686Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/metrics-generator
-2025-10-21 10:21:11.684578997 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:11.684198891Z caller=mock.go:153 msg=Get key=collectors/metrics-generator wait_index=16
-2025-10-21 10:21:11.784896640 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:11.784378428Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/metrics-generator
-2025-10-21 10:21:11.784910581 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:11.78445753Z caller=mock.go:153 msg=Get key=collectors/metrics-generator wait_index=16
-2025-10-21 10:21:11.784911422 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:11.784483206Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/ring
-2025-10-21 10:21:11.784912154 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:11.784495153Z caller=mock.go:153 msg=Get key=collectors/ring wait_index=16
-2025-10-21 10:21:11.885294888 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:11.884834659Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/ring
-2025-10-21 10:21:11.885302911 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:11.884913631Z caller=mock.go:153 msg=Get key=collectors/ring wait_index=16
-2025-10-21 10:21:11.885303863 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:11.884933426Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/metrics-generator
-2025-10-21 10:21:11.885304390 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:11.884942518Z caller=mock.go:153 msg=Get key=collectors/metrics-generator wait_index=16
-2025-10-21 10:21:11.985432058 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:11.985098981Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/metrics-generator
-2025-10-21 10:21:11.985443923 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:11.985235683Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/ring
-2025-10-21 10:21:11.985442874 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:11.985183563Z caller=mock.go:153 msg=Get key=collectors/metrics-generator wait_index=16
-2025-10-21 10:21:11.985444769 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:11.98526913Z caller=mock.go:153 msg=Get key=collectors/ring wait_index=16
-2025-10-21 10:21:12.080013535 +0200 CEST [web-1] level=info ts=2025-10-21T08:21:12.079542286Z caller=app.go:241 msg="=== received SIGINT/SIGTERM ===\n*** exiting"
-2025-10-21 10:21:12.081507179 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.079897888Z caller=module_service.go:133 msg="module waiting for" module=live-store-ring waiting_for=querier
-2025-10-21 10:21:12.081513032 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.07990017Z caller=module_service.go:110 msg=stopping module=query-frontend
-2025-10-21 10:21:12.081514184 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.079950863Z caller=module_service.go:133 msg="module waiting for" module=secondary-ring waiting_for=querier
-2025-10-21 10:21:12.081515006 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.079979159Z caller=module_service.go:110 msg=stopping module=metrics-generator
-2025-10-21 10:21:12.081545003 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.080016892Z caller=module_service.go:133 msg="module waiting for" module=memberlist-kv waiting_for=compactor
-2025-10-21 10:21:12.081546230 +0200 CEST [web-1] level=info ts=2025-10-21T08:21:12.080122018Z caller=lifecycler.go:606 msg="lifecycler loop() exited gracefully" ring=ingester
-2025-10-21 10:21:12.081545397 +0200 CEST [web-1] level=info ts=2025-10-21T08:21:12.080041125Z caller=module_service.go:120 msg="module stopped" module=metrics-generator
-2025-10-21 10:21:12.081545885 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.080067998Z caller=module_service.go:110 msg=stopping module=ingester
-2025-10-21 10:21:12.081564965 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.080198206Z caller=mock.go:153 msg=Get key=collectors/ring wait_index=0
-2025-10-21 10:21:12.081563988 +0200 CEST [web-1] level=info ts=2025-10-21T08:21:12.080150555Z caller=lifecycler.go:990 msg="changing instance state from" old_state=ACTIVE new_state=LEAVING ring=ingester
-2025-10-21 10:21:12.081567051 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.080271958Z caller=mock.go:199 msg=Get key=collectors/ring modify_index=16 value="\"\\xc1\\x05\\xf4\\xc0\\x02\\n\\xbe\\x05\\n\\x0fpoc-trace-web-1\\x12\\xaa\\x05\\n\\x0e127.0.0.1:\""
-2025-10-21 10:21:12.081565311 +0200 CEST [web-1] level=warn ts=2025-10-21T08:21:12.080245185Z caller=server.go:1565 method=/frontend.Frontend/Process duration=1m3.263075038s msg=gRPC err="queue is stopped"
-2025-10-21 10:21:12.081594142 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.080316104Z caller=mock.go:126 msg=CAS key=collectors/ring modify_index=16 value="\"\\xc3\\x05\\xf4\\xc2\\x02\\n\\xc0\\x05\\n\\x0fpoc-trace-web-1\\x12\\xac\\x05\\n\\x0e127.0.0.1:\""
-2025-10-21 10:21:12.081595781 +0200 CEST [web-1] level=info ts=2025-10-21T08:21:12.080389428Z caller=lifecycler.go:1093 msg="lifecycler entering final sleep before shutdown" final_sleep=0s
-2025-10-21 10:21:12.081596144 +0200 CEST [web-1] level=warn ts=2025-10-21T08:21:12.080395316Z caller=server.go:1565 method=/frontend.Frontend/Process duration=1m3.264195283s msg=gRPC err="queue is stopped"
-2025-10-21 10:21:12.081596673 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.080413557Z caller=lifecycler.go:1116 msg="unregistering instance from ring" ring=ingester
-2025-10-21 10:21:12.081614113 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.080430139Z caller=mock.go:153 msg=Get key=collectors/ring wait_index=0
-2025-10-21 10:21:12.082347884 +0200 CEST [web-1] level=info ts=2025-10-21T08:21:12.081862867Z caller=module_service.go:120 msg="module stopped" module=distributor
-2025-10-21 10:21:12.081667630 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.080572657Z caller=module_service.go:110 msg=stopping module=distributor
-2025-10-21 10:21:12.082348267 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.081896954Z caller=module_service.go:133 msg="module waiting for" module=ring waiting_for=ingester
-2025-10-21 10:21:12.081614437 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.080438172Z caller=mock.go:199 msg=Get key=collectors/ring modify_index=17 value="\"\\xc3\\x05\\xf4\\xc2\\x02\\n\\xc0\\x05\\n\\x0fpoc-trace-web-1\\x12\\xac\\x05\\n\\x0e127.0.0.1:\""
-2025-10-21 10:21:12.082403667 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.081906885Z caller=module_service.go:133 msg="module waiting for" module=ring waiting_for=metrics-generator
-2025-10-21 10:21:12.082406472 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.081914997Z caller=module_service.go:133 msg="module waiting for" module=ring waiting_for=querier
-2025-10-21 10:21:12.082407129 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.081924669Z caller=module_service.go:133 msg="module waiting for" module=metrics-generator-ring waiting_for=querier
-2025-10-21 10:21:12.082407582 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.081933803Z caller=module_service.go:133 msg="module waiting for" module=memberlist-kv waiting_for=live-store-ring
-2025-10-21 10:21:12.082407991 +0200 CEST [web-1] level=error ts=2025-10-21T08:21:12.081953085Z caller=frontend_processor.go:84 msg="error processing requests" address=127.0.0.1:9095 err="rpc error: code = Unknown desc = queue is stopped"
-2025-10-21 10:21:12.081614833 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.080467056Z caller=mock.go:126 msg=CAS key=collectors/ring modify_index=17 value="\"\\x00\""
-2025-10-21 10:21:12.081615277 +0200 CEST [web-1] level=info ts=2025-10-21T08:21:12.080483986Z caller=lifecycler.go:658 msg="instance removed from the KV store" ring=ingester
-2025-10-21 10:21:12.083751659 +0200 CEST [web-1] level=error ts=2025-10-21T08:21:12.082072011Z caller=frontend_processor.go:84 msg="error processing requests" address=127.0.0.1:9095 err="rpc error: code = Unknown desc = queue is stopped"
-2025-10-21 10:21:12.082408424 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.081978732Z caller=module_service.go:133 msg="module waiting for" module=cache-provider waiting_for=querier
-2025-10-21 10:21:12.083752235 +0200 CEST [web-1] level=warn ts=2025-10-21T08:21:12.082091739Z caller=server.go:1565 method=/frontend.Frontend/Process duration=1m3.265769s msg=gRPC err="queue is stopped"
-2025-10-21 10:21:12.083748120 +0200 CEST [web-1] level=warn ts=2025-10-21T08:21:12.082023778Z caller=server.go:1565 method=/frontend.Frontend/Process duration=1m3.264951579s msg=gRPC err="queue is stopped"
-2025-10-21 10:21:12.081624964 +0200 CEST [web-1] level=warn ts=2025-10-21T08:21:12.080492765Z caller=server.go:1565 method=/frontend.Frontend/Process duration=1m3.26400831s msg=gRPC err="queue is stopped"
-2025-10-21 10:21:12.083752807 +0200 CEST [web-1] level=error ts=2025-10-21T08:21:12.082112002Z caller=frontend_processor.go:84 msg="error processing requests" address=127.0.0.1:9095 err="rpc error: code = Unknown desc = queue is stopped"
-2025-10-21 10:21:12.083753644 +0200 CEST [web-1] level=error ts=2025-10-21T08:21:12.0821371Z caller=frontend_processor.go:84 msg="error processing requests" address=127.0.0.1:9095 err="rpc error: code = Unknown desc = queue is stopped"
-2025-10-21 10:21:12.081633348 +0200 CEST [web-1] level=warn ts=2025-10-21T08:21:12.080549949Z caller=server.go:1565 method=/frontend.Frontend/Process duration=1m3.264720959s msg=gRPC err="queue is stopped"
-2025-10-21 10:21:12.081625326 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.080530202Z caller=flush.go:215 msg="Ingester.flushLoop() exited"
-2025-10-21 10:21:12.083753201 +0200 CEST [web-1] level=warn ts=2025-10-21T08:21:12.082123748Z caller=server.go:1565 method=/frontend.Frontend/Process duration=1m3.265841329s msg=gRPC err="queue is stopped"
-2025-10-21 10:21:12.082241029 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.080722132Z caller=module_service.go:110 msg=stopping module=querier
-2025-10-21 10:21:12.082241887 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.080795926Z caller=module_service.go:133 msg="module waiting for" module=memberlist-kv waiting_for=distributor
-2025-10-21 10:21:12.082272505 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.080860298Z caller=module_service.go:133 msg="module waiting for" module=overrides-api waiting_for=query-frontend
-2025-10-21 10:21:12.082242636 +0200 CEST [web-1] level=info ts=2025-10-21T08:21:12.080815837Z caller=module_service.go:120 msg="module stopped" module=block-builder
-2025-10-21 10:21:12.082242261 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.080807025Z caller=module_service.go:110 msg=stopping module=block-builder
-2025-10-21 10:21:12.081671720 +0200 CEST [web-1] level=warn ts=2025-10-21T08:21:12.080593661Z caller=server.go:1565 method=/frontend.Frontend/Process duration=1m3.264853897s msg=gRPC err="queue is stopped"
-2025-10-21 10:21:12.081672473 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.080639686Z caller=module_service.go:133 msg="module waiting for" module=optional-store waiting_for=metrics-generator
-2025-10-21 10:21:12.082243098 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.080831777Z caller=module_service.go:133 msg="module waiting for" module=internal-server waiting_for=overrides-api
-2025-10-21 10:21:12.082272082 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.080848934Z caller=module_service.go:133 msg="module waiting for" module=store waiting_for=querier
-2025-10-21 10:21:12.081672836 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.080649093Z caller=module_service.go:110 msg=stopping module=optional-store
-2025-10-21 10:21:12.081673284 +0200 CEST [web-1] level=warn ts=2025-10-21T08:21:12.080669507Z caller=server.go:1565 method=/frontend.Frontend/Process duration=1m3.26478113s msg=gRPC err="queue is stopped"
-2025-10-21 10:21:12.081673652 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.080682273Z caller=module_service.go:133 msg="module waiting for" module=server waiting_for=querier
-2025-10-21 10:21:12.082273479 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.080933863Z caller=module_service.go:133 msg="module waiting for" module=usage-report waiting_for=metrics-generator
-2025-10-21 10:21:12.082272828 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.080874017Z caller=module_service.go:133 msg="module waiting for" module=ring waiting_for=distributor
-2025-10-21 10:21:12.082273201 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.080902884Z caller=module_service.go:133 msg="module waiting for" module=cache-provider waiting_for=ingester
-2025-10-21 10:21:12.082288767 +0200 CEST [web-1] level=warn ts=2025-10-21T08:21:12.080950726Z caller=server.go:1565 method=/frontend.Frontend/Process duration=1m3.264055175s msg=gRPC err="queue is stopped"
 2025-10-21 10:21:12.082237235 +0200 CEST [web-1] level=warn ts=2025-10-21T08:21:12.080713305Z caller=server.go:1565 method=/frontend.Frontend/Process duration=1m3.264562165s msg=gRPC err="queue is stopped"
 2025-10-21 10:21:12.081674006 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.080698719Z caller=module_service.go:133 msg="module waiting for" module=metrics-generator-ring waiting_for=distributor
 2025-10-21 10:21:12.082239833 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:12.080731792Z caller=module_service.go:110 msg=stopping module=compactor
@@ -998,3 +929,72 @@
 2025-10-21 15:14:39.750866585 +0200 CEST [web-1] 🚀 Preparing environment...
 2025-10-21 15:14:39.768750445 +0200 CEST [web-1] chmod: changing permissions of '/var/log/': Operation not permitted
 2025-10-21 15:14:39.769144956 +0200 CEST [web-1] chmod: changing permissions of '/var/log/alternatives.log': Operation not permitted
+2025-10-21 15:19:15.701605077 +0200 CEST [manager] container [web-1] (68f7884b998269af4571f2d0) started with the command './script/start.sh'
+2025-10-21 15:19:15.703325818 +0200 CEST [web-1] 🚀 Preparing environment...
+2025-10-21 15:19:15.719834772 +0200 CEST [web-1] chmod: cannot access '/app/var/log/': No such file or directory
+2025-10-21 15:24:40.545587945 +0200 CEST [manager] container [web-1] (68f78991998269af4571f910) started with the command './script/start.sh'
+2025-10-21 15:24:40.567664422 +0200 CEST [web-1] chmod: cannot access '/app/var/log/': No such file or directory
+2025-10-21 15:24:40.555151519 +0200 CEST [web-1] 🚀 Preparing environment...
+2025-10-21 15:55:34.111237602 +0200 CEST [manager] container [web-1] (68f7909999c3cd4ee90c3ed1) started with the command './script/start.sh'
+2025-10-21 15:55:34.221691309 +0200 CEST [web-1] 🚀 Preparing environment...
+2025-10-21 15:55:34.231343275 +0200 CEST [web-1] 🚀 Creating NGINX required directories...
+2025-10-21 15:55:34.231344938 +0200 CEST [web-1] ✅ Directories created
+2025-10-21 15:55:34.234404243 +0200 CEST [web-1] 🚀 Starting Tempo...
+2025-10-21 15:55:35.696074138 +0200 CEST [web-1] ts=2025-10-21T13:55:35Z level=info msg="OTel Shim Logger Initialized" component=tempo
+2025-10-21 15:55:35.708664375 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.708534249Z caller=sync_handler_cache.go:131 msg="init frontend cache" role=frontend-search enabled=false
+2025-10-21 15:55:35.664326045 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.663268Z caller=main.go:103 msg="Starting Tempo" version="(version=2.9.0, branch=HEAD, revision=607c7fb69)" target=all
+2025-10-21 15:55:35.697935655 +0200 CEST [web-1] level=warn ts=2025-10-21T13:55:35.697725767Z caller=modules.go:353 msg="metrics-generator is not configured." err="no metrics_generator.storage.path configured, metrics generator will be disabled"
+2025-10-21 15:55:35.699556527 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.698024607Z caller=frontend.go:69 msg="creating middleware in query frontend"
+2025-10-21 15:55:35.671271364 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.671064669Z caller=server.go:281 msg="server listening on addresses" http=127.0.0.1:3200 grpc=[::]:9095
+2025-10-21 15:55:35.695973832 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.695559129Z caller=memberlist_client.go:484 msg="Using memberlist cluster label and node name" cluster_label= node=poc-trace-web-1-a1e40af8
+2025-10-21 15:55:35.708658520 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.701353474Z caller=sync_handler_cache.go:131 msg="init frontend cache" role=frontend-search enabled=false
+2025-10-21 15:55:35.708663593 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.708519684Z caller=sync_handler_cache.go:131 msg="init frontend cache" role=frontend-search enabled=false
+2025-10-21 15:55:35.682874742 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.678591836Z caller=cache.go:55 msg="caches available to storage backend" parquet-footer=false bloom=false parquet-offset-idx=false parquet-column-idx=false trace-id-index=false parquet-page=false
+2025-10-21 15:55:35.708664763 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.708544759Z caller=sync_handler_cache.go:131 msg="init frontend cache" role=frontend-search enabled=false
+2025-10-21 15:55:35.708662709 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.708507921Z caller=sync_handler_cache.go:131 msg="init frontend cache" role=frontend-search enabled=false
+2025-10-21 15:55:35.716894398 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.716777984Z caller=ring.go:365 msg="ring doesn't exist in KV store yet"
+2025-10-21 15:55:35.714960252 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.714900353Z caller=module_service.go:82 msg=starting module=memberlist-kv
+2025-10-21 15:55:35.715352856 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.715204515Z caller=module_service.go:82 msg=starting module=compactor
+2025-10-21 15:55:35.717128843 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.716915843Z caller=module_service.go:82 msg=starting module=metrics-generator
+2025-10-21 15:55:35.715360348 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.715256876Z caller=tempodb.go:638 msg="polling enabled" interval=5m0s blocklist_concurrency=50
+2025-10-21 15:55:35.708665137 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.708549831Z caller=sync_handler_cache.go:131 msg="init frontend cache" role=frontend-search enabled=false
+2025-10-21 15:55:35.717130377 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.716933634Z caller=module_service.go:82 msg=starting module=ingester
+2025-10-21 15:55:35.715009066 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.714895784Z caller=module_service.go:82 msg=starting module=overrides
+2025-10-21 15:55:35.715009525 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.714920011Z caller=module_service.go:82 msg=starting module=metrics-generator-ring
+2025-10-21 15:55:35.711093918 +0200 CEST [web-1] level=warn ts=2025-10-21T13:55:35.71092081Z caller=modules.go:456 msg="Worker address is empty in single binary mode. Attempting automatic worker configuration. If queries are unresponsive consider configuring the worker explicitly." address=127.0.0.1:9095
+2025-10-21 15:55:35.717149340 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.716953695Z caller=module_service.go:82 msg=starting module=querier
+2025-10-21 15:55:35.712398250 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.71215762Z caller=worker.go:108 msg="Starting querier worker connected to query-frontend" frontend=127.0.0.1:9095
+2025-10-21 15:55:35.715009909 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.714937067Z caller=module_service.go:82 msg=starting module=live-store-ring
+2025-10-21 15:55:35.715471503 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.715372432Z caller=module_service.go:82 msg=starting module=query-frontend
+2025-10-21 15:55:35.716166859 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.716056431Z caller=poller.go:252 msg="blocklist poll complete" seconds=0.000779334
+2025-10-21 15:55:35.713623072 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.713388055Z caller=module_service.go:82 msg=starting module=cache-provider
+2025-10-21 15:55:35.717154402 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.716960413Z caller=module_service.go:82 msg=starting module=block-builder
+2025-10-21 15:55:35.713668624 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.713452337Z caller=module_service.go:82 msg=starting module=store
+2025-10-21 15:55:35.715120218 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.714980647Z caller=module_service.go:82 msg=starting module=overrides-api
+2025-10-21 15:55:35.713671536 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.713493055Z caller=module_service.go:82 msg=starting module=optional-store
+2025-10-21 15:55:35.716176916 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.716103023Z caller=tempodb.go:598 msg="compaction and retention enabled."
+2025-10-21 15:55:35.717154997 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.716984911Z caller=module_service.go:82 msg=starting module=distributor
+2025-10-21 15:55:35.715150411 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.715060111Z caller=module_service.go:82 msg=starting module=secondary-ring
+2025-10-21 15:55:35.716167606 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.716088561Z caller=compactor.go:157 msg="enabling compaction"
+2025-10-21 15:55:35.715121227 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.715005355Z caller=module_service.go:82 msg=starting module=ring
+2025-10-21 15:55:35.722048639 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.716939577Z caller=ingester.go:413 msg="beginning wal replay"
+2025-10-21 15:55:35.716759765 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.714993549Z caller=ring.go:365 msg="ring doesn't exist in KV store yet"
+2025-10-21 15:55:35.714846950 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.713675555Z caller=module_service.go:82 msg=starting module=internal-server
+2025-10-21 15:55:35.717191806 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.717040855Z caller=worker.go:184 msg="adding connection" addr=127.0.0.1:9095
+2025-10-21 15:55:35.716762932 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.7166033Z caller=ring.go:365 msg="ring doesn't exist in KV store yet"
+2025-10-21 15:55:35.715150916 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.715093366Z caller=module_service.go:82 msg=starting module=usage-report
+2025-10-21 15:55:35.714957016 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.714745143Z caller=module_service.go:82 msg=starting module=server
+2025-10-21 15:55:35.761468644 +0200 CEST [web-1] ts=2025-10-21T13:55:35Z level=info msg="Starting HTTP server" component=tempo endpoint=127.0.0.1:4318
+2025-10-21 15:55:35.728119531 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.727956744Z caller=ingester.go:465 msg="reloading local blocks" tenants=0
+2025-10-21 15:55:35.728118428 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.7279086Z caller=ingester.go:451 msg="wal replay complete"
+2025-10-21 15:55:35.728113788 +0200 CEST [web-1] level=warn ts=2025-10-21T13:55:35.727871708Z caller=wal.go:103 msg="unowned file entry ignored during wal replay" file=blocks err=null
+2025-10-21 15:55:35.731306604 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.7310656Z caller=worker.go:250 msg="total worker concurrency updated" totalConcurrency=20
+2025-10-21 15:55:35.761678509 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.761559351Z caller=app.go:213 msg="Tempo started"
+2025-10-21 15:55:35.734443131 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.7342472Z caller=lifecycler.go:687 msg="not loading tokens from file, tokens file path is empty"
+2025-10-21 15:55:35.750090366 +0200 CEST [web-1] ts=2025-10-21T13:55:35Z level=info msg="Starting HTTP server for Jaeger Thrift" component=tempo endpoint=127.0.0.1:14268
+2025-10-21 15:55:35.734445964 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.734322419Z caller=lifecycler.go:714 msg="instance not found in ring, adding with no tokens" ring=ingester
+2025-10-21 15:55:35.734506245 +0200 CEST [web-1] level=info ts=2025-10-21T13:55:35.734411299Z caller=lifecycler.go:556 msg="auto-joining cluster after timeout" ring=ingester
+2025-10-21 15:55:35.759745012 +0200 CEST [web-1] ts=2025-10-21T13:55:35Z level=info msg="Starting GRPC server" component=tempo endpoint=127.0.0.1:4317
+2025-10-21 15:55:36.285989112 +0200 CEST [web-1] nginx: [alert] could not open error log file: open() "/var/log/nginx/error.log" failed (2: No such file or directory)
+2025-10-21 15:55:36.236680149 +0200 CEST [web-1] 🚀 Starting NGINX proxy on port 21468...
+2025-10-21 15:55:36.335061159 +0200 CEST [web-1] 2025/10/21 13:55:36 [emerg] 35#35: open() "/var/log/nginx/error.log" failed (2: No such file or directory)
