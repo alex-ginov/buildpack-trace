@@ -9,14 +9,11 @@ echo "🚀 Preparing environment..."
 mkdir -p /tmp/tempo-data/wal /tmp/tempo-data/blocks
 
 # --- NEW NGINX DIRECTORIES dans app---
-#mkdir -p /app/nginx/{body,tmp,fastcgi,uwsgi,scgi}
-#chmod -R 755 /app/nginx
+mkdir -p /app/nginx/{body,tmp,fastcgi,uwsgi,scgi}
+chmod -R 755 /app/nginx
 
 # Avant le démarrage de NGINX, ajoutez :
 echo "🚀 Creating NGINX required directories..."
-mkdir -p /var/log/nginx
-mkdir -p /var/lib/nginx/{body,tmp,fastcgi,uwsgi,scgi}
-chmod -R 755 /var/log/nginx /var/lib/nginx
 
 echo "✅ Directories created"
 
