@@ -1,0 +1,30 @@
+worker_processes 1;
+daemon off;
+
+events {
+  worker_connections 1024;
+}
+
+http {
+  include mime.types;
+  default_type application/octet-stream;
+  sendfile on;
+  keepalive_timeout 65;
+
+  # Proxy vers Tempo
+  upstream tempo {
+    server 127.0.0.1:4317;
+  }
+
+  server {
+    listen <%= ENV['PORT'] %>;
+    server_name _;
+
+    # Redirection vers Tempo
+    location / {
+      proxy_pass http://tempo;
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+    }
+  }
+}

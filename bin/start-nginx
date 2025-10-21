@@ -1,0 +1,13 @@
+#!/bin/bash
+set -e
+
+APP_DIR="/app"
+NGINX_CONF="${APP_DIR}/config/nginx.conf.erb"
+
+# Générer la configuration Nginx
+echo "-----> Génération de la configuration Nginx"
+erb $NGINX_CONF > /tmp/nginx.conf
+
+# Démarrer Nginx
+echo "-----> Démarrage de Nginx"
+exec nginx -c /tmp/nginx.conf -g "daemon off;"

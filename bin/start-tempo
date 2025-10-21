@@ -30,3 +30,4 @@ exec "${APP_DIR}/bin/tempo" \
   --config.file="${CONFIG_FILE}" \
   --target=all \
   --config.expand-env=true
+   &
