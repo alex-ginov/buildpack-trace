@@ -1,6 +1,15 @@
 #!/bin/bash
 set -e
 
+# Vérifier que erb est disponible
+if ! command -v erb &> /dev/null; then
+    echo "ERREUR: erb n'est pas installé. Installation en cours..."
+    apt-get update && apt-get install -y ruby-erb || {
+        echo "Échec de l'installation de erb"
+        exit 1
+    }
+fi
+
 APP_DIR="/app"
 NGINX_CONF="${APP_DIR}/config/nginx.conf.erb"
 
