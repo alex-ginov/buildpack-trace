@@ -10,8 +10,10 @@ mkdir -p /tmp/tempo-data/wal /tmp/tempo-data/blocks
 touch /tmp/error.log /tmp/access.log
 
 mkdir -p /app/nginx/body
+mkdir -p /app/nginx/proxy
+chmod -R 777 /app/nginx/proxy
 
-echo "✅ Directories created (if missing)"
+echo "✅ Directories created"
 
 # ------------------------------------------------------------
 # Set NGINX port (Scalingo injecte $PORT)
