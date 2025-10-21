@@ -1,17 +1,3 @@
-2025-10-21 10:21:11.383520048 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:11.383110866Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/metrics-generator
-2025-10-21 10:21:11.383525018 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:11.383198609Z caller=mock.go:153 msg=Get key=collectors/metrics-generator wait_index=16
-2025-10-21 10:21:11.383526202 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:11.383232365Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/ring
-2025-10-21 10:21:11.383526614 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:11.383283998Z caller=mock.go:153 msg=Get key=collectors/ring wait_index=16
-2025-10-21 10:21:11.483968534 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:11.483494056Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/ring
-2025-10-21 10:21:11.483982930 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:11.483582928Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/metrics-generator
-2025-10-21 10:21:11.483981385 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:11.483565153Z caller=mock.go:153 msg=Get key=collectors/ring wait_index=16
-2025-10-21 10:21:11.483983321 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:11.483596657Z caller=mock.go:153 msg=Get key=collectors/metrics-generator wait_index=16
-2025-10-21 10:21:11.584299979 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:11.583830933Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/metrics-generator
-2025-10-21 10:21:11.584311451 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:11.583905322Z caller=mock.go:153 msg=Get key=collectors/metrics-generator wait_index=16
-2025-10-21 10:21:11.584312251 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:11.583924535Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/ring
-2025-10-21 10:21:11.684568160 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:11.684096799Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/ring
-2025-10-21 10:21:11.684577299 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:11.68417049Z caller=mock.go:153 msg=Get key=collectors/ring wait_index=16
-2025-10-21 10:21:11.584312656 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:11.583932001Z caller=mock.go:153 msg=Get key=collectors/ring wait_index=16
 2025-10-21 10:21:11.684578556 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:11.684189686Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/metrics-generator
 2025-10-21 10:21:11.684578997 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:11.684198891Z caller=mock.go:153 msg=Get key=collectors/metrics-generator wait_index=16
 2025-10-21 10:21:11.784896640 +0200 CEST [web-1] level=debug ts=2025-10-21T08:21:11.784378428Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/metrics-generator
@@ -998,3 +984,17 @@
 2025-10-21 14:55:57.277685784 +0200 CEST [web-1] 🚀 Starting NGINX proxy on port 25454...
 2025-10-21 14:55:57.282103759 +0200 CEST [web-1] nginx: [alert] could not open error log file: open() "/var/log/nginx/error.log" failed (2: No such file or directory)
 2025-10-21 14:55:57.283479300 +0200 CEST [web-1] 2025/10/21 12:55:57 [emerg] 34#34: open() "/var/log/nginx/error.log" failed (2: No such file or directory)
+2025-10-21 14:56:59.285923420 +0200 CEST [manager] container [one-off-6952] (68f7831899c3cd4ee90bfc6e) started with the command 'bahs'
+2025-10-21 14:57:06.218839028 +0200 CEST [manager] container [one-off-7146] (68f7831e99c3cd4ee90bfc85) started with the command 'bash'
+2025-10-21 15:02:37.524403079 +0200 CEST [manager] container [web-1] (68f7844c998269af4571e23c) started with the command './script/start.sh'
+2025-10-21 15:02:37.568614300 +0200 CEST [web-1] 🚀 Preparing environment...
+2025-10-21 15:02:37.597283149 +0200 CEST [web-1] mkdir: cannot create directory '/var/log/nginx/': Permission denied
+2025-10-21 15:12:44.458109862 +0200 CEST [manager] container [web-1] (68f786a1998269af4571e9e8) started with the command './script/start.sh'
+2025-10-21 15:12:44.817318442 +0200 CEST [web-1] 🚀 Preparing environment...
+2025-10-21 15:12:44.918414842 +0200 CEST [web-1] mkdir: cannot create directory '/var/log/nginx/': Permission denied
+2025-10-21 15:12:47.929182370 +0200 CEST [manager] container [web-1] (68f786a1998269af4571e9e8) has crashed, restart container in 0s.
+2025-10-21 15:12:47.929182370 +0200 CEST [manager]  - documentation: https://doc.scalingo.com/platform/app/crash
+2025-10-21 15:14:39.751991702 +0200 CEST [manager] container [web-1] (68f78738998269af4571ec35) started with the command './script/start.sh'
+2025-10-21 15:14:39.750866585 +0200 CEST [web-1] 🚀 Preparing environment...
+2025-10-21 15:14:39.768750445 +0200 CEST [web-1] chmod: changing permissions of '/var/log/': Operation not permitted
+2025-10-21 15:14:39.769144956 +0200 CEST [web-1] chmod: changing permissions of '/var/log/alternatives.log': Operation not permitted
