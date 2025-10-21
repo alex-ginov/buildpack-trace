@@ -1,8 +1,3 @@
-2025-10-21 10:20:53.806753521 +0200 CEST [web-1] level=debug ts=2025-10-21T08:20:53.806450673Z caller=mock.go:199 msg=Get key=collectors/ring modify_index=13 value="\"\\xc1\\x05\\xf4\\xc0\\x02\\n\\xbe\\x05\\n\\x0fpoc-trace-web-1\\x12\\xaa\\x05\\n\\x0e127.0.0.1:\""
-2025-10-21 10:20:53.930300166 +0200 CEST [web-1] level=debug ts=2025-10-21T08:20:53.930029664Z caller=mock.go:153 msg=Get key=collectors/ring wait_index=13
-2025-10-21 10:20:53.806751726 +0200 CEST [web-1] level=debug ts=2025-10-21T08:20:53.806273305Z caller=mock.go:199 msg=Get key=collectors/ring modify_index=12 value="\"\\xc1\\x05\\xf4\\xc0\\x02\\n\\xbe\\x05\\n\\x0fpoc-trace-web-1\\x12\\xaa\\x05\\n\\x0e127.0.0.1:\""
-2025-10-21 10:20:53.806753097 +0200 CEST [web-1] level=debug ts=2025-10-21T08:20:53.806389677Z caller=mock.go:126 msg=CAS key=collectors/ring modify_index=12 value="\"\\xc1\\x05\\xf4\\xc0\\x02\\n\\xbe\\x05\\n\\x0fpoc-trace-web-1\\x12\\xaa\\x05\\n\\x0e127.0.0.1:\""
-2025-10-21 10:20:53.806738364 +0200 CEST [web-1] level=debug ts=2025-10-21T08:20:53.806167234Z caller=mock.go:153 msg=Get key=collectors/ring wait_index=0
 2025-10-21 10:20:53.806753992 +0200 CEST [web-1] level=debug ts=2025-10-21T08:20:53.806493315Z caller=mock.go:153 msg=Get key=collectors/ring wait_index=13
 2025-10-21 10:20:53.830113495 +0200 CEST [web-1] level=debug ts=2025-10-21T08:20:53.829681772Z caller=mock.go:195 msg="Get - not found" key=collectors/metrics-generator
 2025-10-21 10:20:53.830095797 +0200 CEST [web-1] level=debug ts=2025-10-21T08:20:53.829578333Z caller=mock.go:189 msg="Get - deadline exceeded" key=collectors/metrics-generator
@@ -998,3 +993,8 @@
 2025-10-21 10:34:13.707591597 +0200 CEST [web-1] 2025/10/21 08:34:13 [emerg] 31#31: open() "/app/mime.types" failed (2: No such file or directory) in /app/nginx.conf:7
 2025-10-21 10:34:13.704444001 +0200 CEST [web-1] 🚀 Starting NGINX proxy...
 2025-10-21 10:34:13.706757011 +0200 CEST [web-1] nginx: [alert] could not open error log file: open() "/var/log/nginx/error.log" failed (2: No such file or directory)
+2025-10-21 10:41:58.642108895 +0200 CEST [manager] container [web-1] (68f7474f99826916864df69a) started with the command 'nginx -c /app/nginx.conf & ./script/start.sh'
+2025-10-21 10:41:58.650272730 +0200 CEST [web-1] 🚀 Preparing environment...
+2025-10-21 10:41:58.657580525 +0200 CEST [web-1] nginx: [alert] could not open error log file: open() "/var/log/nginx/error.log" failed (2: No such file or directory)
+2025-10-21 10:41:58.658554508 +0200 CEST [web-1] 2025/10/21 08:41:58 [emerg] 13#13: open() "/etc/nginx/mime.types" failed (2: No such file or directory) in /app/nginx.conf:16
+2025-10-21 10:41:58.664244299 +0200 CEST [web-1] mkdir: cannot create directory '/var/log/nginx': Permission denied
