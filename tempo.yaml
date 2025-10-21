@@ -1,217 +1,26 @@
-# ==========================================================
-# Tempo Production Configuration for Scalingo
-# ==========================================================
-# Documentation: https://grafana.com/docs/tempo/latest/configuration/
-
-stream_over_http_enabled: true
-
-# ==========================================================
-# SERVER - API & Query Interface
-# ==========================================================
 server:
-  # Port interne pour l'API Tempo (pas exposé directement)
-  # NGINX fait le proxy vers ce port
-  http_listen_port: ${TEMPO_HTTP_PORT:-3200}
-  
-  # Écoute uniquement en local (sécurité)
-  # Seul NGINX peut accéder à Tempo
+  http_listen_port: 3200
   http_listen_address: "127.0.0.1"
-  
-  # Niveau de log : debug, info, warn, error
-  # Recommandé: info en prod, debug pour troubleshooting
-  log_level: ${TEMPO_LOG_LEVEL:-info}
-  
-  # Timeout des requêtes HTTP (optionnel)
-  # http_server_read_timeout: 30s
-  # http_server_write_timeout: 30s
 
-# ==========================================================
-# DISTRIBUTOR - Ingestion des traces
-# ==========================================================
 distributor:
   receivers:
-    # --- OTLP (OpenTelemetry Protocol) ---
-    # Format standard moderne, recommandé
     otlp:
       protocols:
-        # OTLP HTTP (préféré pour les apps web)
         http:
-          endpoint: "127.0.0.1:${TEMPO_OTLP_HTTP_PORT:-4318}"
-          # cors:
-          #   allowed_origins: ["*"]  # À restreindre en prod
-        
-        # OTLP gRPC (plus performant pour high throughput)
+          endpoint: "127.0.0.1:4318"
         grpc:
-          endpoint: "127.0.0.1:${TEMPO_OTLP_GRPC_PORT:-4317}"
-    
-    # --- Jaeger ---
-    # Pour compatibilité legacy Jaeger
+          endpoint: "127.0.0.1:4317"
     jaeger:
       protocols:
         thrift_http:
-          endpoint: "127.0.0.1:${TEMPO_JAEGER_HTTP_PORT:-14268}"
-        # thrift_compact:  # Désactivé car nécessite UDP
-        #   endpoint: "127.0.0.1:6831"
-        # thrift_binary:   # Désactivé car nécessite UDP
-        #   endpoint: "127.0.0.1:6832"
-    
-    # --- Zipkin ---
-    # Pour compatibilité legacy Zipkin
+          endpoint: "127.0.0.1:14268"
     zipkin:
-      endpoint: "127.0.0.1:${TEMPO_ZIPKIN_PORT:-9411}"
+      endpoint: "127.0.0.1:9411"
 
-  # Rate limiting (optionnel mais recommandé en prod)
-  # rate_limit:
-  #   rate_limit_bytes: 5000000  # 5MB/s max ingestion
-
-# ==========================================================
-# INGESTER - Écriture des traces
-# ==========================================================
-ingester:
-  # Durée max d'un bloc avant flush
-  # Plus court = moins de RAM, plus d'I/O
-  # Plus long = plus de RAM, moins d'I/O
-  max_block_duration: ${TEMPO_MAX_BLOCK_DURATION:-5m}
-  
-  # Taille max d'un bloc (optionnel)
-  # max_block_bytes: 524288000  # 500MB
-  
-  # Timeout pour le flush des traces
-  # complete_block_timeout: 1m
-
-# ==========================================================
-# STORAGE - Backend de stockage
-# ==========================================================
 storage:
   trace:
-    # ⚠️ CRITIQUE PRODUCTION ⚠️
-    # Backend: local (POC), s3 (prod recommandé), gcs, azure
-    backend: ${TEMPO_STORAGE_BACKEND:-local}
-    
-    # --- WAL (Write-Ahead Log) ---
-    # Stockage temporaire avant flush vers le backend
+    backend: local
     wal:
-      # ⚠️ /tmp est EPHEMERE sur Scalingo
-      # Pour prod: utiliser un volume persistant si disponible
-      # Sinon: accepter la perte de données en cas de restart
-      path: ${TEMPO_WAL_PATH:-/tmp/tempo-data/wal}
-      # encoding: snappy  # Compression (none, gzip, snappy, lz4)
-    
-    # --- LOCAL (Development/POC uniquement) ---
-    # ⚠️ NE PAS UTILISER EN PROD ⚠️
-    # Données perdues à chaque redémarrage du dyno
+      path: /tmp/tempo-data/wal
     local:
-      path: ${TEMPO_BLOCKS_PATH:-/tmp/tempo-data/blocks}
-    
-    # --- S3 (Recommandé pour production) ---
-    # Décommenter et configurer pour la prod
-    # s3:
-    #   bucket: ${S3_BUCKET}
-    #   endpoint: ${S3_ENDPOINT}  # Ex: s3.amazonaws.com ou Scalingo S3
-    #   access_key: ${S3_ACCESS_KEY}
-    #   secret_key: ${S3_SECRET_KEY}
-    #   insecure: false
-    #   # Pour Scalingo ou providers compatibles S3:
-    #   # forcepathstyle: true
-    
-    # --- GCS (Google Cloud Storage) ---
-    # gcs:
-    #   bucket_name: ${GCS_BUCKET}
-    #   chunk_buffer_size: 10485760
-    
-    # --- Azure Blob Storage ---
-    # azure:
-    #   container_name: ${AZURE_CONTAINER}
-    #   storage_account_name: ${AZURE_ACCOUNT}
-    #   storage_account_key: ${AZURE_KEY}
-    
-    # Pool de connexions (tuning performance)
-    # pool:
-    #   max_workers: 100
-    #   queue_depth: 10000
-
-# ==========================================================
-# QUERIER - Lecture des traces
-# ==========================================================
-querier:
-  # Configuration du worker qui communique avec le query frontend
-  frontend_worker:
-    frontend_address: "127.0.0.1:9095"
-    # parallelism: 2  # Nombre de requêtes parallèles
-  
-  # Timeout pour les requêtes de recherche
-  # search:
-  #   query_timeout: 30s
-
-# ==========================================================
-# QUERY FRONTEND - Interface de recherche
-# ==========================================================
-query_frontend:
-  search:
-    # Durée max de recherche (0 = illimité)
-    # En prod, limiter pour éviter les timeouts
-    max_duration: ${TEMPO_SEARCH_MAX_DURATION:-0}
-    # concurrent_jobs: 1000  # Nombre de jobs parallèles
-    # target_bytes_per_job: 104857600  # 100MB par job
-  
-  # Cache des résultats (optionnel mais recommandé)
-  # trace_by_id:
-  #   cache:
-  #     background:
-  #       writeback_goroutines: 5
-
-# ==========================================================
-# COMPACTOR - Nettoyage et compaction
-# ==========================================================
-compactor:
-  compaction:
-    # ⚠️ Rétention des blocs (durée avant suppression)
-    # POC: 1h pour économiser l'espace
-    # Dev: 24h-48h
-    # Prod: 7d-30d selon les besoins réglementaires
-    block_retention: ${TEMPO_RETENTION:-1h}
-    
-    # Intervalle de compaction
-    # compaction_window: 1h
-    # max_block_bytes: 107374182400  # 100GB
-    # retention_concurrency: 10
-  
-  # Configuration du ring (pour déploiement distribué)
-  # ring:
-  #   kvstore:
-  #     store: inmemory
-
-# ==========================================================
-# METRICS GENERATOR (Optionnel)
-# ==========================================================
-# Génère des métriques à partir des traces
-# metrics_generator:
-#   ring:
-#     kvstore:
-#       store: inmemory
-#   processor:
-#     service_graphs:
-#       dimensions: []
-#     span_metrics:
-#       dimensions: []
-#   storage:
-#     path: /tmp/tempo-data/generator
-#     remote_write:
-#       - url: ${PROMETHEUS_REMOTE_WRITE_URL}
-#         send_exemplars: true
-
-# ==========================================================
-# OVERRIDES (Limites par tenant - optionnel)
-# ==========================================================
-# overrides:
-#   defaults:
-#     # Limites d'ingestion
-#     ingestion_rate_limit_bytes: 15000000  # 15MB/s
-#     ingestion_burst_size_bytes: 20000000  # 20MB burst
-#     
-#     # Limites de recherche
-#     max_traces_per_user: 10000
-#     max_bytes_per_trace: 5000000  # 5MB par trace
-#     
-#     # Limites temporelles
-#     max_search_duration: 168h  # 7 jours
+      path: /tmp/tempo-data/blocks
