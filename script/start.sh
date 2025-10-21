@@ -1,16 +1,34 @@
 #!/bin/bash
-set -ex
+set -euo pipefail
 
-# Dossiers temporaires (Tempo storage)
-mkdir -p /tmp/tempo-data/{wal,blocks}
+echo "🚀 Preparing environment..."
 
-# Lancer Tempo en arrière-plan
+# ------------------------------------------------------------
+# Directories needed by Tempo and NGINX
+# ------------------------------------------------------------
+mkdir -p /tmp/tempo-data/wal /tmp/tempo-data/blocks
+mkdir -p /var/log/nginx
+touch /tmp/nginx_error.log
+
+echo "✅ Directories created (if missing)"
+
+# ------------------------------------------------------------
+# Start Tempo
+# ------------------------------------------------------------
 echo "🚀 Starting Tempo..."
 tempo -config.expand-env=true -config.file=/app/tempo.yaml &
+TEMPO_PID=$!
 
-# Attendre un court instant pour que Tempo démarre
+# Wait a bit for Tempo to initialize
 sleep 2
 
-# Lancer NGINX au premier plan (obligatoire pour Scalingo)
+# ------------------------------------------------------------
+# Start NGINX as main foreground process
+# ------------------------------------------------------------
 echo "🚀 Starting NGINX proxy..."
 nginx -c /app/nginx.conf
+
+# ------------------------------------------------------------
+# Wait for Tempo background process (if NGINX exits)
+# ------------------------------------------------------------
+wait $TEMPO_PID
