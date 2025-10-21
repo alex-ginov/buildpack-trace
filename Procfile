@@ -1,2 +1,1 @@
-web: bin/start-tempo
-tcp: bin/start-tempo-grpc
+web: bin/start-nginx & bin/start-tempo
