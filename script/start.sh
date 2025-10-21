@@ -1,22 +1,9 @@
-#!/bin/sh
-set -e
+#!/bin/bash
+set -ex
 
 # Create data directories
-mkdir -p /tmp/tempo-data/wal
-mkdir -p /tmp/tempo-data/blocks
+mkdir -p /tmp/tempo-data/{wal,blocks}
 
+# Start Tempo
 echo "🚀 Starting Tempo..."
-tempo -config.expand-env=true -config.file=/app/tempo.yaml &
-TEMPO_PID=$!
-
-# Wait for Tempo to be ready
-echo "⏳ Waiting for Tempo..."
-sleep 5
-
-echo "🚀 Starting NGINX..."
-nginx -c /app/nginx.conf &
-NGINX_PID=$!
-
-# Keep script running and handle shutdown
-trap "kill $TEMPO_PID $NGINX_PID 2>/dev/null" EXIT
-wait
+exec tempo -config.expand-env=true -config.file=/app/tempo.yaml
