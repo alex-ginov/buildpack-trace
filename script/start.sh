@@ -13,6 +13,9 @@ mkdir -p /app/nginx/{body,tmp,fastcgi,uwsgi,scgi,logs}
 chmod -R 777 /app/nginx
 touch /app/nginx/logs/error.log /app/nginx/logs/access.log
 
+mkdir -p /var/log/nginx/
+touch /var/log/nginx/error.log" /var/log/nginx/acces.log"
+
 # Assurez-vous que les permissions sont maximales (pour le test)
 chmod -R 777 /app/nginx/logs /app/nginx/tmp /app/nginx/body
 
