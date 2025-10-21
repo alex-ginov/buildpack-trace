@@ -6,18 +6,16 @@ echo "🚀 Preparing environment..."
 # ------------------------------------------------------------
 # Directories needed by Tempo and NGINX
 # ------------------------------------------------------------
+
 mkdir -p /tmp/tempo-data/wal /tmp/tempo-data/blocks
 
-# --- NEW NGINX DIRECTORIES dans app---
-mkdir -p /app/nginx/{body,tmp,fastcgi,uwsgi,scgi,logs}
+# --- NGINX DIRECTORIES dans app: Simplifié ---
+mkdir -p /app/nginx
 chmod -R 777 /app/nginx
-touch /app/nginx/logs/error.log /app/nginx/logs/access.log
-chmod -R 777 /app/var/log/
-mkdir -p /app/var/log/nginx/
-touch /app/var/log/nginx/error.log" /app/var/log/nginx/acces.log"
+mkdir -p /app/nginx/{body,tmp,fastcgi,uwsgi,scgi,logs}
 
-# Assurez-vous que les permissions sont maximales (pour le test)
-chmod -R 777 /app/nginx/logs /app/nginx/tmp /app/nginx/body
+# Créez les fichiers de logs.
+touch /app/nginx/logs/error.log /app/nginx/logs/access.log
 
 
 # Avant le démarrage de NGINX, ajoutez :
