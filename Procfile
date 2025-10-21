@@ -1,1 +1,1 @@
-web: nginx -c /app/nginx.conf & ./script/start.sh
+web: ./script/start.sh
