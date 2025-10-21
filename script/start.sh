@@ -10,7 +10,11 @@ mkdir -p /tmp/tempo-data/wal /tmp/tempo-data/blocks
 
 # --- NEW NGINX DIRECTORIES dans app---
 mkdir -p /app/nginx/{body,tmp,fastcgi,uwsgi,scgi}
-chmod -R 755 /app/nginx
+chmod -R 777 /app/nginx
+touch /app/nginx/logs/error.log /app/nginx/logs/access.log
+
+# Assurez-vous que les permissions sont maximales (pour le test)
+chmod -R 777 /app/nginx/logs /app/nginx/tmp /app/nginx/body
 
 # Avant le démarrage de NGINX, ajoutez :
 echo "🚀 Creating NGINX required directories..."
