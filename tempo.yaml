@@ -16,7 +16,7 @@ distributor:
           endpoint: "127.0.0.1:14268"
     zipkin:
       endpoint: "127.0.0.1:9411"
-      
+
 storage:
   trace:
     backend: s3
@@ -26,9 +26,6 @@ storage:
       access_key: "minioadmin"
       secret_key: "minioadmin"
       insecure: true  # HTTP, pas HTTPS
-
-# 🔎 Active la recherche TraceQL (nécessaire pour Grafana)
-search_enabled: true
 
 # 🧱 Active la compaction (indexation des blocs locaux)
 compactor:
