@@ -1,6 +1,6 @@
 server:
   http_listen_port: 3200
-  http_listen_address: "127.0.0.1"
+  http_listen_address: "127.0.0.1"  # écoute uniquement en local (OK pour Grafana local)
 
 distributor:
   receivers:
@@ -16,11 +16,34 @@ distributor:
           endpoint: "127.0.0.1:14268"
     zipkin:
       endpoint: "127.0.0.1:9411"
-
+      
 storage:
   trace:
-    backend: local
-    wal:
-      path: /tmp/tempo-data/wal
-    local:
-      path: /tmp/tempo-data/blocks
+    backend: s3
+    s3:
+      endpoint: "http://192.168.194.77:9001/"
+      bucket: "poc"
+      access_key: "minioadmin"
+      secret_key: "minioadmin"
+      insecure: true  # HTTP, pas HTTPS
+
+# 🔎 Active la recherche TraceQL (nécessaire pour Grafana)
+search_enabled: true
+
+# 🧱 Active la compaction (indexation des blocs locaux)
+compactor:
+  compaction:
+    compacted_block_retention: 48h
+  search_enabled: true
+
+# 📤 (Optionnel) Remote write - à activer plus tard pour exporter vers un backend Tempo distant
+# remote_write:
+#   - endpoint: "https://tempo-remote.example.com:3200"
+#     tenant_id: "my-tenant"
+#     # auth:
+#     #   basic_auth:
+#     #     username: "user"
+#     #     password: "pass"
+#     # batch:
+#     #   max_bytes: 1048576
+#     #   max_traces: 1000
