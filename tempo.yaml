@@ -31,7 +31,6 @@ storage:
 compactor:
   compaction:
     compacted_block_retention: 48h
-  search_enabled: true
 
 # 📤 (Optionnel) Remote write - à activer plus tard pour exporter vers un backend Tempo distant
 # remote_write:
