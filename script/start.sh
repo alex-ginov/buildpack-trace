@@ -7,7 +7,7 @@ echo "🚀 Preparing environment..."
 # Directories needed by Tempo and NGINX
 # ------------------------------------------------------------
 
-mkdir -p /tmp/tempo-data/wal /tmp/tempo-data/blocks
+mkdir -p /app/tempo-data/wal /app/tempo-data/traces
 
 # --- NGINX DIRECTORIES dans app: Simplifié ---
 mkdir -p /app/nginx

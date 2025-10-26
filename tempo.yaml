@@ -19,16 +19,23 @@ distributor:
 
 storage:
   trace:
-    backend: s3
-    s3:
-      endpoint: "192.168.194.77:9001"  # juste l'hôte et port MinIO
-      bucket: "poc"
-      access_key: "minioadmin"
-      secret_key: "minioadmin"
-      insecure: true
-      forcepathstyle: true
+    backend: local
+    local:
+      path: /app/tempo-data/traces 
+    wal:
+      path: /vapp/tempo-data/wal
+    block:
+      max_block_bytes: 524288000
+      bloom_filter_false_positive: 0.01
+      version: vParquet4
+      search_encoding: snappy
+      v2_encoding: zstd
 
-
-compactor:
-  compaction:
-    compacted_block_retention: 48h
+ingester:
+  lifecycler:
+    ring:
+      kvstore:
+        store: inmemory
+    num_tokens: 128
+    heartbeat_period: 5s
+    heartbeat_timeout: 1m0s
