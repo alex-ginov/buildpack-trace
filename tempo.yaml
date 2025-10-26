@@ -26,7 +26,7 @@ storage:
       access_key: "minioadmin"
       secret_key: "minioadmin"
       insecure: true   # ✅ ngrok est en HTTPS auto-signé → garder `true`
-      force_path_style: true  # ✅ requis pour MinIO / ngrok
+  
 
 compactor:
   compaction:
