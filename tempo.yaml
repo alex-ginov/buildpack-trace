@@ -23,7 +23,7 @@ storage:
     local:
       path: /app/tempo-data/traces 
     wal:
-      path: /vapp/tempo-data/wal
+      path: /app/tempo-data/wal
     block:
       max_block_bytes: 524288000
       bloom_filter_false_positive: 0.01
