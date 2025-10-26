@@ -21,12 +21,13 @@ storage:
   trace:
     backend: s3
     s3:
-      endpoint: "f6b7354e8a86.ngrok-free.app"  # ✅ Ton tunnel ngrok public
+      endpoint: "192.168.194.77:9001"  # juste l'hôte et port MinIO
       bucket: "poc"
       access_key: "minioadmin"
       secret_key: "minioadmin"
-      insecure: true   # ✅ ngrok est en HTTPS auto-signé → garder `true`
-  
+      insecure: true
+      forcepathstyle: true
+
 
 compactor:
   compaction:
