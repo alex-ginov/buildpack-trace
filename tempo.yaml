@@ -21,7 +21,7 @@ storage:
   trace:
     backend: s3
     s3:
-      endpoint: "https://f6b7354e8a86.ngrok-free.app"  # ✅ Ton tunnel ngrok public
+      endpoint: "f6b7354e8a86.ngrok-free.app"  # ✅ Ton tunnel ngrok public
       bucket: "poc"
       access_key: "minioadmin"
       secret_key: "minioadmin"
