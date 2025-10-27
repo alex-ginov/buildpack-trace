@@ -1,2 +1,4 @@
-https://github.com/grafana/tempo/releases/download/v2.9.0/tempo_2.9.0_linux_amd64.deb
+wget
+tar
+ca-certificates
 nginx
